@@ -1,0 +1,63 @@
+{
+  "training-plans":
+    {
+      "id": 1,
+      "name": "Fredrik",
+      "current_week": 3,
+      "total_weeks": 8,
+      "distance": "10k",
+      "goal": "57:23"
+    },
+    "5k-level-1":
+    {
+      "week 1":
+        [
+          {
+            "id": 1,
+            "title": "Foundation 1",
+            "complete": false 
+          },
+          {
+            "id": 2,
+            "title": "Hill Repetition 2",
+            "complete": false 
+          },
+          {
+            "id": 3,
+            "title": "Foundation 1",
+            "complete": false 
+          },
+          {
+            "id": 4,
+            "title": "Foundation 1",
+            "complete": false 
+          },
+          {
+            "id": 5,
+            "title": "Hill Repetition 2",
+            "complete": false 
+          },
+          {
+            "id": 6,
+            "title": "Foundation 1",
+            "complete": false 
+            },
+            {
+            "id": 7,
+            "title": "Hill Repetition 2",
+            "complete": false 
+            }
+        ]
+      },                               
+    "workout_phases":
+    [
+      {
+        "id":"Foundation 1",
+        "phases": ["5 min: Zone 1", "10 min: Zone 2", "5 min: Zone 1"]
+      },
+      {
+        "id":"Hill Repetition 2",
+        "phases":["5 min Zone 1", "10 min Zone 2", "6 x (30 sec Zone 5 / 90 sec Zone 1)", "5 min Zone 1"]
+      }
+    ]
+}
