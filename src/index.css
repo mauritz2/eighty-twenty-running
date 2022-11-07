@@ -36,18 +36,21 @@ body {
   width: min(90%, 75rem);
   margin-left: 5rem;
   margin-top: 2rem;
-  align-items:flex-end;
   justify-items:center;
 }
 
 .workout-box {
   border-style: solid;
-  height: 11em;
-  width: 10em;
+  height: 13em;
+  width: 11em;
   border-radius: 20px;
   text-align: center;
-  overflow: hidden;
   margin: 2px;
+}
+
+.workout-box p {
+  margin-block-start: 1em;
+  margin-block-end: 1em;
 }
 
 .workout-icon {
@@ -55,23 +58,23 @@ body {
   width: 2em;
 }
 
-.workout-title p {
-  margin: 0px;
-}
-
-.workout-phases p {
-  margin: 0px;
+.phase {
   font-size: 0.8em;
+  text-align: right;
+  margin-right: 3em;
 }
 
-.emoji-class-1 {
-  color:green;
+.worktout-phases {
+  margin-bottom: 1em;
 }
 
-.emoji-class-2 {
-  color:blue;
-}
-
-.emoji-class-5 {
-  color:red;
+.heartrate-zone {
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  display: inline-block;
+  text-align:center;
+  margin-right: 3px;
+  border: solid;
+  border-width: 0.5px;
 }

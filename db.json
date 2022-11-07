@@ -53,11 +53,11 @@
     [
       {
         "id":"Foundation 1",
-        "phases": ["5 min: Zone 1", "10 min: Zone 2", "5 min: Zone 1"]
+        "phases": ["5 min Zone1", "10 min Zone2", "5 min Zone1"]
       },
       {
         "id":"Hill Repetition 2",
-        "phases":["5 min Zone 1", "10 min Zone 2", "6 x (30 sec Zone 5 / 90 sec Zone 1)", "5 min Zone 1"]
+        "phases":["5 min Zone1", "10 min Zone2", "6 x 30 s Zone5 / 90 s Zone1", "5 min Zone1"]
       }
     ]
 }

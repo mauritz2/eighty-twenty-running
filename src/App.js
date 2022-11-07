@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
 import Workouts from "./components/Workouts"
-
+import $ from "jquery";
 
 function App() {
 
@@ -12,6 +12,8 @@ function App() {
   const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
   const [workoutInstructions, setWorkoutInstructions] = useState("")
+
+  $(".workout-phases").text($(".workout-phases").text().replace("Zone 1", <><span class='heartrate-zone'/>"</>));
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("http://localhost:3000/training-plans");
@@ -50,16 +52,3 @@ function App() {
 }
 
 export default App;
-
-
-/*   const get_wrks = fetch("http://localhost:3000/5k-level-1").then((response) => response.json()).then((wkrs) => {
-    return wkrs;
-  });
-
-  useEffect(() => {
-    get_wrks.then((data) => {
-      setWorkoutInstructions(data);
-      console.log(workoutInstructions);
-    });
-  }, []); */
-
