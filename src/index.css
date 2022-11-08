@@ -53,9 +53,10 @@ body {
   width: 10em;
   border-radius: 20px;
   text-align: center;
-  border-width: 0.5px;
+  border-width: 3px;
   margin-bottom: 1em;
   margin-right: 0.5em;
+  font-weight: bold;
 }
 
 .day-heading {
@@ -86,6 +87,7 @@ body {
 .phase {
   font-size: 0.8em;
   text-align: center;
+  
 }
 
 .heartrate-zone {
@@ -96,9 +98,15 @@ body {
   text-align:center;
   margin-right: 3px;
   border: solid;
-  border-width: 0.5px;
+  border-width: 2px;
 }
 
 .complete {
   opacity: 0.2;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+  cursor: pointer;
 }
