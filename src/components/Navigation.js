@@ -1,4 +1,5 @@
 import React from "react"
+import {Link} from "react-router-dom"
 
 const Navigation = () => {
     return (
@@ -8,10 +9,10 @@ const Navigation = () => {
                 <h1 id="logo-text"> 80/20 Running </h1>
             </div>
             <div className="nav-item selected">
-                <p> Current Plan </p>
+                <p><Link to={"/"}> Current Plan </Link></p>
             </div>
             <div className="nav-item">
-                <p> Configure Plan </p>
+                <p><Link to={"/choose-plan"}> Configure Plan </Link></p>
             </div>
             <div className="nav-item">
                 <p> Heart Rate Zones </p>

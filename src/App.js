@@ -2,6 +2,9 @@ import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
 import Workouts from "./components/Workouts"
+import ChoosePlan from "./components/ChoosePlan"
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+
 
 function App() {
 
@@ -55,8 +58,6 @@ function App() {
       })
       
     const data = await res.json();
-    console.log("Returned data");
-    console.log(data);
     
     setWorkoutInstructions(workoutInstructions.map((workout) => workout.id === id ?
     { ...workout, complete: data.complete } : workout))
@@ -67,18 +68,26 @@ function App() {
   console.log(workoutInstructions);
 
   return (
+    <BrowserRouter>
     <div>
       <Navigation />
-      <StatusMsg 
-      name = {name}
-      currentWeek = {currentWeek}
-      totalWeeks = {totalWeeks}
-      distance = {distance}
-      goal = {goal} />
-      <Workouts
-          workouts={workoutInstructions}
-          onToggle={toggleCompletion}/>
+      <Routes>
+        <Route path="/choose-plan" element={<ChoosePlan/>}/>
+        <Route path="/" element={
+          <>
+            <StatusMsg 
+              name = {name}
+              currentWeek = {currentWeek}
+              totalWeeks = {totalWeeks}
+              distance = {distance}
+              goal = {goal} />
+            <Workouts
+              workouts={workoutInstructions}
+              onToggle={toggleCompletion}/>
+          </>}/>
+      </Routes>
     </div>
+    </BrowserRouter>
   );
 }
 
