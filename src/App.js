@@ -16,7 +16,7 @@ function App() {
   const [workoutInstructions, setWorkoutInstructions] = useState("")
 
   const setWelcomeMsgState = async () => {
-    const res = await fetch("http://localhost:3000/training-plans");
+    const res = await fetch("http://localhost:3000/user-plan-info");
     const data = await res.json();
     setName(data["name"]);
     setCurrentWeek(data["current_week"]);
@@ -40,13 +40,7 @@ function App() {
   }
 
   const toggleCompletion = async(id) => {
-    console.log("Hello")
-
     const workoutToToggle = await fetchWorkouts(id);
-
-    console.log("Workout to toggle");
-    console.log(workoutToToggle); 
-
     const updWorkout = { ...workoutToToggle, complete: !workoutToToggle.complete}
  
     const res = await fetch(`http://localhost:3000/5k-level-1/${id}`, {
