@@ -11,15 +11,13 @@ const Workouts = ({workouts, onToggle}) => {
     return(
         <div id="workout-schedule-container">
             <div id="workout-schedule">
-                <div>Week</div>
-                <div>Mon</div>
-                <div>Tue</div>
-                <div>Wed</div>
-                <div>Thu</div>
-                <div>Fri</div>
-                <div>Sat</div>
-                <div>Sun</div>
-                <div>Total</div>
+                <div className="day-heading">Monday</div>
+                <div className="day-heading">Tuesday</div>
+                <div className="day-heading">Wednesday</div>
+                <div className="day-heading">Thursday</div>
+                <div className="day-heading">Friday</div>
+                <div className="day-heading">Saturday</div>
+                <div className="day-heading">Sunday</div>
         
                 {workouts.map((workout) => ( 
                     <Workout

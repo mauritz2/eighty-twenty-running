@@ -75,8 +75,7 @@ function App() {
       totalWeeks = {totalWeeks}
       distance = {distance}
       goal = {goal} />
-      <small><i>Double-click on workouts to mark them as complete</i></small>
-      <Workouts 
+      <Workouts
           workouts={workoutInstructions}
           onToggle={toggleCompletion}/>
     </div>

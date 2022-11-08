@@ -20,58 +20,72 @@ body {
   margin: 0px;
 } 
 
-
 .selected {
   box-shadow: inset 0 -3px 0 0 #F42C04;
+}
+
+
+.statusMessage {
+  width:80%;
+  margin:auto;
+  margin-top:1em;
 }
 
 .highlight-text {
   color: #F42C04;  
 }
 
+#workout-schedule-container {
+  margin: auto;
+  width:80%;
+}
 
 #workout-schedule {
   display:grid;
-  grid-template-columns: repeat(9, 1fr);
+  grid-template-columns: repeat(7, 1fr);
   width: min(90%, 75rem);
-  margin-left: 5rem;
   margin-top: 2rem;
-  justify-items:center;
 }
 
 .workout-box {
   border-style: solid;
-  height: 13em;
-  width: 11em;
+  height: 12.5em;
+  width: 10em;
   border-radius: 20px;
   text-align: center;
-  margin: 2px;
+  border-width: 0.5px;
+  margin-bottom: 1em;
+  margin-right: 0.5em;
 }
 
-.workout-box p {
-  margin-block-start: 1em;
-  margin-block-end: 1em;
+.day-heading {
+  width: 10em;
+  border-radius: 20px;
+  font-weight: bold;
+  text-align: center;
+  background-color: #0F1A20;
+  color: white;
+  margin-bottom: 1em;
+  padding-bottom: 0.5em;
+  padding-top:0.5em;
+
 }
 
-.complete {
-  opacity: 0.2;
+.workout-title {
+  margin-top:0px;
+  margin-bottom:0px;
 }
 
 .workout-icon {
   height: 2em;
   width: 2em;
+  margin-top: 0.5em;
+  margin-bottom: 0.2em;
 }
 
 .phase {
   font-size: 0.8em;
-  text-align: left;
-  margin-left: 4em;
-
-}
-
-.workout-phases p {
-  margin-bottom: 0.5em;
-  margin-top: 0.5em;
+  text-align: center;
 }
 
 .heartrate-zone {
@@ -85,3 +99,6 @@ body {
   border-width: 0.5px;
 }
 
+.complete {
+  opacity: 0.2;
+}
