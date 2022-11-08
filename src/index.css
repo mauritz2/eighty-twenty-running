@@ -53,6 +53,10 @@ body {
   margin-block-end: 1em;
 }
 
+.complete {
+  opacity: 0.2;
+}
+
 .workout-icon {
   height: 2em;
   width: 2em;
@@ -60,12 +64,14 @@ body {
 
 .phase {
   font-size: 0.8em;
-  text-align: right;
-  margin-right: 3em;
+  text-align: left;
+  margin-left: 4em;
+
 }
 
-.worktout-phases {
-  margin-bottom: 1em;
+.workout-phases p {
+  margin-bottom: 0.5em;
+  margin-top: 0.5em;
 }
 
 .heartrate-zone {
@@ -78,3 +84,4 @@ body {
   border: solid;
   border-width: 0.5px;
 }
+

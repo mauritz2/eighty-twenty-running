@@ -2,7 +2,7 @@ import React, { useEffect } from "react"
 import foundation from "../static/foundation.png"
 import { useState } from "react";
 
-const Workout = ({title}) => {
+const Workout = ({workout, onToggle}) => {
     const [instructions, setInstructions] = useState([]);
 
     let all_phases = [];
@@ -24,7 +24,6 @@ const Workout = ({title}) => {
                 single_instruction.push(<span>{word} </span>);
             }
         });
-        console.log(single_instruction);
         all_phases.push(<p className="phase">{single_instruction}</p>);
     });
 
@@ -33,7 +32,7 @@ const Workout = ({title}) => {
     // the amount of fetch requests between backend/frontend (now one per day) -  
     // but more fun to do it in React :-)
     useEffect(() => {
-        fetch("http://localhost:3000/workout_phases/" + title)
+        fetch("http://localhost:3000/workout_phases/" + workout.title)
         .then((response) => response.json())
         .then((workouts) => {
             setInstructions(workouts["phases"]);
@@ -41,8 +40,8 @@ const Workout = ({title}) => {
       }, []);
 
     return(
-        <div className="workout-box">
-            <p className="workout-title"><strong>{title}</strong></p>
+        <div className={`workout-box ${workout.complete ? "complete": ""}`} onDoubleClick={() => onToggle(workout.id)}>
+            <p className="workout-title"><strong>{workout.title}</strong></p>
             <img className="workout-icon" src={foundation}></img>
             <div className="workout-phases">
                 {all_phases} 

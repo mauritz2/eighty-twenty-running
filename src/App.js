@@ -2,7 +2,6 @@ import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
 import Workouts from "./components/Workouts"
-import $ from "jquery";
 
 function App() {
 
@@ -12,8 +11,6 @@ function App() {
   const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
   const [workoutInstructions, setWorkoutInstructions] = useState("")
-
-  $(".workout-phases").text($(".workout-phases").text().replace("Zone 1", <><span class='heartrate-zone'/>"</>));
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("http://localhost:3000/training-plans");
@@ -25,7 +22,6 @@ function App() {
     setGoal(data["goal"]);
   }
 
-
   useEffect(() => {
     fetch("http://localhost:3000/5k-level-1")
     .then((response) => response.json())
@@ -34,7 +30,41 @@ function App() {
     });
   }, []);
   
+  const fetchWorkouts = async (id) => {
+    const res = await fetch(`http://localhost:3000/5k-level-1/${id}`)
+    const data = await res.json()
+    return data
+  }
+
+  const toggleCompletion = async(id) => {
+    console.log("Hello")
+
+    const workoutToToggle = await fetchWorkouts(id);
+
+    console.log("Workout to toggle");
+    console.log(workoutToToggle); 
+
+    const updWorkout = { ...workoutToToggle, complete: !workoutToToggle.complete}
+ 
+    const res = await fetch(`http://localhost:3000/5k-level-1/${id}`, {
+      method:"PUT",
+      headers: {
+        "Content-type": "application/json"
+      },
+        body: JSON.stringify(updWorkout)
+      })
+      
+    const data = await res.json();
+    console.log("Returned data");
+    console.log(data);
+    
+    setWorkoutInstructions(workoutInstructions.map((workout) => workout.id === id ?
+    { ...workout, complete: data.complete } : workout))
+  }
+
   setWelcomeMsgState();
+
+  console.log(workoutInstructions);
 
   return (
     <div>
@@ -46,7 +76,9 @@ function App() {
       distance = {distance}
       goal = {goal} />
       <small><i>Double-click on workouts to mark them as complete</i></small>
-      <Workouts workouts={workoutInstructions}/>
+      <Workouts 
+          workouts={workoutInstructions}
+          onToggle={toggleCompletion}/>
     </div>
   );
 }

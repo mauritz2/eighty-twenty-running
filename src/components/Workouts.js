@@ -1,7 +1,7 @@
 import React from "react"
 import Workout from "./Workout"
 
-const Workouts = ({workouts}) => {
+const Workouts = ({workouts, onToggle}) => {
 
     // TODO - Placeholder - needed to prevent component from loading before we have the data
     if(workouts.length === 0){
@@ -21,10 +21,11 @@ const Workouts = ({workouts}) => {
                 <div>Sun</div>
                 <div>Total</div>
         
-                {workouts["week 1"].map((workout) => ( 
+                {workouts.map((workout) => ( 
                     <Workout
                         key={workout.id}
-                        title={workout.title}/>
+                        workout={workout}
+                        onToggle={onToggle}/>
                     )
                     )
                 }
