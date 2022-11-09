@@ -13,7 +13,7 @@ function App() {
   const [totalWeeks, setTotalWeeks] = useState("");
   const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
-  const [workoutInstructions, setWorkoutInstructions] = useState("")
+  const [workoutInstructions, setWorkoutInstructions] = useState([])
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("http://localhost:3000/user-plan-info");
@@ -23,28 +23,32 @@ function App() {
     setTotalWeeks(data["total_weeks"]);
     setDistance(data["distance"]);
     setGoal(data["goal"]);
-  }
+  } 
 
   useEffect(() => {
-    fetch("http://localhost:3000/current-plan")
+    fetch("http://localhost:3000/current-plan/1")
     .then((response) => response.json())
     .then((workouts) => {
-      setWorkoutInstructions(workouts);
+      setWorkoutInstructions(workouts["workouts"]);
     });
   }, []);
   
-  const fetchWorkouts = async (id) => {
-    console.log("Fetching workous with id " + id)
-    const res = await fetch(`http://localhost:3000/current-plan/${id}`)
+  const fetchWorkout = async (id) => {
+    const res = await fetch(`http://localhost:3000/current-plan/1`)
     const data = await res.json()
+
+    console.log("Workout by ID")
+    console.log(data)
+
+
     return data
   }
 
   const toggleCompletion = async(id) => {
-    const workoutToToggle = await fetchWorkouts(id);
+    const workoutToToggle = await fetchWorkout(id);
     const updWorkout = { ...workoutToToggle, complete: !workoutToToggle.complete}
  
-    const res = await fetch(`http://localhost:3000/current-plan/${id}`, {
+    const res = await fetch(`http://localhost:3000/current-plan/1`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
@@ -52,7 +56,8 @@ function App() {
         body: JSON.stringify(updWorkout)
       })
       
-    const data = await res.json();
+    var data = await res.json();
+    data = data["workouts"]
     
     setWorkoutInstructions(workoutInstructions.map((workout) => workout.id === id ?
     { ...workout, complete: data.complete } : workout))
@@ -61,24 +66,11 @@ function App() {
   setWelcomeMsgState();
 
 const onPlanSelect = async (id) => {
-    console.log("You choose plan" + id);
-
-    const res_1 = await fetch(`http://localhost:3000/workout-plans/${id}`)
+    const res_1 = await fetch(`http://localhost:3000/workout-plans/` + id)
     var chosenWorkout = await res_1.json()
-    chosenWorkout = chosenWorkout["workouts"]
     
-    console.log("Chosen workout")
-    console.log(chosenWorkout["workout"])
-
-    await fetch(`http://localhost:3000/current-plan`, {
-        method:"DELETE",
-        headers: {
-            "Content-type": "application/json"
-        },
-      })
-
-    const res = await fetch(`http://localhost:3000/current-plan`, {
-        method:"POST",
+    const res = await fetch(`http://localhost:3000/current-plan/1`, {
+        method:"PUT",
         headers: {
             "Content-type": "application/json"
         },
@@ -86,7 +78,7 @@ const onPlanSelect = async (id) => {
       })
 
       const data = await res.json()
-      setWorkoutInstructions([...workoutInstructions, data])
+      setWorkoutInstructions(data["workouts"])
 
     }
 
