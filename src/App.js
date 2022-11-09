@@ -45,23 +45,25 @@ function App() {
   }
 
   const toggleCompletion = async(id) => {
-    const workoutToToggle = await fetchWorkout(id);
-    const updWorkout = { ...workoutToToggle, complete: !workoutToToggle.complete}
- 
+    // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
+    const res_2 = await fetch(`http://localhost:3000/current-plan/1`)
+    const data_2 = await res_2.json()
+    const id_index = id - 1
+    
+    data_2["workouts"][id_index].complete = !data_2["workouts"][id_index].complete 
+
     const res = await fetch(`http://localhost:3000/current-plan/1`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
       },
-        body: JSON.stringify(updWorkout)
+        body: JSON.stringify(data_2)
       })
       
     var data = await res.json();
     data = data["workouts"]
-    
-    setWorkoutInstructions(workoutInstructions.map((workout) => workout.id === id ?
-    { ...workout, complete: data.complete } : workout))
-  }
+    setWorkoutInstructions(data);
+   }
 
   setWelcomeMsgState();
 
