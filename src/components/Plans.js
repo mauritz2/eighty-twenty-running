@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from "react"
 import Plan from "./Plan"
 
-const Plans = ({workoutInstructions}) => {
+const Plans = ({workoutInstructions, onPlanSelect}) => {
 
     console.log("Workout instructions in Plans.js" )
     console.log(workoutInstructions)
 
 
     const [trainingPlans, setTrainingPlans] = useState([]);
-
+    
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
         return <Plan
             trainingPlan={trainingPlan}
-            workoutInstructions={workoutInstructions}/>
+            workoutInstructions={workoutInstructions}
+            onPlanSelect={onPlanSelect}/>
       })
 
     useEffect(() => {

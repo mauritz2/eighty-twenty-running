@@ -3,6 +3,11 @@ import foundation from "../static/foundation.png"
 import { useState } from "react";
 
 const Workout = ({workout, onToggle}) => {
+
+    console.log("Workout - workout")
+    console.log(workout);
+
+    
     const [instructions, setInstructions] = useState([]);
 
     let all_phases = [];

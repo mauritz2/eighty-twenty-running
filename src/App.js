@@ -34,6 +34,7 @@ function App() {
   }, []);
   
   const fetchWorkouts = async (id) => {
+    console.log("Fetching workous with id " + id)
     const res = await fetch(`http://localhost:3000/current-plan/${id}`)
     const data = await res.json()
     return data
@@ -59,15 +60,43 @@ function App() {
 
   setWelcomeMsgState();
 
-  console.log(workoutInstructions);
- 
+const onPlanSelect = async (id) => {
+    console.log("You choose plan" + id);
+
+    const res_1 = await fetch(`http://localhost:3000/workout-plans/${id}`)
+    var chosenWorkout = await res_1.json()
+    chosenWorkout = chosenWorkout["workouts"]
+    
+    console.log("Chosen workout")
+    console.log(chosenWorkout["workout"])
+
+    await fetch(`http://localhost:3000/current-plan`, {
+        method:"DELETE",
+        headers: {
+            "Content-type": "application/json"
+        },
+      })
+
+    const res = await fetch(`http://localhost:3000/current-plan`, {
+        method:"POST",
+        headers: {
+            "Content-type": "application/json"
+        },
+        body: JSON.stringify(chosenWorkout)
+      })
+
+      const data = await res.json()
+      setWorkoutInstructions([...workoutInstructions, data])
+
+    }
+
   return (
     <BrowserRouter>
     <div>
       <Navigation />
       <div className="below-nav-container">
         <Routes>
-          <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} />}/>
+          <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
           <Route path="/" element={
             <>
               <StatusMsg 
