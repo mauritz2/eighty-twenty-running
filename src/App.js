@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
 import Workouts from "./components/Workouts"
-import ChoosePlan from "./components/ChoosePlan"
+import Plans from "./components/Plans"
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
 
@@ -26,7 +26,7 @@ function App() {
   }
 
   useEffect(() => {
-    fetch("http://localhost:3000/5k-level-1")
+    fetch("http://localhost:3000/current-plan")
     .then((response) => response.json())
     .then((workouts) => {
       setWorkoutInstructions(workouts);
@@ -34,7 +34,7 @@ function App() {
   }, []);
   
   const fetchWorkouts = async (id) => {
-    const res = await fetch(`http://localhost:3000/5k-level-1/${id}`)
+    const res = await fetch(`http://localhost:3000/current-plan/${id}`)
     const data = await res.json()
     return data
   }
@@ -43,7 +43,7 @@ function App() {
     const workoutToToggle = await fetchWorkouts(id);
     const updWorkout = { ...workoutToToggle, complete: !workoutToToggle.complete}
  
-    const res = await fetch(`http://localhost:3000/5k-level-1/${id}`, {
+    const res = await fetch(`http://localhost:3000/current-plan/${id}`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
@@ -60,26 +60,28 @@ function App() {
   setWelcomeMsgState();
 
   console.log(workoutInstructions);
-
+ 
   return (
     <BrowserRouter>
     <div>
       <Navigation />
-      <Routes>
-        <Route path="/choose-plan" element={<ChoosePlan/>}/>
-        <Route path="/" element={
-          <>
-            <StatusMsg 
-              name = {name}
-              currentWeek = {currentWeek}
-              totalWeeks = {totalWeeks}
-              distance = {distance}
-              goal = {goal} />
-            <Workouts
-              workouts={workoutInstructions}
-              onToggle={toggleCompletion}/>
-          </>}/>
-      </Routes>
+      <div className="below-nav-container">
+        <Routes>
+          <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} />}/>
+          <Route path="/" element={
+            <>
+              <StatusMsg 
+                name = {name}
+                currentWeek = {currentWeek}
+                totalWeeks = {totalWeeks}
+                distance = {distance}
+                goal = {goal} />
+              <Workouts
+                workouts={workoutInstructions}
+                onToggle={toggleCompletion}/>
+            </>}/>
+        </Routes>
+        </div>
     </div>
     </BrowserRouter>
   );

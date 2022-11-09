@@ -1,67 +1,208 @@
 {
-    "training-plans": {
+  "user-plan-info": {
+    "id": 1,
+    "name": "Fredrik",
+    "current_week": 3,
+    "total_weeks": 8,
+    "distance": "10k",
+    "goal": "57:23"
+  },
+  "current-plan": [
+    {
       "id": 1,
-      "name": "Fredrik",
-      "current_week": 3,
-      "total_weeks": 8,
-      "distance": "10k",
-      "goal": "57:23"
+      "title": "Foundation 1",
+      "complete": false
     },
-    "5k-level-1":
-      [
-        {
-          "id": 1,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 2,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 3,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 4,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 5,
-          "title": "Hill Repetition 2",
-          "complete": false
-          },
-          {
-          "id": 6,
-          "title": "Foundation 1",
-          "complete": true
-          },
-          {
-          "id": 7,
-          "title": "Hill Repetition 2",
-          "complete": true
-          }
-     ],
-    "workout_phases": [
-      {
-        "id": "Foundation 1",
-        "phases": [
-          "5 min Zone1",
-          "10 min Zone2",
-          "5 min Zone1"
-        ]
-      },
-      {
-        "id": "Hill Repetition 2",
-        "phases": [
-          "5 min Zone1",
-          "10 min Zone2",
-          "6 x 30 s Zone5 / 90 s Zone1",
-          "5 min Zone1"
-        ]
-      }
-    ]
+    {
+      "id": 2,
+      "title": "Hill Repetition 2",
+      "complete": false
+    },
+    {
+      "id": 3,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 4,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 5,
+      "title": "Hill Repetition 2",
+      "complete": false
+    },
+    {
+      "id": 6,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 7,
+      "title": "Hill Repetition 2",
+      "complete": false
+    },
+    {
+      "id": 8,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 9,
+      "title": "Hill Repetition 2",
+      "complete": false
+    },
+    {
+      "id": 10,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 11,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 12,
+      "title": "Hill Repetition 2",
+      "complete": false
+    },
+    {
+      "id": 13,
+      "title": "Foundation 1",
+      "complete": false
+    },
+    {
+      "id": 14,
+      "title": "Hill Repetition 2",
+      "complete": false
+    }
+  ],
+  "workout-plans": [
+    {
+      "id":"5k-level-1",
+      "workouts": [
+    {
+      "id": 1,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 2,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 3,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 4,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 5,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 6,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 7,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 8,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 9,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 10,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 11,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 12,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 13,
+      "title": "Foundation 1"
+    },
+    {
+      "id": 14,
+      "title": "Hill Repetition 2"
+    }]
   }
+  ,
+  {"id":"5k-level-2",
+  "workouts": [
+    {
+      "id": 1,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 2,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 3,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 4,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 5,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 6,
+      "title": "Hill Repetition 2"
+    },
+    {
+      "id": 7,
+      "title": "Hill Repetition 2"
+    }]
+    }],
+  "workout_phases": [
+    {
+      "id": "Foundation 1",
+      "phases": [
+        "5 min Zone1",
+        "10 min Zone2",
+        "5 min Zone1"
+      ]
+    },
+    {
+      "id": "Hill Repetition 2",
+      "phases": [
+        "5 min Zone1",
+        "10 min Zone2",
+        "6 x 30 s Zone5 / 90 s Zone1",
+        "5 min Zone1"
+      ]
+    }]
+  ,
+  "training-plans": [
+    {
+      "id": "5k-level-1",
+      "name": "5 km - Level 1",
+      "description": "This plan is appropriate for beginning runners preparing for their first 5K event and for more experienced runners who need or prefer a relatively low-volume training program for any reason",
+      "prerequisites": "Before you begin the plan, build your training to the point where you are running at least three times per week and doing aerobic exercise six times per week."
+    },
+    {
+      "id": "5k-level-2",
+      "name": "23.1 km - Level 2",
+      "description": "This plan is appropriate for beginning runners preparing for their first 5K event and for more experienced runners who need or prefer a relatively low-volume training program for any reason",
+      "prerequisites": "Before you begin the plan, build your training to the point where you are running at least three times per week and doing aerobic exercise six times per week."
+    }
+  ]
+}

@@ -24,20 +24,17 @@ body {
   box-shadow: inset 0 -3px 0 0 #F42C04;
 }
 
+.below-nav-container {
+  margin: auto;
+  width:80%;
+}
 
 .statusMessage {
-  width:80%;
-  margin:auto;
   margin-top:1em;
 }
 
 .highlight-text {
   color: #F42C04;  
-}
-
-#workout-schedule-container {
-  margin: auto;
-  width:80%;
 }
 
 #workout-schedule {
@@ -56,10 +53,9 @@ body {
   border-width: 3px;
   margin-bottom: 1em;
   margin-right: 0.5em;
-  font-weight: bold;
 }
 
-.day-heading {
+.table-heading {
   width: 10em;
   border-radius: 20px;
   font-weight: bold;
@@ -69,6 +65,7 @@ body {
   margin-bottom: 1em;
   padding-bottom: 0.5em;
   padding-top:0.5em;
+  margin-right: 1em;
 
 }
 
@@ -98,7 +95,7 @@ body {
   text-align:center;
   margin-right: 3px;
   border: solid;
-  border-width: 2px;
+  border-width: 1px;
 }
 
 .complete {
@@ -109,4 +106,33 @@ a {
   text-decoration: none;
   color: black;
   cursor: pointer;
+}
+
+button {
+  display: inline-block;
+  background: #F42C04;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+  border:solid;
+  border-width: 2px;
+}
+
+#plan-selector {
+  display: grid;
+  grid-template-columns: 10% 20% 35% 35%;
+  width: min(90%, 75rem);
+  margin-top: 2rem;
+  gap: 10px;
+}
+
+.plan-item {
+  margin: 1em;
+}
+
+.full {
+  grid-column: 2/5;
 }

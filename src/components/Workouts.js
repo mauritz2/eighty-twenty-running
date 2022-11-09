@@ -8,16 +8,19 @@ const Workouts = ({workouts, onToggle}) => {
         return null;
     }
 
+    console.log(workouts);
+    console.log(typeof(workouts));
+
     return(
         <div id="workout-schedule-container">
             <div id="workout-schedule">
-                <div className="day-heading">Monday</div>
-                <div className="day-heading">Tuesday</div>
-                <div className="day-heading">Wednesday</div>
-                <div className="day-heading">Thursday</div>
-                <div className="day-heading">Friday</div>
-                <div className="day-heading">Saturday</div>
-                <div className="day-heading">Sunday</div>
+                <div className="table-heading">Monday</div>
+                <div className="table-heading">Tuesday</div>
+                <div className="table-heading">Wednesday</div>
+                <div className="table-heading">Thursday</div>
+                <div className="table-heading">Friday</div>
+                <div className="table-heading">Saturday</div>
+                <div className="table-heading">Sunday</div>
         
                 {workouts.map((workout) => ( 
                     <Workout
