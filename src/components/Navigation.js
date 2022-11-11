@@ -18,11 +18,8 @@ const Navigation = () => {
             <div className={`nav-item ${location.pathname === "/choose-plan" ? "selected": ""}`}>
                 <p><Link to={"/choose-plan"}> Configure Plan </Link></p>
             </div>
-            <div className="nav-item">
-                <p> Heart Rate Zones </p>
-            </div>
-            <div className="nav-item">
-                <p> My Account </p>
+            <div className={`nav-item ${location.pathname === "/configure-heart-rate" ? "selected": ""}`}>
+                <p><Link to={"/configure-heart-rate"}> Heart Rate Zones </Link></p>
             </div>
         </div>
         <div className="divider"></div>

@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import Button from "./Button"
 import Workouts from "./Workouts"
 
-const Plan = ({trainingPlan, workoutInstructions, onPlanSelect}) => {
+const Plan = ({trainingPlan, workoutInstructions, onPlanClick}) => {
 
     const [show, setShow] = useState(false);
 
@@ -24,7 +24,7 @@ const Plan = ({trainingPlan, workoutInstructions, onPlanSelect}) => {
                     <Button
                         text="Select Plan"
                         color="#F42C04"
-                        onClick={onPlanSelect}
+                        onClick={onPlanClick}
                         trainingPlanId={trainingPlan.id}/>
                 </div>
             </div>

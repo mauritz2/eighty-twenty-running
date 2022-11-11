@@ -1,19 +1,32 @@
 import React, { useEffect, useState } from "react"
 import Plan from "./Plan"
+import NewPlanForm from "./NewPlanForm"
 
 const Plans = ({workoutInstructions, onPlanSelect}) => {
-
-    console.log("Workout instructions in Plans.js" )
-    console.log(workoutInstructions)
-
-
     const [trainingPlans, setTrainingPlans] = useState([]);
-    
+    const [showForm, setShowForm] = useState(false);
+    const [formTitle, setFormTitle] = useState("");
+
+    const onPlanClick = (planName) => {
+        setShowForm(true);
+        setFormTitle(planName);
+      }
+
+    const onCancel = () => {
+        setShowForm(false);
+    }
+
+    const closeWindowAndSelectPlan = (formTitle) => {
+        onCancel();
+        onPlanSelect(formTitle);
+    } 
+
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
         return <Plan
+            key={trainingPlan.id}
             trainingPlan={trainingPlan}
             workoutInstructions={workoutInstructions}
-            onPlanSelect={onPlanSelect}/>
+            onPlanClick={onPlanClick}/>
       })
 
     useEffect(() => {
@@ -26,6 +39,7 @@ const Plans = ({workoutInstructions, onPlanSelect}) => {
 
     return(
         <div id="plan-selector">
+            { showForm && <NewPlanForm onCancel={onCancel} formTitle={formTitle} onPlanSelect={closeWindowAndSelectPlan} /> }
             <div></div>
             <div className="table-heading">Plan</div>
             <div className="table-heading">Description</div>

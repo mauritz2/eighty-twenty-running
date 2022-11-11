@@ -108,7 +108,7 @@ a {
   cursor: pointer;
 }
 
-button {
+.btn {
   display: inline-block;
   background: #F42C04;
   border: none;
@@ -135,4 +135,34 @@ button {
 
 .full {
   grid-column: 2/5;
+}
+
+.overlay-form-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-left: auto;
+  margin-right: auto;
+  width: 30em;
+  height: 30em;
+  text-align:center;
+  background-color:#fff;
+  z-index:99;
+  border-style: solid;
+}
+
+.form-control {
+  margin: 20px;
+}
+
+.form-control label {
+  display: block;
+}
+
+.form-control input {
+  width: 80%;
+  height: 40px;
+  margin: 5px;
+  padding: 3px 7px;
+  font-size: 17px;
 }

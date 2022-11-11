@@ -14,12 +14,12 @@
         {
           "id": 1,
           "title": "Foundation 1",
-          "complete": true
+          "complete": false
         },
         {
           "id": 2,
           "title": "Hill Repetition 2",
-          "complete": true
+          "complete": false
         },
         {
           "id": 3,
@@ -233,5 +233,6 @@
       "description": "This plan is appropriate for beginning runners preparing for their first 5K event and for more experienced runners who need or prefer a relatively low-volume training program for any reason",
       "prerequisites": "Before you begin the plan, build your training to the point where you are running at least three times per week and doing aerobic exercise six times per week."
     }
-  ]
+  ],
+  "lactate-threshold": 155
 }

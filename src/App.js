@@ -3,11 +3,10 @@ import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
 import Workouts from "./components/Workouts"
 import Plans from "./components/Plans"
+import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
-
 function App() {
-
   const [name, setName] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
   const [totalWeeks, setTotalWeeks] = useState("");
@@ -32,24 +31,13 @@ function App() {
       setWorkoutInstructions(workouts["workouts"]);
     });
   }, []);
-  
-  const fetchWorkout = async (id) => {
-    const res = await fetch(`http://localhost:3000/current-plan/1`)
-    const data = await res.json()
-
-    console.log("Workout by ID")
-    console.log(data)
-
-
-    return data
-  }
 
   const toggleCompletion = async(id) => {
     // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
     const res_2 = await fetch(`http://localhost:3000/current-plan/1`)
     const data_2 = await res_2.json()
     const id_index = id - 1
-    
+
     data_2["workouts"][id_index].complete = !data_2["workouts"][id_index].complete 
 
     const res = await fetch(`http://localhost:3000/current-plan/1`, {
@@ -65,10 +53,11 @@ function App() {
     setWorkoutInstructions(data);
    }
 
+  // TODO - refactor this 
   setWelcomeMsgState();
 
-const onPlanSelect = async (id) => {
-    const res_1 = await fetch(`http://localhost:3000/workout-plans/` + id)
+const onPlanSelect = async (planName) => {
+    const res_1 = await fetch(`http://localhost:3000/workout-plans/` + planName)
     var chosenWorkout = await res_1.json()
     
     const res = await fetch(`http://localhost:3000/current-plan/1`, {
@@ -81,7 +70,6 @@ const onPlanSelect = async (id) => {
 
       const data = await res.json()
       setWorkoutInstructions(data["workouts"])
-
     }
 
   return (
@@ -91,6 +79,7 @@ const onPlanSelect = async (id) => {
       <div className="below-nav-container">
         <Routes>
           <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
+          <Route path="/configure-heart-rate" element={<ConfigureHeartRate />}/>
           <Route path="/" element={
             <>
               <StatusMsg 
