@@ -1,15 +1,24 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Button from "./Button"
 import Workouts from "./Workouts"
 
-const Plan = ({trainingPlan, workoutInstructions, onPlanClick}) => {
+const Plan = ({trainingPlan, onPlanClick}) => {
 
     const [show, setShow] = useState(false);
+    const [workoutDetails, setWorkoutDetails] = useState([]);
 
     const onViewClick = (id) => {
         // id intentionally not used - it's used for other button funcs
         setShow(!show);
     }
+
+    useEffect(() => {
+        fetch("http://localhost:3000/workout-plans/" + trainingPlan)
+        .then((res) => res.json())
+        .then((data) => {
+            setWorkoutDetails(data);
+        })
+    });
 
     return(
         <>
@@ -34,7 +43,7 @@ const Plan = ({trainingPlan, workoutInstructions, onPlanClick}) => {
             {show === true ?
                 <div className="plan-item full">
                     <Workouts
-                        workouts={workoutInstructions}
+                        workouts={workoutDetails}
                         onToggle={false}/>
                 </div>
             : <></>}

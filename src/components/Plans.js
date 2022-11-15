@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react"
 import Plan from "./Plan"
 import NewPlanForm from "./NewPlanForm"
+import { json } from "react-router-dom";
 
-const Plans = ({workoutInstructions, onPlanSelect}) => {
+const Plans = ({onPlanSelect}) => {
+    const [wrkoutInstructions, setWrkoutInstructions] = useState({});
     const [trainingPlans, setTrainingPlans] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [formTitle, setFormTitle] = useState("");
@@ -22,12 +24,12 @@ const Plans = ({workoutInstructions, onPlanSelect}) => {
     } 
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
+
         return <Plan
             key={trainingPlan.id}
             trainingPlan={trainingPlan}
-            workoutInstructions={workoutInstructions}
             onPlanClick={onPlanClick}/>
-      })
+      });
 
     useEffect(() => {
         fetch("http://localhost:3000/training-plans/")

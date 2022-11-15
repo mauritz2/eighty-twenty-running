@@ -6,6 +6,14 @@ import Plans from "./components/Plans"
 import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
+
+// TODO - rename
+// Workout --> WorkoutCard
+// Workouts --> WorkoutCards
+// Plan --> WorkoutPlan
+// Plans --> WorkoutPlans
+
+
 function App() {
   const [name, setName] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
@@ -13,6 +21,7 @@ function App() {
   const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
   const [workoutInstructions, setWorkoutInstructions] = useState([])
+  const [detailedWorkouts, setDetailedWorkouts] = useState([])
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("http://localhost:3000/user-plan-info");
@@ -30,6 +39,12 @@ function App() {
     .then((workouts) => {
       setWorkoutInstructions(workouts["workouts"]);
     });
+
+    fetch("http://localhost:3000/workout-plans/")
+    .then((response) => response.json())
+    .then((detailedWorkouts) => {
+      setDetailedWorkouts(detailedWorkouts);
+    })
   }, []);
 
   const toggleCompletion = async(id) => {
