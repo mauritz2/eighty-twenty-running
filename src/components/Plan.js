@@ -17,7 +17,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
-            console.log(workoutDetails);
+            // TODO - we have a useEffect without a [] at the end here - might be causing loops
         })
     });
 

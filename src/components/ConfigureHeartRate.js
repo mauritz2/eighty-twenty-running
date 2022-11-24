@@ -46,7 +46,7 @@ const ConfigureHeartRate = () => {
                 <label>Your lactate threshold heart rate</label>
                 <input type="text" onChange={(e) => setLactateThreshold(parseInt(e.target.value))} /> 
             </div>
-            <input type="submit" className="btn" value="Calculate" />
+            <input type="submit" className="btn" value="Save" />
         </form>
             <div className="form-control"> 
                 <label>Lactate threshold: {lactateThreshold}</label>

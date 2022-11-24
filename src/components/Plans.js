@@ -18,9 +18,11 @@ const Plans = ({onPlanSelect}) => {
         setShowForm(false);
     }
 
-    const closeWindowAndSelectPlan = (formTitle) => {
+    const closeWindowAndSelectPlan = (formTitle, goal) => {
         onCancel();
-        onPlanSelect(formTitle);
+        console.log("This is the goal!")
+        console.log(goal);
+        onPlanSelect(formTitle, goal);
     } 
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){

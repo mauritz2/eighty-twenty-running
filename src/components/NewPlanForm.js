@@ -7,7 +7,9 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
-        onPlanSelect(formTitle);
+        console.log("This is the goal within the form!")
+        console.log(goal);
+        onPlanSelect(formTitle, goal);
     }
 
     return (

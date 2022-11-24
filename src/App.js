@@ -34,6 +34,8 @@ function App() {
   } 
 
   useEffect(() => {
+    // TODO - instead of getting the current plan we should get the workout plans and
+    // then set the current plan to what's defined in user-plan-info
     fetch("http://localhost:3000/current-plan/1")
     .then((response) => response.json())
     .then((workouts) => {
@@ -71,7 +73,8 @@ function App() {
   // TODO - refactor this 
   setWelcomeMsgState();
 
-const onPlanSelect = async (planName) => {
+const onPlanSelect = async (planName, goal) => {
+    // TODO - clean up this function, e.g. var names
     const res_1 = await fetch(`http://localhost:3000/workout-plans/` + planName)
     var chosenWorkout = await res_1.json()
     
@@ -85,6 +88,24 @@ const onPlanSelect = async (planName) => {
 
       const data = await res.json()
       setWorkoutInstructions(data["workouts"])
+
+      // Update the user's goals
+      console.log("This is the goal in App.js")
+      console.log(goal);
+
+      const goal_res = await fetch("http://localhost:3000/user-plan-info/");
+      const goal_data = await goal_res.json();
+      console.log(goal_data);
+
+      goal_data["goal"] = goal
+
+      const goal_put_res = await fetch("http://localhost:3000/user-plan-info/", {
+        method:"PUT",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(goal_data)
+        })
     }
 
   return (
