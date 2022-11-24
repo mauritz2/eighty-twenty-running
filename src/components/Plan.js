@@ -13,10 +13,11 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     }
 
     useEffect(() => {
-        fetch("http://localhost:3000/workout-plans/" + trainingPlan)
+        fetch("http://localhost:3000/workout-plans/" + trainingPlan.id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
+            console.log(workoutDetails);
         })
     });
 
@@ -43,7 +44,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
             {show === true ?
                 <div className="plan-item full">
                     <Workouts
-                        workouts={workoutDetails}
+                        workouts={workoutDetails.workouts}
                         onToggle={false}/>
                 </div>
             : <></>}

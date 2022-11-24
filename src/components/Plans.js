@@ -24,7 +24,6 @@ const Plans = ({onPlanSelect}) => {
     } 
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
-
         return <Plan
             key={trainingPlan.id}
             trainingPlan={trainingPlan}
