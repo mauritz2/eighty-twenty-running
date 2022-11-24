@@ -13,13 +13,14 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     }
 
     useEffect(() => {
+        console.log("This should print once");
         fetch("http://localhost:3000/workout-plans/" + trainingPlan.id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
             // TODO - we have a useEffect without a [] at the end here - might be causing loops
         })
-    });
+    }, []);
 
     return(
         <>

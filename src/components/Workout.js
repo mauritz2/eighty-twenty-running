@@ -16,7 +16,7 @@ const Workout = ({workout, onToggle}) => {
                 
                 word = word.replace("Zone", "")
                 const zone_num = word.at(0);
-                // This catches the ")" that sometimes appears as Zone {n})
+                // This catches the ")" that sometimes appears as: "Zone {n})""
                 const remaining = word.slice(1,);
 
                 single_instruction.push(<><span className="heartrate-zone">{zone_num}</span></>)

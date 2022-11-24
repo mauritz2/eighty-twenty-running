@@ -46,7 +46,13 @@ function App() {
     .then((response) => response.json())
     .then((detailedWorkouts) => {
       setDetailedWorkouts(detailedWorkouts);
-    })
+    });
+
+    fetch("/time").then(res => res.json()).then(data => {
+      console.log("Time below");
+      console.log(data.time);
+    });
+
   }, []);
 
   const toggleCompletion = async(id) => {
@@ -70,7 +76,7 @@ function App() {
     setWorkoutInstructions(data);
    }
 
-  // TODO - refactor this 
+  // TODO - refactor this so we don't have to call this as a func
   setWelcomeMsgState();
 
 const onPlanSelect = async (planName, goal) => {
@@ -98,7 +104,9 @@ const onPlanSelect = async (planName, goal) => {
       console.log(goal_data);
 
       goal_data["goal"] = goal
+      // Add updates here for distance, weeks elapsed etc.
 
+      // goal_put_res is never used - is it needed?
       const goal_put_res = await fetch("http://localhost:3000/user-plan-info/", {
         method:"PUT",
         headers: {
@@ -106,6 +114,7 @@ const onPlanSelect = async (planName, goal) => {
         },
         body: JSON.stringify(goal_data)
         })
+
     }
 
   return (
