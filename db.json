@@ -2,7 +2,7 @@
   "user-plan-info": {
     "id": 1,
     "name": "Fredrik",
-    "current_week": 3,
+    "plan_created": "2022-11-23 00:00:00",
     "total_weeks": 8,
     "distance": "10k",
     "goal": "20 minutes"

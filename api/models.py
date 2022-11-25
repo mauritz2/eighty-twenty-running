@@ -1,6 +1,17 @@
 from api import db, ma
 from datetime import datetime
 
+class CurrentPlan(db.Model):
+    # If this is ever made into a public app - need to have a col for user
+    # Just making this for myself so current plan will always just have a single plan
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.Text, nullable=False)
+    complete = db.Column(db.Boolean, nullable=False, default=False)
+
+    def __init__(self, title):
+        self.title = title
+    
+
 class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
