@@ -1,9 +1,8 @@
-
-
 def deploy():
-    from app import create_app, db
+    # Copied this file from a tutorial - it's odd, e.g. we never use Articles or init. TODO - refactor.
+    from api import create_app, db
     from flask_migrate import upgrade, migrate, init, stamp
-    # from models import Articles
+    from models import Articles
 
     app = create_app()
     app.app_context().push()
@@ -11,8 +10,8 @@ def deploy():
     db.create_all()
 
     # migrate db to latest revision
-    stamp()
-    migrate()
-    upgrade()
+    #stamp()
+    #migrate()
+    #upgrade()
 
 deploy()

@@ -1,4 +1,3 @@
-import time 
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_marshmallow import Marshmallow
@@ -13,7 +12,7 @@ cors = CORS()
 
 def create_app():
     app = Flask(__name__)
-    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite"
+    app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
     db.init_app(app)
@@ -22,12 +21,3 @@ def create_app():
     cors.init_app(app)
 
     return app
-
-if __name__ == "__main__":
-    # TODO - refactor this - can't get flask run to run with conda env so have to do this
-    app = Flask(__name__)
-    app.run(debug=True)
-
-@app.route("/time")
-def get_current_time():
-    return{"time":time.time()}

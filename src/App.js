@@ -48,9 +48,11 @@ function App() {
       setDetailedWorkouts(detailedWorkouts);
     });
 
-    fetch("/time").then(res => res.json()).then(data => {
-      console.log("Time below");
-      console.log(data.time);
+    fetch("/articles").then(res => res.json()).then(data => {
+      console.log("My articles below");
+      console.log(data);
+      console.log(data[0].body);
+      console.log(typeof(data));
     });
 
   }, []);
