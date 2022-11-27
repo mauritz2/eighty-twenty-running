@@ -5,85 +5,9 @@
     "plan_created": "2022-11-23 00:00:00",
     "total_weeks": 8,
     "distance": "10k",
-    "goal": "20 minutes"
+    "goal": "20 minutes",
+    "lactate-threshold": "155"
   },
-  "current-plan": [
-    {
-      "id": 1,
-      "workouts": [
-        {
-          "id": 1,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 2,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 3,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 4,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 5,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 6,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 7,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 8,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 9,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 10,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 11,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 12,
-          "title": "Hill Repetition 2",
-          "complete": false
-        },
-        {
-          "id": 13,
-          "title": "Foundation 1",
-          "complete": false
-        },
-        {
-          "id": 14,
-          "title": "Hill Repetition 2",
-          "complete": false
-        }
-      ]
-    }
-  ],
   "workout-plans": [
     {
       "id": "5k-level-1",
@@ -233,8 +157,5 @@
       "description": "This plan was designed for runners who are ready to take their training load up a notch or two in order to improve their 5K time.",
       "prerequisites": "time. Before you begin the plan, build your training to the point where you are running at least three times per week, including some short efforts at moderate and high intensities and some easy runs of at least six miles, and where you are doing aerobic exercise seven times per week."
     }
-  ],
-  "lactate-threshold": [
-    "155"
   ]
 }

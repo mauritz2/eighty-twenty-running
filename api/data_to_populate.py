@@ -1,3 +1,29 @@
+
+
+
+workout_phases = {
+  "workout_phases": [
+    {
+      "title": "Foundation 1",
+      "phases": [
+        "5 min Zone1",
+        "10 min Zone2",
+        "5 min Zone1"
+      ]
+    },
+    {
+      "title": "Hill Repetition 2",
+      "phases": [
+        "5 min Zone1",
+        "10 min Zone2",
+        "6 x 30 s Zone5 / 90 s Zone1",
+        "5 min Zone1"
+      ]
+    }
+  ]
+}
+
+
 current_plan = {
   "current_plan": 
   [

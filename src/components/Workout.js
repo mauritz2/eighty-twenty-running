@@ -33,11 +33,14 @@ const Workout = ({workout, onToggle}) => {
     // the amount of fetch requests between backend/frontend (now one per day) -  
     // but more fun to do it in React :-)
     useEffect(() => {
-        fetch("http://localhost:3000/workout_phases/" + workout.title)
+        fetch("/workout-phases/" + workout.title)
         .then((response) => response.json())
         .then((workouts) => {
-            setInstructions(workouts["phases"]);
+            setInstructions(workouts);
         });
+        // TODO - This used to return a list - needs to do the same after db
+        console.log(instructions);
+        
       }, []);
 
     return(
