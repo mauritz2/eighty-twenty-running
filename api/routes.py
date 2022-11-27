@@ -24,8 +24,13 @@ def selected_workouts():
 @app.route("/workout-phases/<title>", methods=["GET"])
 def workout_phases(title):
     # TODO - fix the URL format here (currently workout-phases/Foundation%201). Maybe each workout should have its own ID.
+    phases = []
     selected_phase = WorkoutPhases.query.filter_by(title=title)
-    return workoutphases_schema.dump(selected_phase)
+    results = workoutphases_schema.dump(selected_phase)
+    for entry in results:
+        phases.append(entry["phase"])
+        
+    return phases
 
 if __name__ == "__main__":
     app.run(debug=True)

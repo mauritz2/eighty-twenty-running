@@ -2,9 +2,6 @@ import React from "react"
 import Workout from "./Workout"
 
 const Workouts = ({workouts, onToggle}) => {
-    console.log("These workouts are sometimes undefined:")
-    console.log(workouts);
-
     // TODO - Placeholder - needed to prevent component from loading before we have the data
     if(workouts.length === 0){
         return null;

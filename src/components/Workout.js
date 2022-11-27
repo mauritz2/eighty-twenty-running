@@ -28,19 +28,16 @@ const Workout = ({workout, onToggle}) => {
         all_phases.push(<p className="phase">{single_instruction}</p>);
     });
 
-
     // It would be better if the backend returned the workout instructions to reduce
     // the amount of fetch requests between backend/frontend (now one per day) -  
     // but more fun to do it in React :-)
-    useEffect(() => {
+    // TODO - update, this approach is visibly slow in the UI. Refactor.
+    useEffect(() => {        
         fetch("/workout-phases/" + workout.title)
         .then((response) => response.json())
         .then((workouts) => {
             setInstructions(workouts);
-        });
-        // TODO - This used to return a list - needs to do the same after db
-        console.log(instructions);
-        
+        });        
       }, []);
 
     return(
