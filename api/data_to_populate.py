@@ -1,5 +1,19 @@
-
-
+training_plan_info = {
+  "training-plans": [
+    {
+      "plan": "5k-level-1",
+      "plan_human": "5 km - Level 1",
+      "description": "This plan is appropriate for beginning runners preparing for their first 5K event and for more experienced runners who need or prefer a relatively low-volume training program for any reason",
+      "prerequisites": "Before you begin the plan, build your training to the point where you are running at least three times per week and doing aerobic exercise six times per week."
+    },
+    {
+      "plan": "5k-level-2",
+      "plan_human": "23.1 km - Level 2",
+      "description": "This plan was designed for runners who are ready to take their training load up a notch or two in order to improve their 5K time.",
+      "prerequisites": "time. Before you begin the plan, build your training to the point where you are running at least three times per week, including some short efforts at moderate and high intensities and some easy runs of at least six miles, and where you are doing aerobic exercise seven times per week."
+    }
+  ]
+}
 
 workout_phases = {
   "workout_phases": [
@@ -22,7 +36,6 @@ workout_phases = {
     }
   ]
 }
-
 
 current_plan = {
   "current_plan": 

@@ -1,11 +1,10 @@
 import os
-from data_to_populate import current_plan, workout_phases
+from data_to_populate import current_plan, workout_phases, training_plan_info
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from models import CurrentPlan, WorkoutPhases
+from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -36,6 +35,17 @@ def update_workout_phases(data):
     db.session.add_all(workout_phases)
     db.session.commit()
 
+def update_training_plan_info(data):
+    training_plan_info = []
+    for training_plan in data["training-plans"]:
+        plan = training_plan["plan"]
+        plan_human = training_plan["plan_human"]
+        description = training_plan["description"]
+        prerequisites = training_plan["prerequisites"]
+        new_entry = TrainingPlanInfo(plan=plan, plan_human=plan_human, description=description, prerequisites=prerequisites)
+        training_plan_info.append(new_entry)
+    db.session.add_all(training_plan_info)
+    db.session.commit()
 
 if __name__ == "__main__":
     app.run(debug=True)

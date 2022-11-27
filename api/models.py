@@ -34,6 +34,25 @@ class WorkoutPhasesSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "phase")
 
+# Training Plan Info
+class TrainingPlanInfo(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plan = db.Column(db.Text, nullable=False)
+    plan_human = db.Column(db.Text, nullable=False)
+    description = db.Column(db.Text, nullable=False)
+    prerequisities = db.Column(db.Text, nullable=False)
+
+    def __init__(self, plan, plan_human, description, prerequisites):
+        self.plan = plan
+        self.plan_human = plan_human
+        self.description = description
+        self.prerequisities = prerequisites
+
+
+class TrainingPlanInfoSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "plan", "plan_human", "description", "prerequisites")
+
 class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -59,3 +78,4 @@ article_schema = ArticlesSchema()
 articles_schema = ArticlesSchema(many=True)
 currentplan_schema = CurrentPlanSchema(many=True)
 workoutphases_schema = WorkoutPhasesSchema(many=True)
+trainingplaninfo_schema = TrainingPlanInfoSchema(many=True)

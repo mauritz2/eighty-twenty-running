@@ -33,7 +33,7 @@ const Plans = ({onPlanSelect}) => {
       });
 
     useEffect(() => {
-        fetch("http://localhost:3000/training-plans/")
+        fetch("/training-plan-info")
         .then((response) => response.json())
         .then((data) => {
             setTrainingPlans(data);
