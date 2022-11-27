@@ -1,8 +1,8 @@
 import os
-from data_to_populate import current_plan, workout_phases, training_plan_info
+from data_to_populate import current_plan, workout_phases, training_plan_info, workouts
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo
+from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -47,5 +47,21 @@ def update_training_plan_info(data):
     db.session.add_all(training_plan_info)
     db.session.commit()
 
+def update_workouts(data):
+    workouts = []
+    for workout in data["workout-plans"]:
+        plan = workout["plan"]
+        for workout_title in workout["workouts"]:
+            title = workout_title["title"]
+            new_entry = Workouts(plan=plan, title=title)
+            workouts.append(new_entry)
+    db.session.add_all(workouts)
+    db.session.commit()
+
 if __name__ == "__main__":
+    # How to run this script
+    # In console, navigate to folder containing this script
+    # >> python
+    # >> from populate_db import *
+    # >> the_func_to_call(the_data_to_call_func_with)
     app.run(debug=True)

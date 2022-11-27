@@ -13,8 +13,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     }
 
     useEffect(() => {
-        console.log("This should print once");
-        fetch("http://localhost:3000/workout-plans/" + trainingPlan.id)
+        fetch("/workouts/5k-level-1") // TODO - bring this back: + trainingPlan.id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);

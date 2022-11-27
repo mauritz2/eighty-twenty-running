@@ -20,7 +20,9 @@ function App() {
   const [totalWeeks, setTotalWeeks] = useState("");
   const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
+  // TODO rename workoutInstrctions to planProgress (?)
   const [workoutInstructions, setWorkoutInstructions] = useState([])
+  // TODO - rename detailedWorkouts to workouts - or maybe plan (?)
   const [detailedWorkouts, setDetailedWorkouts] = useState([])
 
   const setWelcomeMsgState = async () => {
@@ -42,21 +44,14 @@ function App() {
       setWorkoutInstructions(workouts);
     });
 
-    console.log(workoutInstructions);
 
-    
-
-    fetch("http://localhost:3000/workout-plans/")
+    fetch("/workouts")
     .then((response) => response.json())
-    .then((detailedWorkouts) => {
-      setDetailedWorkouts(detailedWorkouts);
-    });
-
-    fetch("/articles").then(res => res.json()).then(data => {
-      console.log("My articles below");
+    .then((data) => {
+      setDetailedWorkouts(data);
+      console.log("These are my detailed workouts");
+      console.log(detailedWorkouts);
       console.log(data);
-      console.log(data[0].body);
-      console.log(typeof(data));
     });
 
   }, []);
@@ -86,7 +81,8 @@ function App() {
 
 const onPlanSelect = async (planName, goal) => {
     // TODO - clean up this function, e.g. var names
-    const res_1 = await fetch(`http://localhost:3000/workout-plans/` + planName)
+     // TODO - reintroduce + planName)
+    const res_1 = await fetch("/workouts/5k-level-1")
     var chosenWorkout = await res_1.json()
     
     const res = await fetch(`/current-plan`, {

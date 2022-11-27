@@ -53,6 +53,21 @@ class TrainingPlanInfoSchema(ma.Schema):
     class Meta:
         fields = ("id", "plan", "plan_human", "description", "prerequisites")
 
+# Workouts
+class Workouts(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    plan = db.Column(db.Text, nullable=False)
+    title = db.Column(db.Text, nullable=False)
+
+    def __init__(self, plan, title):
+        self.plan = plan
+        self.title = title
+
+class WorkoutsSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "plan", "title")
+
+# TODO - PoC - remove me
 class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
@@ -79,3 +94,4 @@ articles_schema = ArticlesSchema(many=True)
 currentplan_schema = CurrentPlanSchema(many=True)
 workoutphases_schema = WorkoutPhasesSchema(many=True)
 trainingplaninfo_schema = TrainingPlanInfoSchema(many=True)
+workouts_schema = WorkoutsSchema(many=True)

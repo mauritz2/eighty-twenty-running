@@ -1,3 +1,81 @@
+workouts = {
+ "workout-plans": [
+    {
+      "plan": "5k-level-1",
+      "workouts": [
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Foundation 1",
+        },
+        {
+          "title": "Hill Repetition 2",
+        }
+      ]
+    },
+    {
+      "plan": "5k-level-2",
+      "workouts": [
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        },
+        {
+          "title": "Hill Repetition 2",
+        }
+      ]
+    }
+  ]
+}
+
 training_plan_info = {
   "training-plans": [
     {

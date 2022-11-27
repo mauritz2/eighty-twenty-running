@@ -1,6 +1,6 @@
 from api import create_app
-from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo
-from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema
+from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts
+from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema
 from flask import jsonify
 
 app = create_app()
@@ -37,6 +37,19 @@ def training_plan_info():
     selected_training_plan = TrainingPlanInfo.query.all()
     result = trainingplaninfo_schema.dump(selected_training_plan)
     return result
+
+@app.route("/workouts", methods=["GET"])
+def workouts_all():
+    selected_workouts = Workouts.query.all()
+    result = workouts_schema.dump(selected_workouts)
+    return result
+
+@app.route("/workouts/<plan>", methods=["GET"])
+def workouts(plan):
+    selected_workout = Workouts.query.filter_by(plan=plan)
+    result = workouts_schema.dump(selected_workout)
+    return result
+
 
 if __name__ == "__main__":
     app.run(debug=True)
