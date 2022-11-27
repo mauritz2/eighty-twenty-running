@@ -36,11 +36,15 @@ function App() {
   useEffect(() => {
     // TODO - instead of getting the current plan we should get the workout plans and
     // then set the current plan to what's defined in user-plan-info
-    fetch("http://localhost:3000/current-plan/1")
+    fetch("/current-plan")
     .then((response) => response.json())
     .then((workouts) => {
-      setWorkoutInstructions(workouts["workouts"]);
+      setWorkoutInstructions(workouts);
     });
+
+    console.log(workoutInstructions);
+
+    
 
     fetch("http://localhost:3000/workout-plans/")
     .then((response) => response.json())
@@ -59,13 +63,13 @@ function App() {
 
   const toggleCompletion = async(id) => {
     // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
-    const res_2 = await fetch(`http://localhost:3000/current-plan/1`)
+    const res_2 = await fetch(`/current-plan`)
     const data_2 = await res_2.json()
     const id_index = id - 1
 
-    data_2["workouts"][id_index].complete = !data_2["workouts"][id_index].complete 
+    data_2[id_index].complete = !data_2[id_index].complete 
 
-    const res = await fetch(`http://localhost:3000/current-plan/1`, {
+    const res = await fetch(`/current-plan`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
@@ -74,7 +78,6 @@ function App() {
       })
       
     var data = await res.json();
-    data = data["workouts"]
     setWorkoutInstructions(data);
    }
 
@@ -86,7 +89,7 @@ const onPlanSelect = async (planName, goal) => {
     const res_1 = await fetch(`http://localhost:3000/workout-plans/` + planName)
     var chosenWorkout = await res_1.json()
     
-    const res = await fetch(`http://localhost:3000/current-plan/1`, {
+    const res = await fetch(`/current-plan`, {
         method:"PUT",
         headers: {
             "Content-type": "application/json"
@@ -94,13 +97,11 @@ const onPlanSelect = async (planName, goal) => {
         body: JSON.stringify(chosenWorkout)
       })
 
+      // Point of this data and state update? Refactor
       const data = await res.json()
-      setWorkoutInstructions(data["workouts"])
+      setWorkoutInstructions(goal_data)
 
       // Update the user's goals
-      console.log("This is the goal in App.js")
-      console.log(goal);
-
       const goal_res = await fetch("http://localhost:3000/user-plan-info/");
       const goal_data = await goal_res.json();
       console.log(goal_data);
