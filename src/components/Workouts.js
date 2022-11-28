@@ -7,15 +7,14 @@ const Workouts = ({workouts, onToggle}) => {
         return null;
     }*/
     return(
-        <div id="workout-schedule-container">
-            <div id="workout-schedule">
-                <div className="table-heading">Monday</div>
-                <div className="table-heading">Tuesday</div>
-                <div className="table-heading">Wednesday</div>
-                <div className="table-heading">Thursday</div>
-                <div className="table-heading">Friday</div>
-                <div className="table-heading">Saturday</div>
-                <div className="table-heading">Sunday</div>
+            <div id="workout-schedule-container">
+                <div className="table-heading">Mon</div>
+                <div className="table-heading">Tue</div>
+                <div className="table-heading">Wed</div>
+                <div className="table-heading">Thu</div>
+                <div className="table-heading">Fri</div>
+                <div className="table-heading">Sat</div>
+                <div className="table-heading">Sun</div>
         
                 {workouts.map((workout) => ( 
                     <Workout
@@ -27,7 +26,6 @@ const Workouts = ({workouts, onToggle}) => {
                 }
                 
             </div>
-        </div> 
     )
 }
 

@@ -41,7 +41,7 @@ const Workout = ({workout, onToggle}) => {
       }, []);
 
     return(
-        <div className={`workout-box ${workout.complete ? "complete": ""}`} onDoubleClick={() => onToggle(workout.id)}>
+        <div className={`workout-card ${workout.complete ? "complete": ""}`} onDoubleClick={() => onToggle(workout.id)}>
             <img className="workout-icon" src={foundation}></img>
             <p className="workout-title"><strong>{workout.title}</strong></p>
             <div className="workout-phases">

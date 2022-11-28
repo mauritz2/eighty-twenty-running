@@ -13,6 +13,8 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Plan --> WorkoutPlan
 // Plans --> WorkoutPlans
 // Add in a progress bar for plan completeness?
+// Add in some highlight for recovery weeks?
+// Add in some highlight for what week you're currently on?
 
 function App() {
   const [name, setName] = useState("");
@@ -22,6 +24,7 @@ function App() {
   const [goal, setGoal] = useState("");
   // TODO rename workoutInstrctions to planProgress (?)
   const [workoutInstructions, setWorkoutInstructions] = useState([])
+  const [lactateThreshold, setLactateThreshold] = useState(0)
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("/selected-plan-metadata");
@@ -40,6 +43,14 @@ function App() {
     .then((response) => response.json())
     .then((workouts) => {
       setWorkoutInstructions(workouts);
+    });
+
+    fetch("/selected-plan-metadata")
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+      console.log(data["lactate_threshold"]);
+      setLactateThreshold(data["lactate_threshold"]);
     });
 
   }, []);
@@ -72,8 +83,6 @@ const onPlanSelect = async (planName, goal) => {
     // TODO - clean up this function, e.g. var names
     // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
     // TODO - create more joins on the backend? At the moment front-end does a lot of work to map phases to workouts for instance
-    console.log("This is my plan name");
-    console.log(planName);
     // Get all workouts that belong to the selected plan
     const res_1 = await fetch("/workouts/" + planName);
     var chosenWorkout = await res_1.json();
@@ -101,7 +110,6 @@ const onPlanSelect = async (planName, goal) => {
       // Add updates here for distance, weeks elapsed etc.
 
       // Update the plan metadata with the newly selected goal
-      // goal_put_res is never used - is it needed?
       const goal_put_res = await fetch("/selected-plan-metadata", {
         method:"PUT",
         headers: {
@@ -116,6 +124,14 @@ const onPlanSelect = async (planName, goal) => {
 
     }
 
+  console.log(lactateThreshold);
+  {/* <StatusMsg 
+                name = {name}
+                currentWeek = {currentWeek}
+                totalWeeks = {totalWeeks}
+                distance = {distance}
+                goal = {goal} />
+  */}
   return (
     <BrowserRouter>
     <div>
@@ -123,15 +139,9 @@ const onPlanSelect = async (planName, goal) => {
       <div className="below-nav-container">
         <Routes>
           <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
-          <Route path="/configure-heart-rate" element={<ConfigureHeartRate />}/>
+          <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} />}/>
           <Route path="/" element={
             <>
-              <StatusMsg 
-                name = {name}
-                currentWeek = {currentWeek}
-                totalWeeks = {totalWeeks}
-                distance = {distance}
-                goal = {goal} />
               <Workouts
                 workouts={workoutInstructions}
                 onToggle={toggleCompletion}/>

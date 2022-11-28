@@ -12,13 +12,13 @@ const Navigation = () => {
             <div className="nav-item">
                 <h1 id="logo-text"> 80/20 Running </h1>
             </div>
-            <div className={`nav-item ${location.pathname === "/" ? "selected": ""}`}>
-                <p><Link to={"/"}> Current Plan </Link></p>
+            <div className={`nav-item ${location.pathname === "/" ? " selected": ""}`}>
+                <p className="nav-link"><Link to={"/"}> Current Plan </Link></p>
             </div>
-            <div className={`nav-item ${location.pathname === "/choose-plan" ? "selected": ""}`}>
+            <div className={`nav-item ${location.pathname === "/choose-plan" ? " selected": ""}`}>
                 <p><Link to={"/choose-plan"}> Select Plan </Link></p>
             </div>
-            <div className={`nav-item ${location.pathname === "/configure-heart-rate" ? "selected": ""}`}>
+            <div className={`nav-item ${location.pathname === "/configure-heart-rate" ? " selected": ""}`}>
                 <p><Link to={"/configure-heart-rate"}> Heart Rate Zones </Link></p>
             </div>
         </div>

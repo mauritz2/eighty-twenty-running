@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 
-const ConfigureHeartRate = () => {
+const ConfigureHeartRate = ({lactateThresholdDB}) => {
     const [lactateThreshold, setLactateThreshold] = useState(0);
     const [zones, setZones] = useState({});
  
@@ -35,7 +35,10 @@ const ConfigureHeartRate = () => {
 
     useEffect( () => {
         setZonesFunc();
-    });
+    }, []);
+
+    console.log("Lactate threshold DB");
+    console.log(lactateThresholdDB);
 
     return (
         <>
@@ -44,7 +47,7 @@ const ConfigureHeartRate = () => {
         <form onSubmit={onSubmit}>
             <div className="form-control"> 
                 <label>Your lactate threshold heart rate</label>
-                <input type="text" onChange={(e) => setLactateThreshold(parseInt(e.target.value))} /> 
+                <input type="text" value={lactateThresholdDB} onChange={(e) => setLactateThreshold(parseInt(e.target.value))} /> 
             </div>
             <input type="submit" className="btn" value="Save" />
         </form>
