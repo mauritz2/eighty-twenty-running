@@ -18,12 +18,21 @@ def selected_workouts():
  
     if request.method == "PUT":
         json = request.get_json()
-        
+
         CurrentPlan.query.delete()
         
         workouts = []
+        
+
+        
         for workout in json:
-            new_entry = CurrentPlan(title=workout["title"], complete=workout["complete"])
+            title = workout["title"]
+            if "complete" in workout:
+                complete = workout["complete"]
+            else:
+                # Handle case when a new plan is selected - default all workouts to False
+                complete = False
+            new_entry = CurrentPlan(title=title, complete=complete)
             workouts.append(new_entry)
         db.session.add_all(workouts)
         db.session.commit()        
