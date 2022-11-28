@@ -65,9 +65,33 @@ def workouts(plan):
 
 @app.route("/selected-plan-metadata", methods=["GET", "PUT"])
 def selected_plan_metadata():
+
+    if request.method == "PUT":
+        submitted_metadata = request.get_json()
+        SelectedPlanMetadata.query.delete()
+
+        # Placeholders until these can be dynamically set
+        total_weeks = 8
+        distance_km = 10.0
+        runner = "Fredrik"
+        lactate_threshold = 160
+
+        goal = submitted_metadata["goal"]
+        print("\n\n")
+        print(goal)
+        print("\n\n")
+        new_entry = SelectedPlanMetadata(total_weeks=total_weeks,
+            distance_km=distance_km,
+            goal=goal,
+            runner=runner,
+            lactate_threshold=lactate_threshold)
+        db.session.add(new_entry)
+        db.session.commit()
+        
     selected_plan_metadata = SelectedPlanMetadata.query.first()
     result = selectedplanmetadata_schema.dump(selected_plan_metadata)
 
+    # Turn created date into the current plan week - eg. "You're on week 3"
     plan_created = datetime.strptime(result["created"], "%Y-%m-%dT%H:%M:%S.%f")
     plan_created_week = plan_created.isocalendar()[1]
     now_week = datetime.utcnow().isocalendar()[1]
@@ -79,7 +103,7 @@ def selected_plan_metadata():
         week_diff = now_week - plan_created_week
     # Used to display: "You are currently at week {current_week_num} of your plan"
     current_week_num = week_diff + 1
-
+    # No need to expose the plan created date to the UI
     del result["created"]
     result["current_week_num"] = current_week_num
     

@@ -12,7 +12,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Workouts --> WorkoutCards
 // Plan --> WorkoutPlan
 // Plans --> WorkoutPlans
-
+// Add in a progress bar for plan completeness?
 
 function App() {
   const [name, setName] = useState("");
@@ -87,7 +87,7 @@ const onPlanSelect = async (planName, goal) => {
         body: JSON.stringify(chosenWorkout)
       })
 
-      // This refreshes the state after updating the plan - causing a component update
+      // Refresh the state after updating the database to cause component refresh
       const data = await res.json()
       setWorkoutInstructions(data)
 
@@ -109,6 +109,10 @@ const onPlanSelect = async (planName, goal) => {
         },
         body: JSON.stringify(goal_data)
         })
+
+        
+        const updated_goal_data = await goal_put_res.json();
+        setGoal(updated_goal_data);
 
     }
 
