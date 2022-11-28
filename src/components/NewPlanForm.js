@@ -2,13 +2,10 @@ import React, { useState } from "react"
 import Button from "./Button"
 
 const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
-
     const [goal, setGoal] = useState("");
 
     const onSubmit = (e) => {
         e.preventDefault();
-        console.log("This is the goal within the form!")
-        console.log(goal);
         onPlanSelect(formTitle, goal);
     }
 

@@ -3,7 +3,8 @@ import Button from "./Button"
 import Workouts from "./Workouts"
 
 const Plan = ({trainingPlan, onPlanClick}) => {
-
+    // TODO - add in plan amount of weeks 
+    // TODO - rename trainingPlan to consistent naming
     const [show, setShow] = useState(false);
     const [workoutDetails, setWorkoutDetails] = useState([]);
 
@@ -34,7 +35,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
                         text="Select Plan"
                         color="#F42C04"
                         onClick={onPlanClick}
-                        trainingPlanId={trainingPlan.id}/> {/* TODO - replace id here with .plan */}
+                        trainingPlanId={trainingPlan.plan}/>
                 </div>
             </div>
             <div className="plan-item">{trainingPlan.plan_human}</div>

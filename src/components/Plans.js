@@ -9,7 +9,15 @@ const Plans = ({onPlanSelect}) => {
 
     const onPlanClick = (planName) => {
         setShowForm(true);
-        setFormTitle(planName);
+
+        // Find the human readable name of the training plan to display as the form title        
+        trainingPlans.forEach((trainingPlan) => {
+            if(trainingPlan.plan == planName)
+            {
+                setFormTitle(trainingPlan.plan_human);
+            }
+        })
+
       }
 
     const onCancel = () => {

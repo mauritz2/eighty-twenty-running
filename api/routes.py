@@ -13,7 +13,7 @@ def articles():
 
     return jsonify(results)
 
-@app.route("/current-plan", methods=["GET"])
+@app.route("/current-plan", methods=["GET", "PUT"])
 def selected_workouts():
     # TODO - rename current-plan to selected-workouts
     # Would be better to join in "false" to all workouts on select so we don't have to store that flag in workouts where it's not needed
@@ -51,7 +51,7 @@ def workouts(plan):
     result = workouts_schema.dump(selected_workout)
     return result
 
-@app.route("/selected-plan-metadata", methods=["GET"])
+@app.route("/selected-plan-metadata", methods=["GET", "PUT"])
 def selected_plan_metadata():
     selected_plan_metadata = SelectedPlanMetadata.query.first()
     result = selectedplanmetadata_schema.dump(selected_plan_metadata)

@@ -69,10 +69,13 @@ function App() {
 
 const onPlanSelect = async (planName, goal) => {
     // TODO - clean up this function, e.g. var names
-     // TODO - reintroduce + planName)
+     // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
+
+    // Get all workouts that belong to the selected plan
     const res_1 = await fetch("/workouts/5k-level-1")
     var chosenWorkout = await res_1.json()
     
+    // Set the selected plan to the current plan
     const res = await fetch(`/current-plan`, {
         method:"PUT",
         headers: {
@@ -82,19 +85,21 @@ const onPlanSelect = async (planName, goal) => {
       })
 
       // Point of this data and state update? Refactor
-      const data = await res.json()
-      setWorkoutInstructions(goal_data)
+      //const data = await res.json()
+      //setWorkoutInstructions(goal_data)
 
-      // Update the user's goals
-      const goal_res = await fetch("http://localhost:3000/user-plan-info/");
+      // Get the user's current plan goal
+      const goal_res = await fetch("/selected-plan-metadata");
       const goal_data = await goal_res.json();
       console.log(goal_data);
 
+      // Update the object with the user's newly selected goal
       goal_data["goal"] = goal
       // Add updates here for distance, weeks elapsed etc.
 
+      // Update the plan metadata with the newly selected goal
       // goal_put_res is never used - is it needed?
-      const goal_put_res = await fetch("http://localhost:3000/user-plan-info/", {
+      const goal_put_res = await fetch("/selected-plan-metadata", {
         method:"PUT",
         headers: {
           "Content-type": "application/json"
