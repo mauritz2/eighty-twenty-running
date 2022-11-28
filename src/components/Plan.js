@@ -14,7 +14,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     }
 
     useEffect(() => {
-        fetch("/workouts/5k-level-1") // TODO - bring this back: + trainingPlan.id)
+        fetch("/workouts/" + trainingPlan.plan) // TODO - bring this back: + trainingPlan.id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);

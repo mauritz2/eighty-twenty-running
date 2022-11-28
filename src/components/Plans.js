@@ -26,7 +26,17 @@ const Plans = ({onPlanSelect}) => {
 
     const closeWindowAndSelectPlan = (formTitle, goal) => {
         onCancel();
-        onPlanSelect(formTitle, goal);
+
+        // TODO - This mapping here andin onPlanClick is clunky. Refactor.
+        trainingPlans.forEach((trainingPlan) => {
+            if(trainingPlan.plan_human == formTitle)
+            {
+                // This can only work because the plan_name is unique
+                onPlanSelect(trainingPlan.plan, goal);
+            }
+        })
+
+        
     } 
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){

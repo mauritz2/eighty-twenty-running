@@ -8,7 +8,7 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
         e.preventDefault();
         onPlanSelect(formTitle, goal);
     }
-
+    // TODO - refactor - should both buttons in this form be components maybe?
     return (
         <div className="overlay-form-container">
             <h2>Detail your plan</h2>

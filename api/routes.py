@@ -1,7 +1,7 @@
-from api import create_app
+from api import create_app, db
 from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
 from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema, selectedplanmetadata_schema
-from flask import jsonify
+from flask import request, jsonify
 from datetime import datetime
 
 app = create_app()
@@ -15,8 +15,20 @@ def articles():
 
 @app.route("/current-plan", methods=["GET", "PUT"])
 def selected_workouts():
+ 
+    if request.method == "PUT":
+        json = request.get_json()
+        CurrentPlan.query.delete()
+        
+        workouts = []
+        for workout in json:
+            new_entry = CurrentPlan(title=workout["title"])
+            workouts.append(new_entry)
+        db.session.add_all(workouts)
+        db.session.commit()        
+        
     # TODO - rename current-plan to selected-workouts
-    # Would be better to join in "false" to all workouts on select so we don't have to store that flag in workouts where it's not needed
+    # TODO - remove "complete" from the workouts library since it defaults to false when selected as current plan anyways 
     selected_workouts = CurrentPlan.query.all()
     results = currentplan_schema.dump(selected_workouts)
 

@@ -68,12 +68,15 @@ function App() {
   setWelcomeMsgState();
 
 const onPlanSelect = async (planName, goal) => {
+    // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
     // TODO - clean up this function, e.g. var names
-     // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
-
+    // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
+    // TODO - create more joins on the backend? At the moment front-end does a lot of work to map phases to workouts for instance
+    console.log("This is my plan name");
+    console.log(planName);
     // Get all workouts that belong to the selected plan
-    const res_1 = await fetch("/workouts/5k-level-1")
-    var chosenWorkout = await res_1.json()
+    const res_1 = await fetch("/workouts/" + planName);
+    var chosenWorkout = await res_1.json();
     
     // Set the selected plan to the current plan
     const res = await fetch(`/current-plan`, {
@@ -84,9 +87,9 @@ const onPlanSelect = async (planName, goal) => {
         body: JSON.stringify(chosenWorkout)
       })
 
-      // Point of this data and state update? Refactor
-      //const data = await res.json()
-      //setWorkoutInstructions(goal_data)
+      // This refreshes the state after updating the plan - causing a component update
+      const data = await res.json()
+      setWorkoutInstructions(data)
 
       // Get the user's current plan goal
       const goal_res = await fetch("/selected-plan-metadata");
