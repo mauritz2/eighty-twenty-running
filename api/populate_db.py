@@ -16,8 +16,7 @@ db = SQLAlchemy(app)
 
 def update_current_plan(data):
     workouts = []
-    for workout in data["data"]:
-        print(workout["title"])
+    for workout in data["current_plan"]:
         title = workout["title"]
         new_entry = CurrentPlan(title=title)
         workouts.append(new_entry)
@@ -28,7 +27,6 @@ def update_workout_phases(data):
     workout_phases = []
     for phase_obj in data["workout_phases"]:
         title = phase_obj["title"]
-        print(title)
         for phase in phase_obj["phases"]:
             new_entry =  WorkoutPhases(title=title, phase=phase)
             workout_phases.append(new_entry)

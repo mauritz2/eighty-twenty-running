@@ -20,9 +20,6 @@ const Plan = ({trainingPlan, onPlanClick}) => {
         })
     }, []);
 
-    console.log("State just before return statement");
-    console.log(workoutDetails);
-
     return(
         <>
             <div>
@@ -37,10 +34,10 @@ const Plan = ({trainingPlan, onPlanClick}) => {
                         text="Select Plan"
                         color="#F42C04"
                         onClick={onPlanClick}
-                        trainingPlanId={trainingPlan.id}/>
+                        trainingPlanId={trainingPlan.id}/> {/* TODO - replace id here with .plan */}
                 </div>
             </div>
-            <div className="plan-item">{trainingPlan.name}</div>
+            <div className="plan-item">{trainingPlan.plan_human}</div>
             <div className="plan-item">{trainingPlan.description}</div>
             <div className="plan-item">{trainingPlan.prerequisites}</div>
             {show === true ?

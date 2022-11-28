@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react"
 import Plan from "./Plan"
 import NewPlanForm from "./NewPlanForm"
-import { json } from "react-router-dom";
 
 const Plans = ({onPlanSelect}) => {
-    const [wrkoutInstructions, setWrkoutInstructions] = useState({});
     const [trainingPlans, setTrainingPlans] = useState([]);
     const [showForm, setShowForm] = useState(false);
     const [formTitle, setFormTitle] = useState("");
@@ -20,12 +18,11 @@ const Plans = ({onPlanSelect}) => {
 
     const closeWindowAndSelectPlan = (formTitle, goal) => {
         onCancel();
-        console.log("This is the goal!")
-        console.log(goal);
         onPlanSelect(formTitle, goal);
     } 
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
+
         return <Plan
             key={trainingPlan.id}
             trainingPlan={trainingPlan}

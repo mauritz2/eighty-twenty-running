@@ -40,13 +40,13 @@ class TrainingPlanInfo(db.Model):
     plan = db.Column(db.Text, nullable=False)
     plan_human = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
-    prerequisities = db.Column(db.Text, nullable=False)
+    prerequisites = db.Column(db.Text, nullable=False)
 
     def __init__(self, plan, plan_human, description, prerequisites):
         self.plan = plan
         self.plan_human = plan_human
         self.description = description
-        self.prerequisities = prerequisites
+        self.prerequisites = prerequisites
 
 
 class TrainingPlanInfoSchema(ma.Schema):
