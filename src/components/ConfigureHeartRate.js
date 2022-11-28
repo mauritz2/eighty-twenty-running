@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 
-const ConfigureHeartRate = ({lactateThresholdDB}) => {
-    const [lactateThreshold, setLactateThreshold] = useState(0);
+const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
+    const [newLactateThreshold, setNewLactateThreshold] = useState(0);
     const [zones, setZones] = useState({});
  
     const setZonesFunc = () => {
@@ -30,15 +30,14 @@ const ConfigureHeartRate = ({lactateThresholdDB}) => {
 
     const onSubmit = (e) => {
         e.preventDefault();
+        onLactateThresholdSubmit(newLactateThreshold);
         setZonesFunc();
     }
+
 
     useEffect( () => {
         setZonesFunc();
     }, []);
-
-    console.log("Lactate threshold DB");
-    console.log(lactateThresholdDB);
 
     return (
         <>
@@ -46,18 +45,18 @@ const ConfigureHeartRate = ({lactateThresholdDB}) => {
         <h3>Calculate your heart rate zones based on your lactate threshold</h3>
         <form onSubmit={onSubmit}>
             <div className="form-control"> 
-                <label>Your lactate threshold heart rate</label>
-                <input type="text" value={lactateThresholdDB} onChange={(e) => setLactateThreshold(parseInt(e.target.value))} /> 
+                <label>Set new lactate threshold</label>
+                <input type="text" placeholder={lactateThreshold} onChange={(e) => setNewLactateThreshold(parseInt(e.target.value))} /> 
             </div>
-            <input type="submit" className="btn" value="Save" />
+            <input type="submit" className="btn" value="Update" />
         </form>
             <div className="form-control"> 
-                <label>Lactate threshold: {lactateThreshold}</label>
-                <label><span className="heartrate-zone">1</span> Low Aerobic: {zones["zone1Min"]}-{zones["zone1Max"]}</label>
-                <label><span className="heartrate-zone">2</span> Moderate Aerobic: {zones["zone2Min"]}-{zones["zone2Max"]}</label>
-                <label><span className="heartrate-zone">3</span> Threshold: {zones["zone3Min"]}-{zones["zone3Max"]}</label>
-                <label><span className="heartrate-zone">4</span> Vo2 Max: {zones["zone4Min"]}-{zones["zone4Max"]}</label>
-                <label><span className="heartrate-zone">5</span> Speed: {zones["zone5Min"]}+</label>
+                <h4>Current lactate thresholds</h4>
+                <label><span className="heartrate-zone">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>
+                <label><span className="heartrate-zone">2</span> Moderate Aerobic: <strong>{zones["zone2Min"]}-{zones["zone2Max"]}</strong></label>
+                <label><span className="heartrate-zone">3</span> Threshold: <strong>{zones["zone3Min"]}-{zones["zone3Max"]}</strong></label>
+                <label><span className="heartrate-zone">4</span> Vo2 Max: <strong>{zones["zone4Min"]}-{zones["zone4Max"]}</strong></label>
+                <label><span className="heartrate-zone">5</span> Speed: <strong>{zones["zone5Min"]}+</strong></label>
             </div>
         </div>
         </>

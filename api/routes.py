@@ -84,12 +84,14 @@ def selected_plan_metadata():
         total_weeks = 8
         distance_km = 10.0
         runner = "Fredrik"
-        lactate_threshold = 160
 
         goal = submitted_metadata["goal"]
+        lactate_threshold = submitted_metadata["lactate_threshold"]
+
         print("\n\n")
-        print(goal)
+        print(lactate_threshold)
         print("\n\n")
+        
         new_entry = SelectedPlanMetadata(total_weeks=total_weeks,
             distance_km=distance_km,
             goal=goal,

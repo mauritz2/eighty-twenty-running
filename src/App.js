@@ -18,6 +18,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Add in a progress bar for plan completeness?
 // Add in some highlight for recovery weeks?
 // Add in some highlight for what week you're currently on?
+// Do an app redirect on plan select - or some type of flash message "Plan selected"
 
 function App() {
   const [name, setName] = useState("");
@@ -39,7 +40,44 @@ function App() {
     setGoal(data["goal"]);
   } 
 
+  const getPlanMetaData = async () => {
+    const data = await fetch("/selected-plan-metadata");
+    const dataJSON = await data.json();
+    return dataJSON;
+  }
+
+  const onLactateThresholdSubmit = async (newLactateThreshold) => {
+    console.log("About to write lt to db!")  
+    
+    getPlanMetaData().then((data) => {
+
+      // Update to the latest lactate threshold and submit it to the db
+      data["lactate_threshold"] = newLactateThreshold;
+
+        fetch("/selected-plan-metadata", {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify(data)
+        })
+        .then((res) => {
+          // ContinueHere - bring in logic from toggleCompletion so we can wait the res.JSON() result 
+          const data = res.json();
+          console.log("This is data:")
+          console.log(data);
+          const new_lt = data["lactate_threshold"];
+          console.log("Setting the new lactate threshold to" + new_lt);
+          setLactateThreshold(new_lt); 
+        })
+
+        //data = res.json();
+        
+      });
+  }
+
   useEffect(() => {
+    // TODO - refactor to break out separate fetches into separate funcs
     // TODO - instead of getting the current plan we should get the workout plans and
     // then set the current plan to what's defined in user-plan-info
     fetch("/current-plan")
@@ -48,20 +86,29 @@ function App() {
       setWorkoutInstructions(workouts);
     });
 
-    fetch("/selected-plan-metadata")
+    getPlanMetaData().then((result) => {
+      result = result["lactate_threshold"]
+      setLactateThreshold(result);
+    });
+    //getSelectedPlanMetaData2();
+    //let data = getDataFromURL("/selected-plan-metadata");
+    /* getSelectedPlanMetaData()    .then((data) => {
+      console.log("Do I have data?")
+      let my_data = data
+      console.log(my_data);
+    }); */
+    /* fetch("/selected-plan-metadata")
     .then((response) => response.json())
     .then((data) => {
-      console.log(data);
-      console.log(data["lactate_threshold"]);
-      setLactateThreshold(data["lactate_threshold"]);
+      // TODO - refactor to stop mixing snake case and camel case
+      let lactate_threshold = data["lactate_threshold"];
+      setLactateThreshold(lactate_threshold);
     });
-
+    */
   }, []);
 
   const toggleCompletion = async(id) => {
     // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
-    console.log("I am toggling completion");
-    
     const res_2 = await fetch(`/current-plan`)
     const data_2 = await res_2.json()
     const id_index = id - 1
@@ -144,7 +191,7 @@ const onPlanSelect = async (planName, goal) => {
       <div className="below-nav-container">
         <Routes>
           <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
-          <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} />}/>
+          <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
               <Workouts
