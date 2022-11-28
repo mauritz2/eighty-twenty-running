@@ -12,6 +12,9 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Workouts --> WorkoutCards
 // Plan --> WorkoutPlan
 // Plans --> WorkoutPlans
+
+// Add in lactate threshold saving to DB
+// Add in toggling of Complete true/false
 // Add in a progress bar for plan completeness?
 // Add in some highlight for recovery weeks?
 // Add in some highlight for what week you're currently on?
@@ -57,6 +60,8 @@ function App() {
 
   const toggleCompletion = async(id) => {
     // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
+    console.log("I am toggling completion");
+    
     const res_2 = await fetch(`/current-plan`)
     const data_2 = await res_2.json()
     const id_index = id - 1
@@ -124,14 +129,14 @@ const onPlanSelect = async (planName, goal) => {
 
     }
 
-  console.log(lactateThreshold);
-  {/* <StatusMsg 
+  // Removing status message for now - UI looks less cluttered without it
+  /* <StatusMsg 
                 name = {name}
                 currentWeek = {currentWeek}
                 totalWeeks = {totalWeeks}
                 distance = {distance}
                 goal = {goal} />
-  */}
+  */
   return (
     <BrowserRouter>
     <div>

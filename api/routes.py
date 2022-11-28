@@ -18,11 +18,12 @@ def selected_workouts():
  
     if request.method == "PUT":
         json = request.get_json()
+        
         CurrentPlan.query.delete()
         
         workouts = []
         for workout in json:
-            new_entry = CurrentPlan(title=workout["title"])
+            new_entry = CurrentPlan(title=workout["title"], complete=workout["complete"])
             workouts.append(new_entry)
         db.session.add_all(workouts)
         db.session.commit()        
@@ -87,7 +88,7 @@ def selected_plan_metadata():
             lactate_threshold=lactate_threshold)
         db.session.add(new_entry)
         db.session.commit()
-        
+
     selected_plan_metadata = SelectedPlanMetadata.query.first()
     result = selectedplanmetadata_schema.dump(selected_plan_metadata)
 

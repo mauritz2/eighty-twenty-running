@@ -11,8 +11,9 @@ class CurrentPlan(db.Model):
     title = db.Column(db.Text, nullable=False)
     complete = db.Column(db.Boolean, nullable=False, default=False)
 
-    def __init__(self, title):
+    def __init__(self, title, complete):
         self.title = title
+        self.complete = complete
     
 class CurrentPlanSchema(ma.Schema):
     class Meta:
