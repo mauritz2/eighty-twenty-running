@@ -3,10 +3,9 @@ import Workout from "./Workout"
 
 const Workouts = ({workouts, onToggle}) => {
     // TODO - Placeholder - needed to prevent component from loading before we have the data
-    if(workouts.length === 0){
+    /* if(workouts.length === 0){
         return null;
-    }
-
+    }*/
     return(
         <div id="workout-schedule-container">
             <div id="workout-schedule">

@@ -45,8 +45,8 @@ const Workout = ({workout, onToggle}) => {
             <img className="workout-icon" src={foundation}></img>
             <p className="workout-title"><strong>{workout.title}</strong></p>
             <div className="workout-phases">
-{/*                 {all_phases} 
- */}            </div>
+                {all_phases} 
+            </div>
         </div>
     )
 }

@@ -17,9 +17,11 @@ const Plan = ({trainingPlan, onPlanClick}) => {
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
-            // TODO - we have a useEffect without a [] at the end here - might be causing loops
         })
     }, []);
+
+    console.log("State just before return statement");
+    console.log(workoutDetails);
 
     return(
         <>
@@ -44,7 +46,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
             {show === true ?
                 <div className="plan-item full">
                     <Workouts
-                        workouts={workoutDetails.workouts}
+                        workouts={workoutDetails} // .workouts was removed here --> turning this into lists
                         onToggle={false}/>
                 </div>
             : <></>}

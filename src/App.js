@@ -22,8 +22,6 @@ function App() {
   const [goal, setGoal] = useState("");
   // TODO rename workoutInstrctions to planProgress (?)
   const [workoutInstructions, setWorkoutInstructions] = useState([])
-  // TODO - rename detailedWorkouts to workouts - or maybe plan (?)
-  const [detailedWorkouts, setDetailedWorkouts] = useState([])
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("http://localhost:3000/user-plan-info");
@@ -42,16 +40,6 @@ function App() {
     .then((response) => response.json())
     .then((workouts) => {
       setWorkoutInstructions(workouts);
-    });
-
-
-    fetch("/workouts")
-    .then((response) => response.json())
-    .then((data) => {
-      setDetailedWorkouts(data);
-      console.log("These are my detailed workouts");
-      console.log(detailedWorkouts);
-      console.log(data);
     });
 
   }, []);

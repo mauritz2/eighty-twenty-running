@@ -48,6 +48,7 @@ def workouts_all():
 def workouts(plan):
     selected_workout = Workouts.query.filter_by(plan=plan)
     result = workouts_schema.dump(selected_workout)
+
     return result
 
 
