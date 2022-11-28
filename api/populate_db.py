@@ -1,8 +1,8 @@
 import os
-from data_to_populate import current_plan, workout_phases, training_plan_info, workouts
+from data_to_populate import current_plan, workout_phases, training_plan_info, workouts, selected_plan_metadata
 from flask_sqlalchemy import SQLAlchemy
 from flask import Flask
-from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts
+from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 
@@ -54,6 +54,19 @@ def update_workouts(data):
             new_entry = Workouts(plan=plan, title=title)
             workouts.append(new_entry)
     db.session.add_all(workouts)
+    db.session.commit()
+
+def update_selectedplanmetadata(data):
+    selected_plan_metadata = []
+    selected_plan = data["user-plan-info"]
+    runner = selected_plan["runner"]
+    total_weeks = selected_plan["total_weeks"]
+    distance_km = selected_plan["distance_km"]
+    goal = selected_plan["goal"]
+    lactate_threshold = selected_plan["lactate_threshold"]
+    new_entry = SelectedPlanMetadata(runner=runner, total_weeks=total_weeks, distance_km=distance_km, goal=goal, lactate_threshold=lactate_threshold)
+    selected_plan_metadata.append(new_entry)
+    db.session.add_all(selected_plan_metadata)
     db.session.commit()
 
 if __name__ == "__main__":

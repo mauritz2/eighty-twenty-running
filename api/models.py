@@ -67,6 +67,27 @@ class WorkoutsSchema(ma.Schema):
     class Meta:
         fields = ("id", "plan", "title")
 
+# Selected Plan Metadata
+class SelectedPlanMetadata(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    runner = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime(), default=datetime.utcnow)
+    total_weeks = db.Column(db.Integer, nullable=False)
+    distance_km = db.Column(db.Float, nullable=False)
+    goal = db.Column(db.Text, nullable=True)
+    lactate_threshold = db.Column(db.Integer, default=0) 
+
+    def __init__(self, runner, total_weeks, distance_km, goal, lactate_threshold):
+        self.runner = runner
+        self.total_weeks = total_weeks
+        self.distance_km = distance_km
+        self.goal = goal
+        self.lactate_threshold = lactate_threshold
+
+class SelectedPlanMetadataSchema(ma.Schema):
+    class Meta:
+        fields = ("id", "runner", "created", "total_weeks", "distance_km", "goal", "lactate_threshold")
+
 # TODO - PoC - remove me
 class Articles(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -95,3 +116,4 @@ currentplan_schema = CurrentPlanSchema(many=True)
 workoutphases_schema = WorkoutPhasesSchema(many=True)
 trainingplaninfo_schema = TrainingPlanInfoSchema(many=True)
 workouts_schema = WorkoutsSchema(many=True)
+selectedplanmetadata_schema = SelectedPlanMetadataSchema()

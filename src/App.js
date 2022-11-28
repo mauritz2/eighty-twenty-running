@@ -24,12 +24,12 @@ function App() {
   const [workoutInstructions, setWorkoutInstructions] = useState([])
 
   const setWelcomeMsgState = async () => {
-    const res = await fetch("http://localhost:3000/user-plan-info");
+    const res = await fetch("/selected-plan-metadata");
     const data = await res.json();
-    setName(data["name"]);
-    setCurrentWeek(data["current_week"]);
+    setName(data["runner"]);
+    setCurrentWeek(data["current_week_num"]);
     setTotalWeeks(data["total_weeks"]);
-    setDistance(data["distance"]);
+    setDistance(data["distance_km"]);
     setGoal(data["goal"]);
   } 
 

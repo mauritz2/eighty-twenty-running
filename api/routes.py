@@ -1,7 +1,8 @@
 from api import create_app
-from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts
-from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema
+from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
+from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema, selectedplanmetadata_schema
 from flask import jsonify
+from datetime import datetime
 
 app = create_app()
 
@@ -48,7 +49,28 @@ def workouts_all():
 def workouts(plan):
     selected_workout = Workouts.query.filter_by(plan=plan)
     result = workouts_schema.dump(selected_workout)
+    return result
 
+@app.route("/selected-plan-metadata", methods=["GET"])
+def selected_plan_metadata():
+    selected_plan_metadata = SelectedPlanMetadata.query.first()
+    result = selectedplanmetadata_schema.dump(selected_plan_metadata)
+
+    plan_created = datetime.strptime(result["created"], "%Y-%m-%dT%H:%M:%S.%f")
+    plan_created_week = plan_created.isocalendar()[1]
+    now_week = datetime.utcnow().isocalendar()[1]
+    if plan_created_week > now_week:
+        # Handle week diff for plan that stretches over two years
+        week_diff = 52 - abs(now_week - plan_created_week)
+    else:
+        # Handle normal case when plan is contained in a single year
+        week_diff = now_week - plan_created_week
+    # Used to display: "You are currently at week {current_week_num} of your plan"
+    current_week_num = week_diff + 1
+
+    del result["created"]
+    result["current_week_num"] = current_week_num
+    
     return result
 
 
