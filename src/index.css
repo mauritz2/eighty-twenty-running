@@ -62,7 +62,7 @@ a {
   display:grid;
   grid-template-columns: repeat(7, 1fr);
   width: min(90%, 75rem);
-  margin-top: 2rem;
+  margin-top: 1em;
 }
 
 .workout-card {
@@ -199,7 +199,8 @@ a {
   background: var(--theme-red);
   border: none;
   margin: 5px;
-  padding: 0.5em 1.5em;
+  width: 6em;
+  height: 2.5em;
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
@@ -208,3 +209,5 @@ a {
 .full {
   grid-column: 2/5;
 }
+
+/* Plan Status */

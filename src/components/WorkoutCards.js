@@ -1,5 +1,5 @@
 import React from "react"
-import Workout from "./Workout"
+import WorkoutCard from "./WorkoutCard"
 
 const Workouts = ({workouts, onToggle}) => {
     // TODO - Placeholder - needed to prevent component from loading before we have the data
@@ -17,7 +17,7 @@ const Workouts = ({workouts, onToggle}) => {
                 <div className="table-heading">Sun</div>
         
                 {workouts.map((workout) => ( 
-                    <Workout
+                    <WorkoutCard
                         key={workout.id}
                         workout={workout}
                         onToggle={onToggle}/>

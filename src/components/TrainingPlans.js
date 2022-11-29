@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react"
-import Plan from "./Plan"
+import TrainingPlan from "./TrainingPlan"
 import NewPlanForm from "./NewPlanForm"
 
 const Plans = ({onPlanSelect}) => {
@@ -41,7 +41,7 @@ const Plans = ({onPlanSelect}) => {
 
     var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
 
-        return <Plan
+        return <TrainingPlan
             key={trainingPlan.id}
             trainingPlan={trainingPlan}
             onPlanClick={onPlanClick}/>

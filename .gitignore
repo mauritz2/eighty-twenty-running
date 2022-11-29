@@ -25,3 +25,6 @@ yarn-error.log*
 # python exclusions
 __pycache__
 api/__pycache__
+
+# vscode exclusions
+.vscode

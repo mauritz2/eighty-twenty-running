@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Button from "./Button"
-import Workouts from "./Workouts"
+import Workouts from "./WorkoutCards"
 
 const Plan = ({trainingPlan, onPlanClick}) => {
     // TODO - add in plan amount of weeks 

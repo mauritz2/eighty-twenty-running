@@ -1,17 +1,10 @@
 import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
-import Workouts from "./components/Workouts"
-import Plans from "./components/Plans"
+import WorkoutCards from "./components/WorkoutCards"
+import TrainingPlans from "./components/TrainingPlans"
 import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-
-
-// TODO - rename
-// Workout --> WorkoutCard
-// Workouts --> WorkoutCards
-// Plan --> WorkoutPlan
-// Plans --> WorkoutPlans
 
 // Add in lactate threshold saving to DB
 // Add in toggling of Complete true/false
@@ -20,12 +13,10 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Add in some highlight for what week you're currently on?
 // Do an app redirect on plan select - or some type of flash message "Plan selected"
 // Drop-downs for each week so not entire plan is visible at once? Then automatically open the current week
+// Add in a total minutes run completion % (?)
 
 function App() {
-  const [name, setName] = useState("");
   const [currentWeek, setCurrentWeek] = useState("");
-  const [totalWeeks, setTotalWeeks] = useState("");
-  const [distance, setDistance] = useState("");
   const [goal, setGoal] = useState("");
   // TODO rename workoutInstrctions to planProgress (?)
   const [workoutInstructions, setWorkoutInstructions] = useState([])
@@ -34,10 +25,7 @@ function App() {
   const setWelcomeMsgState = async () => {
     const res = await fetch("/selected-plan-metadata");
     const data = await res.json();
-    setName(data["runner"]);
     setCurrentWeek(data["current_week_num"]);
-    setTotalWeeks(data["total_weeks"]);
-    setDistance(data["distance_km"]);
     setGoal(data["goal"]);
   } 
 
@@ -48,14 +36,10 @@ function App() {
   }
 
   const onLactateThresholdSubmit = async (newLactateThreshold) => {
-    console.log("About to write lt to db!")  
     
     // TODO - doesn't seem to be a way to reference an external func here. Refactor?
     const curRes = await fetch(`/selected-plan-metadata`)
     const curData = await curRes.json()
-
-    console.log("This is the lactate threshold in App.js BEFORE update");
-    console.log(lactateThreshold);
 
     let newData = curData 
     newData["lactate_threshold"] = newLactateThreshold;
@@ -138,7 +122,6 @@ const onPlanSelect = async (planName, goal) => {
       // Get the user's current plan goal
       const goal_res = await fetch("/selected-plan-metadata");
       const goal_data = await goal_res.json();
-      console.log(goal_data);
 
       // Update the object with the user's newly selected goal
       goal_data["goal"] = goal
@@ -159,28 +142,20 @@ const onPlanSelect = async (planName, goal) => {
 
     }
 
-  // Removing status message for now - UI looks less cluttered without it
-  /* <StatusMsg 
-                name = {name}
-                currentWeek = {currentWeek}
-                totalWeeks = {totalWeeks}
-                distance = {distance}
-                goal = {goal} />
-  */
-  console.log("The lactate threshold going into the render");
-  console.log(lactateThreshold);
-
   return (
     <BrowserRouter>
     <div>
       <Navigation />
       <div className="below-nav-container">
         <Routes>
-          <Route path="/choose-plan" element={<Plans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
+          <Route path="/choose-plan" element={<TrainingPlans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
           <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
-              <Workouts
+              <StatusMsg 
+                currentWeek = {currentWeek}
+                goal = {goal} />
+              <WorkoutCards
                 workouts={workoutInstructions}
                 onToggle={toggleCompletion}/>
             </>}/>
