@@ -114,31 +114,55 @@ a {
   opacity: 0.2;
 }
 
-
-/* Heartrate zones */
-
-.heartrate-zone {
-  height: 20px;
-  width: 20px;
+.heart-rate-zone-small {
+  height: 25px;
+  width: 25px;
   border-radius: 50%;
   display: inline-block;
-  text-align:center;
+  text-align: center;
+  line-height: 1.5em;
   margin-right: 3px;
-  border: solid;
-  border-width: 1px;
+}
+
+/* Heart rate zones */
+
+/* PoC */
+
+.heart-rate-zone-large {
+  height: 25px;
+  width: 25px;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  line-height: 1em;
+  padding: 2px;
+}
+
+.zone1, .zone2 {
+  background-color: var(--theme-blue) 
+}
+
+.zone3, .zone4 {
+  background-color: var(--theme-brown) 
+}
+
+.zone5 {
+  background-color: var(--theme-faded-red);
+}
+
+.form-control input {
+  max-width: 180px;
 }
 
 .btn {
   display: inline-block;
-  background: #F42C04;
+  background: var(--theme-red);
   border: none;
   padding: 10px 20px;
   margin: 5px;
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
-  border:solid;
-  border-width: 2px;
 }
 
 #plan-selector {
@@ -148,6 +172,8 @@ a {
   margin-top: 2rem;
   gap: 10px;
 }
+
+/* Select Plan */
 
 .plan-item {
   margin: 1em;

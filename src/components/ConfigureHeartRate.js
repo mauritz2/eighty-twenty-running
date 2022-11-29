@@ -51,15 +51,15 @@ const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
 
             <div className="form-control"> 
                 <h4>Saved lactate threshold: {lactateThreshold} </h4>
-                <label><span className="heartrate-zone">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>
-                <label><span className="heartrate-zone">2</span> Moderate Aerobic: <strong>{zones["zone2Min"]}-{zones["zone2Max"]}</strong></label>
-                <label><span className="heartrate-zone">3</span> Threshold: <strong>{zones["zone3Min"]}-{zones["zone3Max"]}</strong></label>
-                <label><span className="heartrate-zone">4</span> Vo2 Max: <strong>{zones["zone4Min"]}-{zones["zone4Max"]}</strong></label>
-                <label><span className="heartrate-zone">5</span> Speed: <strong>{zones["zone5Min"]}+</strong></label>
+                <label><span className="heart-rate-zone-large zone1">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>
+                <label><span className="heart-rate-zone-large zone2">2</span> Moderate Aerobic: <strong>{zones["zone2Min"]}-{zones["zone2Max"]}</strong></label>
+                <label><span className="heart-rate-zone-large zone3">3</span> Threshold: <strong>{zones["zone3Min"]}-{zones["zone3Max"]}</strong></label>
+                <label><span className="heart-rate-zone-large zone4">4</span> Vo2 Max: <strong>{zones["zone4Min"]}-{zones["zone4Max"]}</strong></label>
+                <label><span className="heart-rate-zone-large zone5">5</span> Speed: <strong>{zones["zone5Min"]}+</strong></label>
             </div>
             <form onSubmit={onSubmit}>
                 <div className="form-control"> 
-                    <label>Set new lactate threshold</label>
+                    <label>New lactate threshold</label>
                     <input type="text" onChange={(e) => setNewLactateThreshold(parseInt(e.target.value))} /> 
                 </div>
                 <input type="submit" className="btn" value="Update" />

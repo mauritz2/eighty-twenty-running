@@ -19,6 +19,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Add in some highlight for recovery weeks?
 // Add in some highlight for what week you're currently on?
 // Do an app redirect on plan select - or some type of flash message "Plan selected"
+// Drop-downs for each week so not entire plan is visible at once? Then automatically open the current week
 
 function App() {
   const [name, setName] = useState("");

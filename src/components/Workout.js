@@ -19,7 +19,7 @@ const Workout = ({workout, onToggle}) => {
                 // This catches the ")" that sometimes appears as: "Zone {n})""
                 const remaining = word.slice(1,);
 
-                single_instruction.push(<><span className="heartrate-zone">{zone_num}</span></>)
+                single_instruction.push(<><span className={"heart-rate-zone-small zone" + zone_num}>{zone_num}</span></>)
             }
             else {
                 single_instruction.push(<span>{word} </span>);
