@@ -150,16 +150,12 @@ a {
   background-color: var(--theme-faded-red);
 }
 
-.form-control input {
-  max-width: 180px;
-}
-
 .btn {
-  display: inline-block;
+  display: block;
   background: var(--theme-red);
   border: none;
-  padding: 10px 20px;
   margin: 5px;
+  padding: 0.5em 1.5em;
   border-radius: 5px;
   cursor: pointer;
   font-family: inherit;
@@ -197,18 +193,23 @@ a {
   border-style: solid;
 }
 
+
+/* Form controls */
+
 .form-control {
-  margin: 20px;
+  margin-top: 2em;
 }
 
 .form-control label {
   display: block;
+  margin-top: 0.5em;
 }
 
-.form-control input {
-  width: 80%;
-  height: 40px;
-  margin: 5px;
-  padding: 3px 7px;
-  font-size: 17px;
+.form-control input[type=text] {
+  height: 1.5em;
+  max-width: 50px;
+}
+
+.inline {
+  display:inline;
 }
