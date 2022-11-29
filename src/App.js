@@ -6,14 +6,20 @@ import TrainingPlans from "./components/TrainingPlans"
 import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
-// Add in lactate threshold saving to DB
-// Add in toggling of Complete true/false
-// Add in a progress bar for plan completeness?
-// Add in some highlight for recovery weeks?
+// MUST HAVE
+// Layout design that works on mobile (e.g. drop-downs?)
+// Real data for a training plan
+// Deploy 
+// Review TODOs in code
+// Fix CSS on Plan Select
+// Add in Icons for all workouts
+
+// NICE TO HAVE
+// Add in a total minutes run completion % (?) Or week % completion?
+// App redirect on plan select - or some type of flash message "Plan selected"
 // Add in some highlight for what week you're currently on?
-// Do an app redirect on plan select - or some type of flash message "Plan selected"
-// Drop-downs for each week so not entire plan is visible at once? Then automatically open the current week
-// Add in a total minutes run completion % (?)
+// Add in some highlight for recovery weeks?
+
 
 function App() {
   const [currentWeek, setCurrentWeek] = useState("");
