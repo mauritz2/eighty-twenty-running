@@ -27,13 +27,13 @@ const Plan = ({trainingPlan, onPlanClick}) => {
                 <div className="plan-item">
                     <Button
                         text={show ? "Hide Plan" : "View Plan"}
-                        color="#fff"
+                        color={show ? "#ADA296" : "#88A2AA"}
                         onClick={onViewClick}/>
                 </div>
                 <div className="plan-item">
                     <Button
                         text="Select Plan"
-                        color="#F42C04"
+                        color="#88A2AA"
                         onClick={onPlanClick}
                         trainingPlanId={trainingPlan.plan}/>
                 </div>
