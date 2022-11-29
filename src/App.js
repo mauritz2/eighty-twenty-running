@@ -49,31 +49,27 @@ function App() {
   const onLactateThresholdSubmit = async (newLactateThreshold) => {
     console.log("About to write lt to db!")  
     
-    getPlanMetaData().then((data) => {
+    // TODO - doesn't seem to be a way to reference an external func here. Refactor?
+    const curRes = await fetch(`/selected-plan-metadata`)
+    const curData = await curRes.json()
 
-      // Update to the latest lactate threshold and submit it to the db
-      data["lactate_threshold"] = newLactateThreshold;
+    console.log("This is the lactate threshold in App.js BEFORE update");
+    console.log(lactateThreshold);
 
-        fetch("/selected-plan-metadata", {
-        method: "PUT",
-        headers: {
-          "Content-type": "application/json"
-        },
-        body: JSON.stringify(data)
-        })
-        .then((res) => {
-          // ContinueHere - bring in logic from toggleCompletion so we can wait the res.JSON() result 
-          const data = res.json();
-          console.log("This is data:")
-          console.log(data);
-          const new_lt = data["lactate_threshold"];
-          console.log("Setting the new lactate threshold to" + new_lt);
-          setLactateThreshold(new_lt); 
-        })
-
-        //data = res.json();
-        
-      });
+    let newData = curData 
+    newData["lactate_threshold"] = newLactateThreshold;
+    
+    const updatedRes = await fetch(`/selected-plan-metadata`, {
+      method:"PUT",
+      headers: {
+        "Content-type": "application/json"
+      },
+        body: JSON.stringify(newData)
+      })
+      
+    const updatedData = await updatedRes.json();
+    const updatedLactateThreshold = updatedData["lactate_threshold"];
+    setLactateThreshold(updatedLactateThreshold);
   }
 
   useEffect(() => {
@@ -86,25 +82,11 @@ function App() {
       setWorkoutInstructions(workouts);
     });
 
-    getPlanMetaData().then((result) => {
+  getPlanMetaData().then((result) => {
+      // TODO - is this redundant since we have onLactateThresholdSubmit
       result = result["lactate_threshold"]
       setLactateThreshold(result);
     });
-    //getSelectedPlanMetaData2();
-    //let data = getDataFromURL("/selected-plan-metadata");
-    /* getSelectedPlanMetaData()    .then((data) => {
-      console.log("Do I have data?")
-      let my_data = data
-      console.log(my_data);
-    }); */
-    /* fetch("/selected-plan-metadata")
-    .then((response) => response.json())
-    .then((data) => {
-      // TODO - refactor to stop mixing snake case and camel case
-      let lactate_threshold = data["lactate_threshold"];
-      setLactateThreshold(lactate_threshold);
-    });
-    */
   }, []);
 
   const toggleCompletion = async(id) => {
@@ -184,6 +166,9 @@ const onPlanSelect = async (planName, goal) => {
                 distance = {distance}
                 goal = {goal} />
   */
+  console.log("The lactate threshold going into the render");
+  console.log(lactateThreshold);
+
   return (
     <BrowserRouter>
     <div>
