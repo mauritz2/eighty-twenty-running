@@ -955,7 +955,7 @@ workout_phases = {
       "phases": [
         "5 min Zone1",
         "5 min Zone2",
-        "6 x 1 min Zone5 - 2 min Zone1"
+        "6 x 1 min Zone5 - 2 min Zone1",
         "5 min Zone1"
       ]
     },
@@ -964,7 +964,7 @@ workout_phases = {
       "phases": [
         "5 min Zone1",
         "5 min Zone2",
-        "8 x 1 min Zone5 / 2 min Zone1"
+        "8 x 1 min Zone5 / 2 min Zone1",
         "5 min Zone1"
       ]
     },
@@ -973,7 +973,7 @@ workout_phases = {
       "phases": [
         "5 min Zone1",
         "5 min Zone2",
-        "6 x 1.5 min Zone5 / 2.5 min Zone1"
+        "6 x 1.5 min Zone5 / 2.5 min Zone1",
         "5 min Zone1"
       ]
     },
@@ -982,7 +982,7 @@ workout_phases = {
       "phases": [
         "5 min Zone1",
         "5 min Zone2",
-        "10 x 1 min Zone5 / 2 min Zone1"
+        "10 x 1 min Zone5 / 2 min Zone1",
         "5 min Zone1"
       ]
     },
@@ -991,7 +991,7 @@ workout_phases = {
       "phases": [
         "5 min Zone1",
         "5 min Zone2",
-        "8 x 1.5 min Zone5 / 2.5 min Zone1"
+        "8 x 1.5 min Zone5 / 2.5 min Zone1",
         "5 min Zone1"
       ]
     },
@@ -1042,6 +1042,96 @@ workout_phases = {
         "5 min Zone2",
         "4 x 5 min Zone3 / 3 min Zone1",
         "5 min Zone2",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 1",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "3 x 3 min Zone4 / 2 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 2",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "4 x 3 min Zone4 / 2 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 3",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "3 x 5 min Zone4 / 3 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 4",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "5 x 3 min Zone4 / 2 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 5",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "6 x 3 min Zone4 / 2 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 6",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "4 x 5 min Zone4 / 3 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 7",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "5 x 5 min Zone4 / 3 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 8",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "6 x 5 min Zone4 / 3 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 9",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "7 x 5 min Zone4 / 3 min Zone1",
+        "5 min Zone1",
+      ]
+    },
+    {
+      "title": "Long Interval 10",
+      "phases": [
+        "5 min Zone1",
+        "5 min Zone2",
+        "8 x 5 min Zone4 / 3 min Zone1",
         "5 min Zone1",
       ]
     },
