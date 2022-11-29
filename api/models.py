@@ -11,7 +11,7 @@ class CurrentPlan(db.Model):
     title = db.Column(db.Text, nullable=False)
     complete = db.Column(db.Boolean, nullable=False, default=False)
 
-    def __init__(self, title, complete):
+    def __init__(self, title, complete=False):
         self.title = title
         self.complete = complete
     
@@ -71,48 +71,22 @@ class WorkoutsSchema(ma.Schema):
 # Selected Plan Metadata
 class SelectedPlanMetadata(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    runner = db.Column(db.Text, nullable=False)
-    created = db.Column(db.DateTime(), default=datetime.utcnow)
-    total_weeks = db.Column(db.Integer, nullable=False)
-    distance_km = db.Column(db.Float, nullable=False)
+    # TODO - make plan into plan_id consistently when we're referencing "5k-level1"
+    plan_id = db.Column(db.Text, nullable=False)
     goal = db.Column(db.Text, nullable=True)
     lactate_threshold = db.Column(db.Integer, default=0) 
+    created = db.Column(db.DateTime(), default=datetime.utcnow)
 
-    def __init__(self, runner, total_weeks, distance_km, goal, lactate_threshold):
-        self.runner = runner
-        self.total_weeks = total_weeks
-        self.distance_km = distance_km
+    def __init__(self, plan_id, goal, lactate_threshold):
+        self.plan_id = plan_id
         self.goal = goal
         self.lactate_threshold = lactate_threshold
 
 class SelectedPlanMetadataSchema(ma.Schema):
     class Meta:
-        fields = ("id", "runner", "created", "total_weeks", "distance_km", "goal", "lactate_threshold")
+        fields = ("id", "plan_id", "created", "goal", "lactate_threshold")
 
-# TODO - PoC - remove me
-class Articles(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(100), nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    date = db.Column(db.DateTime(), default=datetime.utcnow)
-
-    def __init__(self, title, body):
-        self.title = title
-        self.body = body
-
-    def __repr__(self):
-        return f"<Articles {self.title}>"
-    
-class ArticlesSchema(ma.Schema):
-    class Meta:
-        # The fields to expose
-        fields = ("id", "title", "body", "date")
-
-# Serializes a single article
-article_schema = ArticlesSchema()
-
-# Serializes a queryset
-articles_schema = ArticlesSchema(many=True)
+# Schema instantiation - used for serialization
 currentplan_schema = CurrentPlanSchema(many=True)
 workoutphases_schema = WorkoutPhasesSchema(many=True)
 trainingplaninfo_schema = TrainingPlanInfoSchema(many=True)

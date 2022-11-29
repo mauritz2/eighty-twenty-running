@@ -56,21 +56,26 @@ def update_workouts(data):
     db.session.add_all(workouts)
     db.session.commit()
 
-def update_selectedplanmetadata(data):
-    selected_plan_metadata = []
+def update_selected_plan_meta_data(data):
     selected_plan = data["user-plan-info"]
-    runner = selected_plan["runner"]
-    total_weeks = selected_plan["total_weeks"]
-    distance_km = selected_plan["distance_km"]
+
+    plan_id = selected_plan["plan_id"]
     goal = selected_plan["goal"]
     lactate_threshold = selected_plan["lactate_threshold"]
-    new_entry = SelectedPlanMetadata(runner=runner, total_weeks=total_weeks, distance_km=distance_km, goal=goal, lactate_threshold=lactate_threshold)
-    selected_plan_metadata.append(new_entry)
-    db.session.add_all(selected_plan_metadata)
+    new_entry = SelectedPlanMetadata(plan_id=plan_id, goal=goal, lactate_threshold=lactate_threshold)
+
+    db.session.add_all([new_entry])
     db.session.commit()
 
+def update_all():
+    update_current_plan(current_plan)
+    update_selected_plan_meta_data(selected_plan_metadata)
+    update_training_plan_info(training_plan_info)
+    update_workout_phases(workout_phases)
+    update_workouts(workouts)
+
 if __name__ == "__main__":
-    # How to run this script
+    # How to run individual data updates
     # In console, navigate to folder containing this script
     # >> python
     # >> from populate_db import *

@@ -1,17 +1,10 @@
 from api import create_app, db
-from models import Articles, CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
-from models import articles_schema, currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema, selectedplanmetadata_schema
+from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
+from models import currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema, selectedplanmetadata_schema
 from flask import request, jsonify
 from datetime import datetime
 
 app = create_app()
-
-@app.route("/articles", methods=["GET"])
-def articles():
-    articles = Articles.query.all()
-    results = articles_schema.dump(articles)
-
-    return jsonify(results)
 
 @app.route("/current-plan", methods=["GET", "PUT"])
 def selected_workouts():
@@ -80,22 +73,12 @@ def selected_plan_metadata():
         submitted_metadata = request.get_json()
         SelectedPlanMetadata.query.delete()
 
-        # Placeholders until these can be dynamically set
-        total_weeks = 8
-        distance_km = 10.0
-        runner = "Fredrik"
-
+        plan_id = submitted_metadata["plan_id"]
         goal = submitted_metadata["goal"]
         lactate_threshold = submitted_metadata["lactate_threshold"]
-
-        print("\n\n")
-        print(lactate_threshold)
-        print("\n\n")
         
-        new_entry = SelectedPlanMetadata(total_weeks=total_weeks,
-            distance_km=distance_km,
+        new_entry = SelectedPlanMetadata(plan_id=plan_id,
             goal=goal,
-            runner=runner,
             lactate_threshold=lactate_threshold)
         db.session.add(new_entry)
         db.session.commit()

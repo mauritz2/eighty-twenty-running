@@ -1,9 +1,7 @@
 selected_plan_metadata = {
   "user-plan-info": {
-    "runner": "Fredrik",
+    "plan_id":"5k-level-1",
     "created": "2022-11-23 00:00:00",
-    "total_weeks": "8",
-    "distance_km": "10.0",
     "goal": "20 minutes",
     "lactate_threshold": "155"
   }
