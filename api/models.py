@@ -49,6 +49,8 @@ class TrainingPlanInfo(db.Model):
         self.description = description
         self.prerequisites = prerequisites
 
+    def __str__(self):
+        return f"{self.plan}"
 
 class TrainingPlanInfoSchema(ma.Schema):
     class Meta:

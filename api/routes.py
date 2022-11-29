@@ -77,6 +77,13 @@ def selected_plan_metadata():
         goal = submitted_metadata["goal"]
         lactate_threshold = submitted_metadata["lactate_threshold"]
         
+        # Get the human-readable plan name
+        # TODO -rename plan_id in the SelectedPlanMetadata to be plan_id
+        # or add in plan_name as well
+        plan_details = TrainingPlanInfo.query.filter_by(plan=plan_id)
+        plan_details = trainingplaninfo_schema.dump(plan_details)
+        plan_id = plan_details[0]["plan_human"]
+
         new_entry = SelectedPlanMetadata(plan_id=plan_id,
             goal=goal,
             lactate_threshold=lactate_threshold)
