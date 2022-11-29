@@ -1,9 +1,15 @@
 import React, { useEffect } from "react"
-import foundation from "../static/foundation.png"
-import hillRepetition from "../static/hill-repetition.png"
-import speedPlay from "../static/speed-play.png"
+import foundation from "../static/foundation-2.png"
+import hillRepetition from "../static/hill-repetition-2.png"
+import speedPlay from "../static/speed-play-2.png"
+import race from "../static/race-2.png"
+import rest from "../static/rest.png"
+import longRun from "../static/long-run-3.png"
+import recovery from "../static/recovery.png"
+import fastFinish from "../static/fast-finish.png"
+import shortInterval from "../static/short-interval.png"
+import longInterval from "../static/long-interval.png"
 import { useState } from "react";
-import { speed } from "jquery";
 
 const Workout = ({workout, onToggle}) => {
 
@@ -46,6 +52,34 @@ const Workout = ({workout, onToggle}) => {
         else if(wrkt_title.includes("Speed Play"))
         {
             return speedPlay;
+        }
+        else if(wrkt_title.includes("Race"))
+        {
+            return race;
+        }
+        else if(wrkt_title.includes("Rest"))
+        {
+            return rest;
+        }
+        else if(wrkt_title.includes("Long Run"))
+        {
+            return longRun;
+        }
+        else if(wrkt_title.includes("Recovery"))
+        {
+            return recovery;
+        }
+        else if(wrkt_title.includes("Fast Finish"))
+        {
+            return fastFinish;
+        }
+        else if(wrkt_title.includes("Short Interval"))
+        {
+            return shortInterval;
+        }
+        else if(wrkt_title.includes("Long Interval"))
+        {
+            return longInterval;
         }
     }
 
