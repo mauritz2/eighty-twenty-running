@@ -759,14 +759,6 @@ workout_phases = {
       ]
     },
     {
-      "title": "Long Run 1",
-      "phases": [
-        "1 mile Zone1",
-        "4.5 miles Zone2",
-        "0.5 miles Zone1"
-      ]
-    },
-    {
       "title": "Long Run 2",
       "phases": [
         "1 mile Zone1",
