@@ -19,7 +19,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // App redirect on plan select - or some type of flash message "Plan selected"
 // Add in some highlight for what week you're currently on?
 // Add in some highlight for recovery weeks?
-
+// Add in "or cross-training" flag for workouts
 
 function App() {
   const [currentWeek, setCurrentWeek] = useState("");
