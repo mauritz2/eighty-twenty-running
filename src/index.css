@@ -94,11 +94,13 @@ a {
 .workout-title {
   margin-top:0px;
   margin-bottom:0px;
+  user-select: none;
 }
 
 .workout-icon {
   height: 2em;
   width: 2em;
+  user-select: none;
   margin-top: 0.3em;
   margin-bottom: 0.2em;
   mix-blend-mode: multiply;
@@ -154,8 +156,7 @@ a {
   grid-template-columns: 10% 20% 35% 35%;
   width: min(90%, 75rem);
   margin-top: 2em;
-  gap: 3em;
-  width: min-content;
+  column-gap: 3em;
 }
 
 /* Select Plan */
