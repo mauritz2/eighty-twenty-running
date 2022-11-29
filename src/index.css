@@ -212,4 +212,45 @@ a {
   grid-column: 2/5;
 }
 
-/* Plan Status */
+/* Accordion */
+.accordion {
+  background-color: #eee;
+  color: #444;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  text-align: left;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+}
+
+.active, .accordion:hover{
+  background-color: var(--theme-blue);
+}
+
+.panel {
+  padding: 0 18px;
+  background-color: white;
+  display: none;
+}
+
+.accordion:after {
+  content: '\02795'; /* Unicode character for "plus" sign (+) */
+  font-size: 13px;
+  color: #777;
+  float: right;
+  margin-left: 5px;
+}
+
+.block {
+  display: block;
+}
+
+.none {
+  display: none;
+}
+
+.active:after {
+  content: "\2796"; /* Unicode character for "minus" sign (-) */
+}

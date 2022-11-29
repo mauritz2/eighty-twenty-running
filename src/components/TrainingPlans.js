@@ -56,6 +56,7 @@ const Plans = ({onPlanSelect}) => {
     }, []);
 
     return(
+        <>
         <div id="plan-selector">
             { showForm && <NewPlanForm onCancel={onCancel} formTitle={formTitle} onPlanSelect={closeWindowAndSelectPlan} /> }
             <div></div>
@@ -64,6 +65,7 @@ const Plans = ({onPlanSelect}) => {
             <div className="table-heading">Prerequisites</div>
             {trainingPlanDivs}
         </div>
+        </>
     )
 }
 

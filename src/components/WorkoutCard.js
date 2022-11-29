@@ -40,7 +40,6 @@ const Workout = ({workout, onToggle}) => {
     });
 
     function getIcon(wrkt_title){
-        console.log("Workout title is: " + wrkt_title);
         if(wrkt_title.includes("Foundation"))
         {
             return foundation;

@@ -5,6 +5,7 @@ import WorkoutCards from "./components/WorkoutCards"
 import TrainingPlans from "./components/TrainingPlans"
 import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
+import Week from "./components/Week"
 
 // MUST HAVE
 // Layout design that works on mobile (e.g. drop-downs?)
@@ -13,6 +14,16 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 // Review TODOs in code
 // Fix CSS on Plan Select
 // Add in Icons for all workouts
+
+// Speed Play
+// Hill Repetition
+// Recovery
+// Race
+// Long Run
+// Fast Finish
+// Long Interval
+// Short Interval
+// 
 
 // NICE TO HAVE
 // Add in a total minutes run completion % (?) Or week % completion?
@@ -158,6 +169,7 @@ const onPlanSelect = async (plan_id, goal) => {
           <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
+              <Week workouts={workoutInstructions} weekNum={"1"} />
               <StatusMsg
                 planName = {selectedPlan}
                 currentWeek = {currentWeek}
