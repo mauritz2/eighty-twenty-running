@@ -169,7 +169,6 @@ const onPlanSelect = async (plan_id, goal) => {
           <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
-              <Week workouts={workoutInstructions} weekNum={"1"} />
               <StatusMsg
                 planName = {selectedPlan}
                 currentWeek = {currentWeek}

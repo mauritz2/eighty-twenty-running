@@ -3,16 +3,15 @@ import WorkoutCard from "./WorkoutCard"
 
 const Week = ({workouts, weekNum}) => {
 
-    const [open, setOpen] = useState(true);
+    const [open, setOpen] = useState(false);
 
     function toggleVisibility() {
         setOpen(!open);
     }
 
+    console.log("WeekNum");
+    console.log(weekNum);
 
-
-    workouts = workouts.slice(0, 7);
-    console.log(typeof(workouts));
     return(
         <>
         <button className={open ? "accordion active":"accordion"} onClick={toggleVisibility}>Week {weekNum}</button>

@@ -233,6 +233,10 @@ a {
   padding: 0 18px;
   background-color: white;
   display: none;
+  transition: all 0.3s ease-in-out;
+  overflow: hidden;
+  max-height: 0;
+  
 }
 
 .accordion:after {
