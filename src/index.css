@@ -55,20 +55,18 @@ a {
   margin-top: 1em;
   margin-bottom: 1em;
   justify-content: center;
+  color: var(--theme-blue);
+  font-weight: bold;
 }
 
 .msg-header{
-  color: var(--theme-blue);
   margin-bottom: 0.5em;
   font-size: 0.7em;
-  font-weight: bold;
   opacity: 0.7;
 }
 
 .msg-data{
-  color: var(--theme-blue);
   font-size: 1.5em;
-  font-weight: bold;
   opacity: 0.5;
 }
 
