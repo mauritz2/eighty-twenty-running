@@ -212,17 +212,18 @@ a {
   grid-column: 2/5;
 }
 
+
 /* Accordion */
 .accordion {
-  background-color: #eee;
-  color: #444;
+  background-color: var(--theme-black);
+  color: #fff;
   cursor: pointer;
-  padding: 18px;
+  padding: 5px;
   width: 100%;
+  border-radius: 3px;
   text-align: left;
   border: none;
-  outline: none;
-  transition: 0.4s;
+  font-family: inherit;
 }
 
 .active, .accordion:hover{
@@ -230,31 +231,26 @@ a {
 }
 
 .panel {
-  padding: 0 18px;
-  background-color: white;
-  display: none;
-  transition: all 0.3s ease-in-out;
+  display:block;
   overflow: hidden;
-  max-height: 0;
-  
 }
 
 .accordion:after {
-  content: '\02795'; /* Unicode character for "plus" sign (+) */
-  font-size: 13px;
-  color: #777;
+  content: '+'; /* \02795 = Unicode character for "plus" sign (+) */
   float: right;
   margin-left: 5px;
 }
 
 .block {
-  display: block;
+  max-height: 500px;
+  transition: max-height 0.3s ease-in;
 }
 
 .none {
-  display: none;
+  max-height: 0px;
+  transition: max-height 0.15s ease-out;
 }
 
 .active:after {
-  content: "\2796"; /* Unicode character for "minus" sign (-) */
+  content: "-"; /*  \2796 = Unicode character for "minus" sign (-) */
 }
