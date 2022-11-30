@@ -9,6 +9,8 @@ const Workouts = ({workouts, onToggle}) => {
         let all_weeks = {}
         let one_week = []
         
+        // This could be made redundant if the db split worksout by week
+        // E.g. by introducing week num as a column
         for(let i=0; i<wrkts.length; i++)
         {
             if((i % 7) == 0){
@@ -25,14 +27,11 @@ const Workouts = ({workouts, onToggle}) => {
 
         for ( const [key, value] of Object.entries(all_weeks)){
             
-            console.log("My key and type");
-            console.log(key);
-            console.log(typeof(key));
-
             components.push(
             <Week
                 workouts={value}
-                weekNum={key} />)            
+                weekNum={key}
+                currentWeek={"1"} />)            
         }
 
         return components;

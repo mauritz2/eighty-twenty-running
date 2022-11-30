@@ -248,12 +248,6 @@ a {
   display:block;
 }
 
-.accordion:after {
-  content: '+'; /* \02795 = Unicode character for "plus" sign (+) */
-  float: right;
-  margin-left: 5px;
-}
-
 .block {
   max-height: 500px;
   transition: max-height 0.3s ease-in;
@@ -265,6 +259,13 @@ a {
   overflow: hidden;
 }
 
+.accordion:after {
+  content: '+'; /* \02795 = Unicode character for "plus" sign (+) */
+  float: right;
+  margin-left: 5px;
+}
+
 .active:after {
   content: "-"; /*  \2796 = Unicode character for "minus" sign (-) */
 }
+

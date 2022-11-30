@@ -1,16 +1,13 @@
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
-const Week = ({workouts, weekNum}) => {
+const Week = ({workouts, weekNum, currentWeek}) => {
 
     const [open, setOpen] = useState(false);
 
     function toggleVisibility() {
         setOpen(!open);
     }
-
-    console.log("WeekNum");
-    console.log(weekNum);
 
     /*
     <div className="table-heading">Mon</div>
@@ -21,6 +18,14 @@ const Week = ({workouts, weekNum}) => {
     <div className="table-heading">Sat</div>
     <div className="table-heading">Sun</div>
     */
+
+    useEffect(() => {
+        if(weekNum === currentWeek){
+            // Default-open the accordion for the current week
+            setOpen(true);
+        }
+    }, []);
+
 
     return(
         <>
