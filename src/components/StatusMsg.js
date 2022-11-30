@@ -1,12 +1,15 @@
 import React from "react"
 
 const StatusMsg = ({planName, currentWeek, goal}) => {
-    // TODO - the StatusMsg syntax can be made easier to read
+    //             {goal ? <p>Goal: {goal}</p>:""}
     return(
         <div id="plan-status">
-            <p>Plan: {planName}</p>
-            <p>Week: {currentWeek}</p>
-            {goal ? <p>Goal: {goal}</p>:""}
+            <div className="msg-header">Plan</div>
+            <div className="msg-header">Week</div>
+            <div className="msg-header">Goal</div>
+            <div className="msg-data">{planName}</div>
+            <div className="msg-data">{currentWeek}</div>
+            <div className="msg-data">{goal}</div>
         </div>
     )
 }
