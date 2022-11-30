@@ -9,16 +9,6 @@ const Week = ({workouts, weekNum, currentWeek}) => {
         setOpen(!open);
     }
 
-    /*
-    <div className="table-heading">Mon</div>
-    <div className="table-heading">Tue</div>
-    <div className="table-heading">Wed</div>
-    <div className="table-heading">Thu</div>
-    <div className="table-heading">Fri</div>
-    <div className="table-heading">Sat</div>
-    <div className="table-heading">Sun</div>
-    */
-
     useEffect(() => {
         if(weekNum === currentWeek){
             // Default-open the accordion for the current week

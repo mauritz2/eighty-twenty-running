@@ -5,6 +5,7 @@
   --theme-faded-red: #E2856E; 
   --theme-red: #f42c04;
   --theme-black: #0F1A20;
+  --workout-card-width: 9em;
 }
 
 body {
@@ -74,21 +75,22 @@ a {
 
 #workout-schedule-container {
   display:grid;
-  grid-template-columns: repeat(7, 1fr);
-  width: min(90%, 75rem);
+  grid-template-columns: repeat(auto-fit, minmax(var(--workout-card-width), 7fr));
+  width: min(100%, 90rem);
   margin-top: 1em;
+  column-gap: 1em;
 }
 
 .workout-card {
   border-style: solid;
-  height: 12.5em;
-  width: 9.4em; /* Refactor - this is to mae sure the padding won't make header and cards mis-aligned */
+  height: 14.5em;
+  width: var(--workout-card-width); /* Refactor - this is to mae sure the padding won't make header and cards mis-aligned */
   border-radius: 10px;
   padding-left: 15px;
   border-width: 2px;
   border-color: var(--theme-brown);
   margin-bottom: 1em;
-  margin-right: 0.5em;
+  margin-right: 2em;
 }
 
 .table-heading {
@@ -249,7 +251,7 @@ a {
 }
 
 .block {
-  max-height: 500px;
+  max-height: 10000px;
   transition: max-height 0.3s ease-in;
 }
 
