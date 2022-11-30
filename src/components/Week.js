@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
-const Week = ({workouts, weekNum, currentWeek}) => {
+const Week = ({workouts, weekNum, currentWeek, onToggle}) => {
 
     const [open, setOpen] = useState(false);
 
@@ -25,7 +25,8 @@ const Week = ({workouts, weekNum, currentWeek}) => {
                     {workouts.map((workout) => ( 
                         <WorkoutCard
                             key={workout.id}
-                            workout={workout}/>
+                            workout={workout}
+                            onToggle={onToggle}/>
                         )
                         )
                     }  
