@@ -141,7 +141,8 @@ const onPlanSelect = async (planID, goal) => {
               <Weeks
                 workouts={selectedPlanWorkouts}
                 onToggle={toggleWorkoutCompletion}
-                defaultOpenWeek={true}/>
+                autoOpen={true}
+                currentWeek={currentWeek}/>
             </>}/>
         </Routes>
         </div>

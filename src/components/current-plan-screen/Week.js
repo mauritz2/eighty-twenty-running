@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
-const Week = ({workouts, weekNum, currentWeek, onToggle, defaultOpenWeek}) => {
+const Week = ({workouts, weekNum, currentWeek, onToggle, autoOpen}) => {
     // Component for showing an accordion with seven days of workouts from the user's selected plan
     const [open, setOpen] = useState(false);
 
@@ -11,7 +11,7 @@ const Week = ({workouts, weekNum, currentWeek, onToggle, defaultOpenWeek}) => {
     }
 
     useEffect(() => {
-        if((defaultOpenWeek === true) && (weekNum === currentWeek)){
+        if((autoOpen === true) && (parseInt(weekNum) === parseInt(currentWeek))){
             // Default-open the accordion to see the workouts for the current week without any clicks
             setOpen(true);
         }

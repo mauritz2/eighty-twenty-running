@@ -1,7 +1,7 @@
 import React from "react"
 import Week from "./Week"
 
-const Weeks = ({workouts, onToggle, defaultOpenWeek, currentWeek}) => {
+const Weeks = ({workouts, onToggle, autoOpen, currentWeek}) => {
     // This component owns splitting workout data into weeks.
     // This can't be done at the App.js level because the workouts by week data structure
     // is also needed when browsing available plans before selecting them. 
@@ -32,7 +32,7 @@ const Weeks = ({workouts, onToggle, defaultOpenWeek, currentWeek}) => {
                 weekNum={weekNum}
                 currentWeek={currentWeek}
                 onToggle={onToggle}
-                defaultOpenWeek={defaultOpenWeek}/>);            
+                autoOpen={autoOpen}/>);            
         }
 
         return week_components;
