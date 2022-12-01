@@ -6,14 +6,14 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
     const [goal, setGoal] = useState("");
 
     const onSubmit = (e) => {
-        // Write the selected plan and goal to backend on user confirmation
+        // Write the selected plan to the backend on user confirmation
         e.preventDefault();
         onPlanSelect(formTitle, goal);
     }
 
     return (
         <div className="overlay-form-container">
-            <h2>Start New Plan</h2>
+            <h2 className="table-heading">Start New Plan</h2>
             <h4>{formTitle}</h4>
             <form onSubmit={onSubmit}>
                 <div className="form-control">
@@ -23,7 +23,7 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
                 <input type="submit" value="Start Plan" className="btn"/>
                 <Button buttonColor="#fff" text="Cancel" onClick={onCancel}/>
             </form>
-            <p className="small">Starting a new plan will overwrite your current plan</p>
+            <p className="warning-txt">Starting a new plan will overwrite your current plan</p>
         </div>
     );
 }

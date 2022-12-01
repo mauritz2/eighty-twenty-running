@@ -52,7 +52,7 @@ const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
     return (
         <>
         <div>
-            <h3>Calculate your heart rate zones based on your lactate threshold</h3>
+            <h3 className="table-heading">Calculate your heart rate zones based on your lactate threshold</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-control"> 
                     <label className="block"><span className="heart-rate-zone-large zone1">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>

@@ -20,7 +20,7 @@ const Week = ({workouts, weekNum, currentWeek, onToggle, autoOpen}) => {
     return(
         <>
         <button className={open ? "accordion active":"accordion"} onClick={toggleVisibility}>Week {weekNum}</button>
-        <div className={open ? "panel block":"panel none"}>
+        <div className={open ? "open":"closed"}>
             <div id="workout-schedule-container"> 
                     {workouts.map((workout) => ( 
                         <WorkoutCard
