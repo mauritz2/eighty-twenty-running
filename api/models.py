@@ -3,10 +3,7 @@ from datetime import datetime
 
 # Current Plan
 class CurrentPlan(db.Model):
-    # TODO - this can probably be refactored to remove the title. Instead it can just have a PK and get its name from workout-plans
-    # TODO - rename to SelectedWorkouts
-    # If this is ever made into a public app - need to have a col for user
-    # Just making this for myself so current plan will always just have a single plan
+    # Table containing the workout details for the user's currently selected plan
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
     complete = db.Column(db.Boolean, nullable=False, default=False)
@@ -17,11 +14,11 @@ class CurrentPlan(db.Model):
     
 class CurrentPlanSchema(ma.Schema):
     class Meta:
-        # The fields to expose
         fields = ("id", "title", "complete")
 
 # Workout Phases
 class WorkoutPhases(db.Model):
+    # Table containing detailed workout instructions, i.e. how long to run for in each zone
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.Text, nullable=False)
     phase = db.Column(db.Text, nullable=False)
@@ -30,13 +27,13 @@ class WorkoutPhases(db.Model):
         self.title = title
         self.phase = phase
 
-
 class WorkoutPhasesSchema(ma.Schema):
     class Meta:
         fields = ("id", "title", "phase")
 
 # Training Plan Info
 class TrainingPlanInfo(db.Model):
+    # Table containing high-level training plan data
     id = db.Column(db.Integer, primary_key=True)
     plan_id = db.Column(db.Text, nullable=False)
     plan_human = db.Column(db.Text, nullable=False)
@@ -49,15 +46,13 @@ class TrainingPlanInfo(db.Model):
         self.description = description
         self.prerequisites = prerequisites
 
-    def __str__(self):
-        return f"{self.plan}"
-
 class TrainingPlanInfoSchema(ma.Schema):
     class Meta:
         fields = ("id", "plan_id", "plan_human", "description", "prerequisites")
 
 # Workouts
 class Workouts(db.Model):
+    # Table containing all plans and their associated workouts
     id = db.Column(db.Integer, primary_key=True)
     plan_id = db.Column(db.Text, nullable=False)
     title = db.Column(db.Text, nullable=False)
@@ -72,8 +67,8 @@ class WorkoutsSchema(ma.Schema):
 
 # Selected Plan Metadata
 class SelectedPlanMetadata(db.Model):
+    # Table containing metadata for the user's currently selected plan, e.g. plan goal
     id = db.Column(db.Integer, primary_key=True)
-    # TODO - make plan into plan_id consistently when we're referencing "5k-level1"
     plan_id = db.Column(db.Text, nullable=False)
     goal = db.Column(db.Text, nullable=True)
     lactate_threshold = db.Column(db.Integer, default=0) 
@@ -90,7 +85,7 @@ class SelectedPlanMetadataSchema(ma.Schema):
     class Meta:
         fields = ("id", "plan_id", "created", "goal", "lactate_threshold", "plan_human")
 
-# Schema instantiation - used for serialization
+# Schema instantiation - used to serialize what SQLAlchemy returns into JSON
 currentplan_schema = CurrentPlanSchema(many=True)
 workoutphases_schema = WorkoutPhasesSchema(many=True)
 trainingplaninfo_schema = TrainingPlanInfoSchema(many=True)
