@@ -4,6 +4,8 @@ import Week from "./Week"
 
 const Workouts = ({workouts, onToggle}) => {
 
+
+    // TODO - factor to remove this Component. Move its logic to App.js.
     function divideIntoWeeks(wrkts){
         // Partition workouts into weeks so each one can be in its own accordion
         let all_weeks = {}

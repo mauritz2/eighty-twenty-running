@@ -3,6 +3,7 @@ import Button from "./Button"
 import Workouts from "./WorkoutCards"
 
 const Plan = ({trainingPlan, onPlanClick}) => {
+    // TODO - rename Plan to TrainingPlan above
     // TODO - add in plan amount of weeks 
     // TODO - rename trainingPlan to consistent naming
     const [show, setShow] = useState(false);
@@ -24,30 +25,34 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     return(
         <>
             <div>
-                <div className="plan-item">
-                    <Button
-                        text={show ? "Hide Plan" : "View Plan"}
-                        color={show ? "#ADA296" : "#88A2AA"}
-                        onClick={onViewClick}/>
-                </div>
-                <div className="plan-item">
+                <div>
                     <Button
                         text="Select Plan"
-                        color="#88A2AA"
+                        buttonColor="#000"
                         onClick={onPlanClick}
-                        trainingPlanId={trainingPlan.plan}/>
+                        trainingPlanId={trainingPlan.plan}
+                        textColor="#fff"/>
+                </div>
+                <div>
+                    <Button
+                        text={show ? "Hide Plan" : "View Plan"}
+                        buttonColor={show ? "#fff" : "#fff"}
+                        onClick={onViewClick}/>
                 </div>
             </div>
-            <div className="plan-item">{trainingPlan.plan_human}</div>
+            <div className="plan-item"><strong>{trainingPlan.plan_human}</strong></div>
             <div className="plan-item">{trainingPlan.description}</div>
-            <div className="plan-item">{trainingPlan.prerequisites}</div>
+            <div className="plan-item">{trainingPlan.prerequisites}
+            </div>
             {show === true ?
                 <div className="plan-item full">
                     <Workouts
-                        workouts={workoutDetails} // .workouts was removed here --> turning this into lists
+                        workouts={workoutDetails}
                         onToggle={false}/>
                 </div>
             : <></>}
+            <div className="divider full"></div>
+
         </>
     )
 }
