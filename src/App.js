@@ -9,30 +9,47 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 function App() {
   const [currentWeek, setCurrentWeek] = useState("");
   const [goal, setGoal] = useState("");
+  const [lactateThreshold, setLactateThreshold] = useState(0);
   const [selectedPlanName, setSelectedPlanName] = useState("");
-  const [currentPlanWorkouts, setCurrentPlanWorkouts] = useState([])
-  const [lactateThreshold, setLactateThreshold] = useState(0)
+  const [selectedPlanWorkouts, setSelectedPlanWorkouts] = useState([]);
 
-  const setStatusMsg = async () => {
+  /* State-setting functions */
+
+  const setSelectedPlanMetadataState = async () => {
     // Set the plan status information for the StatusMsg component
-    const res = await fetch("/selected-plan-metadata");
-    const data = await res.json();
-    setSelectedPlanName(data["plan_human"]);
-    setCurrentWeek(data["current_week_num"]);
-    setGoal(data["goal"]);
+    fetch("/selected-plan-metadata")
+    .then((response) => response.json())
+    .then((metadata) => {
+      setSelectedPlanName(metadata["plan_human"]);
+      setCurrentWeek(metadata["current_week_num"]);
+      setGoal(metadata["goal"]);
+      // Set the lactate threshold state for the ConfigureHeartRate component
+      setLactateThreshold(metadata["lactate_threshold"]);
+    });
+  }
 
-    // Set the lactate threshold state for the ConfigureHeartRate component
-    setLactateThreshold(data["lactate_threshold"])
+  const setSelectedPlanWorkoutsState = async () => {
+    // Set the workouts part of the currently selected plan
+    fetch("/current-plan")
+    .then((response) => response.json())
+    .then((workoutData) => {
+      setSelectedPlanWorkouts(workoutData);
+    });
+  }
 
-  } 
+  useEffect(() => {
+    setSelectedPlanWorkoutsState();
+    setSelectedPlanMetadataState();
+  }, []);
+
+  /* On-click and on-submit functions */
 
   const onLactateThresholdSubmit = async (newLactateThreshold) => {
-    
-    // TODO - doesn't seem to be a way to reference an external func here. Refactor?
-    const curRes = await fetch(`/selected-plan-metadata`)
-    const curData = await curRes.json()
+    // Update the lactate threshold in the backend and update the state    
+    const curRes = await fetch(`/selected-plan-metadata`);
+    const curData = await curRes.json();
 
-    let newData = curData 
+    let newData = curData;
     newData["lactate_threshold"] = newLactateThreshold;
 
     const updatedRes = await fetch(`/selected-plan-metadata`, {
@@ -41,88 +58,70 @@ function App() {
         "Content-type": "application/json"
       },
         body: JSON.stringify(newData)
-      })
+      });
       
     const updatedData = await updatedRes.json();
     const updatedLactateThreshold = updatedData["lactate_threshold"];
     setLactateThreshold(updatedLactateThreshold);
   }
 
-  useEffect(() => {
-    // TODO - refactor to break out separate fetches into separate funcs
-    // TODO - instead of getting the current plan we should get the workout plans and
-    // then set the current plan to what's defined in user-plan-info
-    fetch("/current-plan")
-    .then((response) => response.json())
-    .then((workouts) => {
-      setCurrentPlanWorkouts(workouts);
-    });
+  const toggleWorkoutCompletion = async(workout_id) => {
+    // Toggle a workout as complete on the backend after user marks it as complete    
+    const curRes = await fetch(`/current-plan`);
+    const curData = await curRes.json();
 
-    setStatusMsg();
-  }, []);
-
-  const toggleCompletion = async(id) => {
-    // TODO - refactor - there's a data structure on the backend with ID that could be simplified to avoid this...
-    const res_2 = await fetch(`/current-plan`)
-    const data_2 = await res_2.json()
-    const id_index = id - 1
-
-    data_2[id_index].complete = !data_2[id_index].complete 
+    for (const [index, workout] of Object.entries(curData))
+    {
+      // Find the workout card that was clicked and toggle it's completion bool
+      if(workout.id == workout_id)
+      {
+        curData[index].complete = !curData[index].complete;
+      }
+    }
 
     const res = await fetch(`/current-plan`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
       },
-        body: JSON.stringify(data_2)
-      })
+        body: JSON.stringify(curData)
+      });
       
-    var data = await res.json();
-    setCurrentPlanWorkouts(data);
+      var data = await res.json();
+      setSelectedPlanWorkouts(data);
    }
 
-
 const onPlanSelect = async (planID, goal) => {
-    // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
-    // TODO - clean up this function, e.g. var names
-    // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
-    // TODO - create more joins on the backend? At the moment front-end does a lot of work to map phases to workouts for instance
-    // Get all workouts that belong to the selected plan
-    const res_1 = await fetch("/workouts/" + planID);
-    var chosenWorkout = await res_1.json();
+    // Update the selected plan and associated metadata based on user selection
     
-    // Set the selected plan to the current plan
+    // Set the new plan as the selected plan
+    const workoutRes = await fetch("/workouts/" + planID);
+    var workoutData = await workoutRes.json();
+
     const res = await fetch(`/current-plan`, {
         method:"PUT",
         headers: {
             "Content-type": "application/json"
         },
-        body: JSON.stringify(chosenWorkout)
+        body: JSON.stringify(workoutData)
       });
 
-      // Refresh the state after updating the database to cause component refresh
-      const data = await res.json()
-      setCurrentPlanWorkouts(data)
+      const data = await res.json();
+      setSelectedPlanWorkouts(data);
 
-      // Get the user's current plan goal
+      // Update the plan metadata 
       const metadata_res = await fetch("/selected-plan-metadata");
       const metadata = await metadata_res.json();
-
-      // Update the object with the user's newly selected goal
       metadata["goal"] = goal;
       metadata["plan_id"] = planID;
-      // Add updates here for distance, weeks elapsed etc.
 
-      // Update the plan metadata with the newly selected goal
-      // TODO - goal_put_res needed?
-
-      const goal_put_res = await fetch("/selected-plan-metadata", {
+      fetch("/selected-plan-metadata", {
         method:"PUT",
         headers: {
           "Content-type": "application/json"
         },
         body: JSON.stringify(metadata)
-        })
+        });
     }
 
   return (
@@ -131,20 +130,18 @@ const onPlanSelect = async (planID, goal) => {
       <Navigation />
       <div className="below-nav-container">
         <Routes>
-          <Route path="/choose-plan" element={<TrainingPlans currentPlanWorkouts={currentPlanWorkouts} onPlanSelect={onPlanSelect} />}/>
+          <Route path="/choose-plan" element={<TrainingPlans selectedPlanWorkouts={selectedPlanWorkouts} onPlanSelect={onPlanSelect} />}/>
           <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
               <StatusMsg
-                planName = {selectedPlanName}
-                currentWeek = {currentWeek}
-                goal = {goal} />
+                planName={selectedPlanName}
+                currentWeek={currentWeek}
+                goal={goal}/>
               <Weeks
-              workouts={currentPlanWorkouts}
-              onToggle={toggleCompletion}
-              defaultOpenWeek={true}
-              />
-
+                workouts={selectedPlanWorkouts}
+                onToggle={toggleWorkoutCompletion}
+                defaultOpenWeek={true}/>
             </>}/>
         </Routes>
         </div>
