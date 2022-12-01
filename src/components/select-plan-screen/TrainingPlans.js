@@ -10,9 +10,6 @@ const Plans = ({onPlanSelect}) => {
     const onPlanClick = (planName) => {
         setShowForm(true);
 
-        console.log("This is the planName");
-        console.log(planName);
-
         // Find the human readable name of the training plan to display as the form title        
         trainingPlans.forEach((trainingPlan) => {
             if(trainingPlan.plan_id == planName)
@@ -30,19 +27,11 @@ const Plans = ({onPlanSelect}) => {
     const closeWindowAndSelectPlan = (formTitle, goal) => {
         onCancel();
 
-        console.log("This is the formTitle");
-        console.log(formTitle);
-
         // TODO - This mapping here andin onPlanClick is clunky. Refactor.
         trainingPlans.forEach((trainingPlan) => {
-            console.log("This is the training plan");
-            console.log(trainingPlan);
-            console.log("This is the form title");
-            console.log(formTitle);
 
             if(trainingPlan.plan_human == formTitle)
             {
-                console.log("Found a match")
                 // This can only work because the plan_name is unique
                 onPlanSelect(trainingPlan.plan_id, goal);
             }

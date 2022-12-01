@@ -1,7 +1,7 @@
 import React from "react"
 import Week from "./Week"
 
-const Weeks = ({workouts, onToggle, defaultOpenWeek}) => {
+const Weeks = ({currentPlanWorkouts, onToggle, defaultOpenWeek}) => {
 
     
     // TODO - factor to remove this Component. Move its logic to App.js.
@@ -25,12 +25,12 @@ const Weeks = ({workouts, onToggle, defaultOpenWeek}) => {
 
         let components = []
 
-        for ( const [key, value] of Object.entries(all_weeks)){
+        for ( const [weekNum, workouts] of Object.entries(all_weeks)){
 
             components.push(
             <Week
-                workouts={value}
-                weekNum={key}
+                workouts={workouts}
+                weekNum={weekNum}
                 currentWeek={"1"}
                 onToggle={onToggle}
                 defaultOpenWeek={defaultOpenWeek} />)            
@@ -39,12 +39,12 @@ const Weeks = ({workouts, onToggle, defaultOpenWeek}) => {
         return components;
     }
 
-    let weekComponents = divideIntoWeeks(workouts);
+    let weekComponents = divideIntoWeeks(currentPlanWorkouts);
 
     /*
     {workouts.map((workout) => ( 
         <WorkoutCard
-            key={workout.id}
+            weekNum={workout.id}
             workout={workout}
             onToggle={onToggle}/>
         )

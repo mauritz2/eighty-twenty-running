@@ -6,37 +6,12 @@ import TrainingPlans from "./components/select-plan-screen/TrainingPlans"
 import ConfigureHeartRate from "./components/heart-rate-zone-screen/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
 
-// MUST HAVE
-// Layout design that works on mobile (e.g. drop-downs?)
-// Real data for a training plan
-// Deploy 
-// Review TODOs in code
-// Fix CSS on Plan Select
-// Add in Icons for all workouts
-
-// Speed Play
-// Hill Repetition
-// Recovery
-// Race
-// Long Run
-// Fast Finish
-// Long Interval
-// Short Interval
-// 
-
-// NICE TO HAVE
-// Add in a total minutes run completion % (?) Or week % completion?
-// App redirect on plan select - or some type of flash message "Plan selected"
-// Add in some highlight for what week you're currently on?
-// Add in some highlight for recovery weeks?
-// Add in "or cross-training" flag for workouts
-
 function App() {
   const [currentWeek, setCurrentWeek] = useState("");
   const [goal, setGoal] = useState("");
   const [selectedPlan, setSelectedPlan] = useState("");
   // TODO rename workoutInstrctions to planProgress (?)
-  const [workoutInstructions, setWorkoutInstructions] = useState([])
+  const [currentPlanWorkouts, setCurrentPlanWorkouts] = useState([])
   const [lactateThreshold, setLactateThreshold] = useState(0)
 
   const setWelcomeMsgState = async () => {
@@ -63,9 +38,6 @@ function App() {
     let newData = curData 
     newData["lactate_threshold"] = newLactateThreshold;
 
-    console.log("This is the metadata on lactate threshold");
-    console.log(newData);
-
     const updatedRes = await fetch(`/selected-plan-metadata`, {
       method:"PUT",
       headers: {
@@ -86,7 +58,7 @@ function App() {
     fetch("/current-plan")
     .then((response) => response.json())
     .then((workouts) => {
-      setWorkoutInstructions(workouts);
+      setCurrentPlanWorkouts(workouts);
     });
 
   getPlanMetaData().then((result) => {
@@ -113,7 +85,7 @@ function App() {
       })
       
     var data = await res.json();
-    setWorkoutInstructions(data);
+    setCurrentPlanWorkouts(data);
    }
 
   // TODO - refactor this so we don't have to call this as a func
@@ -125,9 +97,6 @@ const onPlanSelect = async (planID, goal) => {
     // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
     // TODO - create more joins on the backend? At the moment front-end does a lot of work to map phases to workouts for instance
     // Get all workouts that belong to the selected plan
-    console.log("We are in onPlanSelect and this is the planID");
-    console.log(planID);
-
     const res_1 = await fetch("/workouts/" + planID);
     var chosenWorkout = await res_1.json();
     
@@ -142,14 +111,11 @@ const onPlanSelect = async (planID, goal) => {
 
       // Refresh the state after updating the database to cause component refresh
       const data = await res.json()
-      setWorkoutInstructions(data)
+      setCurrentPlanWorkouts(data)
 
       // Get the user's current plan goal
       const metadata_res = await fetch("/selected-plan-metadata");
       const metadata = await metadata_res.json();
-
-      console.log("This is the metadata on plan select");
-      console.log(metadata);
 
       // Update the object with the user's newly selected goal
       metadata["goal"] = goal;
@@ -174,7 +140,7 @@ const onPlanSelect = async (planID, goal) => {
       <Navigation />
       <div className="below-nav-container">
         <Routes>
-          <Route path="/choose-plan" element={<TrainingPlans workoutInstructions={workoutInstructions} onPlanSelect={onPlanSelect} />}/>
+          <Route path="/choose-plan" element={<TrainingPlans currentPlanWorkouts={currentPlanWorkouts} onPlanSelect={onPlanSelect} />}/>
           <Route path="/configure-heart-rate" element={<ConfigureHeartRate lactateThreshold={lactateThreshold} onLactateThresholdSubmit={onLactateThresholdSubmit} />}/>
           <Route path="/" element={
             <>
@@ -183,7 +149,7 @@ const onPlanSelect = async (planID, goal) => {
                 currentWeek = {currentWeek}
                 goal = {goal} />
               <Weeks
-              workouts={workoutInstructions}
+              currentPlanWorkouts={currentPlanWorkouts}
               onToggle={toggleCompletion}
               defaultOpenWeek={true}
               />
