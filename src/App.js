@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import Navigation from "./components/Navigation"
 import StatusMsg from "./components/StatusMsg";
-import WorkoutCards from "./components/WorkoutCards"
+import Weeks from "./components/Weeks"
 import TrainingPlans from "./components/TrainingPlans"
 import ConfigureHeartRate from "./components/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
@@ -39,42 +39,6 @@ function App() {
   // TODO rename workoutInstrctions to planProgress (?)
   const [workoutInstructions, setWorkoutInstructions] = useState([])
   const [lactateThreshold, setLactateThreshold] = useState(0)
-
-  function divideIntoWeeks(wrkts){
-    // Partition workouts into weeks so each one can be in its own accordion
-    let all_weeks = {}
-    let one_week = []
-    
-    // This could be made redundant if the db split worksout by week
-    // E.g. by introducing week num as a column
-    for(let i=1; i<wrkts.length + 1; i++)
-    {   
-        one_week.push(wrkts[i - 1]);
-
-        if((i % 7) === 0){
-            let week_num = Math.floor(i / 7);
-            all_weeks[week_num] = one_week;
-            one_week = [];
-        }            
-    }
-
-    let components = []
-
-    for ( const [key, value] of Object.entries(all_weeks)){
-        console.log("These are the values!");
-        console.log(value);
-
-        components.push(
-        <Week
-            workouts={value}
-            weekNum={key}
-            currentWeek={"1"}
-            onToggle={toggleCompletion} />)            
-    }
-
-    return components;
-}
-
 
   const setWelcomeMsgState = async () => {
     const res = await fetch("/selected-plan-metadata");
@@ -151,8 +115,6 @@ function App() {
 
   // TODO - refactor this so we don't have to call this as a func
   setWelcomeMsgState();
-  let weekComponents = divideIntoWeeks(workoutInstructions);
-
 
 const onPlanSelect = async (plan_id, goal) => {
     // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
@@ -212,7 +174,12 @@ const onPlanSelect = async (plan_id, goal) => {
                 planName = {selectedPlan}
                 currentWeek = {currentWeek}
                 goal = {goal} />
-                {weekComponents}
+              <Weeks
+              workouts={workoutInstructions}
+              onToggle={toggleCompletion}
+              defaultOpenWeek={true}
+              />
+
             </>}/>
         </Routes>
         </div>

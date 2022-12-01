@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
-const Week = ({workouts, weekNum, currentWeek, onToggle}) => {
+const Week = ({workouts, weekNum, currentWeek, onToggle, defaultOpenWeek}) => {
 
     const [open, setOpen] = useState(false);
 
@@ -10,9 +10,14 @@ const Week = ({workouts, weekNum, currentWeek, onToggle}) => {
     }
 
     useEffect(() => {
-        if(weekNum === currentWeek){
-            // Default-open the accordion for the current week
-            setOpen(true);
+        if(defaultOpenWeek === true)
+        {
+            if(weekNum === currentWeek)
+            {
+                // Default-open the accordion for the current week
+                setOpen(true);
+            
+            }
         }
     }, []);
 

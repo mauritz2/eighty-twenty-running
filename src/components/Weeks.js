@@ -1,10 +1,9 @@
 import React from "react"
-import WorkoutCard from "./WorkoutCard"
 import Week from "./Week"
 
-const Workouts = ({workouts, onToggle}) => {
+const Weeks = ({workouts, onToggle, defaultOpenWeek}) => {
 
-
+    
     // TODO - factor to remove this Component. Move its logic to App.js.
     function divideIntoWeeks(wrkts){
         // Partition workouts into weeks so each one can be in its own accordion
@@ -27,15 +26,14 @@ const Workouts = ({workouts, onToggle}) => {
         let components = []
 
         for ( const [key, value] of Object.entries(all_weeks)){
-            console.log("These are the values!");
-            console.log(value);
 
             components.push(
             <Week
                 workouts={value}
                 weekNum={key}
                 currentWeek={"1"}
-                onToggle={onToggle} />)            
+                onToggle={onToggle}
+                defaultOpenWeek={defaultOpenWeek} />)            
         }
 
         return components;
@@ -60,4 +58,4 @@ const Workouts = ({workouts, onToggle}) => {
     )
 }
 
-export default Workouts
+export default Weeks

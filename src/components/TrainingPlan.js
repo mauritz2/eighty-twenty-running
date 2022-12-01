@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import Button from "./Button"
-import Workouts from "./WorkoutCards"
+import Workouts from "./Weeks"
 
 const Plan = ({trainingPlan, onPlanClick}) => {
     // TODO - rename Plan to TrainingPlan above
@@ -48,7 +48,8 @@ const Plan = ({trainingPlan, onPlanClick}) => {
                 <div className="plan-item full">
                     <Workouts
                         workouts={workoutDetails}
-                        onToggle={false}/>
+                        onToggle={false}
+                        defaultOpenWeek={false}/>
                 </div>
             : <></>}
             <div className="divider full"></div>
