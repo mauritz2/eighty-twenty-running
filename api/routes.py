@@ -8,28 +8,25 @@ app = create_app()
 
 @app.route("/current-plan", methods=["GET", "PUT"])
 def selected_workouts():
- 
+    # Get or update the workouts in the user's selected workout plan  
     if request.method == "PUT":
         json = request.get_json()
 
         CurrentPlan.query.delete()
-        
         workouts = []
-                
         for workout in json:
             title = workout["title"]
             if "complete" in workout:
                 complete = workout["complete"]
             else:
-                # Handle case when a new plan is selected - default all workouts to False
+                # Since the workout library doesn't contain data on workout complete true/false
+                # we handle that here by defaulting to False if that data doesn't exist
                 complete = False
             new_entry = CurrentPlan(title=title, complete=complete)
             workouts.append(new_entry)
         db.session.add_all(workouts)
         db.session.commit()        
         
-    # TODO - rename current-plan to selected-workouts
-    # TODO - remove "complete" from the workouts library since it defaults to false when selected as current plan anyways 
     selected_workouts = CurrentPlan.query.all()
     results = currentplan_schema.dump(selected_workouts)
 
@@ -37,7 +34,8 @@ def selected_workouts():
 
 @app.route("/workout-phases/<title>", methods=["GET"])
 def workout_phases(title):
-    # TODO - fix the URL format here (currently workout-phases/Foundation%201). Maybe each workout should have its own ID.
+    # Get the detailed instructions for each workout. This data is static and can't be changed by the user.
+    # TODO - fix the URL format here to avoid space (currently workout-phases/Foundation%201). Better if each workout has its own ID.
     phases = []
     selected_phase = WorkoutPhases.query.filter_by(title=title)
     results = workoutphases_schema.dump(selected_phase)
@@ -47,33 +45,32 @@ def workout_phases(title):
 
 @app.route("/training-plan-info", methods=["GET"])
 def training_plan_info():
-    # Current logic only fetches all training plans at once - no need to one URL per training plan info object atm
+    # Get high-level training plan data, e.g. description and prerequisites
     selected_training_plan = TrainingPlanInfo.query.all()
     result = trainingplaninfo_schema.dump(selected_training_plan)
     return result
 
 @app.route("/workouts", methods=["GET"])
 def workouts_all():
+    # Get all plans and their associated workouts
     selected_workouts = Workouts.query.all()
     result = workouts_schema.dump(selected_workouts)
     return result
 
 @app.route("/workouts/<plan_id>", methods=["GET"])
 def workouts(plan_id):
+    # Get a specific plan and its associated workouts
     selected_workout = Workouts.query.filter_by(plan_id=plan_id)
     result = workouts_schema.dump(selected_workout)
     return result
 
 @app.route("/selected-plan-metadata", methods=["GET", "PUT"])
 def selected_plan_metadata():
-
+    # Retrieve, or update, the selected plan's metadata
     if request.method == "PUT":
+        # Update metadata. Happens on either lactate threshold or plan selection.
         submitted_metadata = request.get_json()
         SelectedPlanMetadata.query.delete()
-
-        print("Submitted metadata \n\n\n")
-        print(submitted_metadata)
-        print("\n\n\n")
 
         plan_id = submitted_metadata["plan_id"]
         goal = submitted_metadata["goal"]
@@ -90,7 +87,6 @@ def selected_plan_metadata():
             plan_human=plan_human)
         db.session.add(new_entry)
         db.session.commit()
-
 
     selected_plan_metadata = SelectedPlanMetadata.query.first()
     result = selectedplanmetadata_schema.dump(selected_plan_metadata)
@@ -113,6 +109,5 @@ def selected_plan_metadata():
     
     return result
 
-
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run()
