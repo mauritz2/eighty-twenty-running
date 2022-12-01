@@ -93,7 +93,6 @@ function App() {
 
 const onPlanSelect = async (planID, goal) => {
     // Update the selected plan and associated metadata based on user selection
-    
     // Set the new plan as the selected plan
     const workoutRes = await fetch("/workouts/" + planID);
     var workoutData = await workoutRes.json();
