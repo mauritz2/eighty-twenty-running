@@ -9,25 +9,22 @@ import { BrowserRouter, Route, Routes } from "react-router-dom"
 function App() {
   const [currentWeek, setCurrentWeek] = useState("");
   const [goal, setGoal] = useState("");
-  const [selectedPlan, setSelectedPlan] = useState("");
-  // TODO rename workoutInstrctions to planProgress (?)
+  const [selectedPlanName, setSelectedPlanName] = useState("");
   const [currentPlanWorkouts, setCurrentPlanWorkouts] = useState([])
   const [lactateThreshold, setLactateThreshold] = useState(0)
 
-  const setWelcomeMsgState = async () => {
+  const setStatusMsg = async () => {
+    // Set the plan status information for the StatusMsg component
     const res = await fetch("/selected-plan-metadata");
     const data = await res.json();
-
-    setSelectedPlan(data["plan_human"]);
+    setSelectedPlanName(data["plan_human"]);
     setCurrentWeek(data["current_week_num"]);
     setGoal(data["goal"]);
-  } 
 
-  const getPlanMetaData = async () => {
-    const data = await fetch("/selected-plan-metadata");
-    const dataJSON = await data.json();
-    return dataJSON;
-  }
+    // Set the lactate threshold state for the ConfigureHeartRate component
+    setLactateThreshold(data["lactate_threshold"])
+
+  } 
 
   const onLactateThresholdSubmit = async (newLactateThreshold) => {
     
@@ -61,11 +58,7 @@ function App() {
       setCurrentPlanWorkouts(workouts);
     });
 
-  getPlanMetaData().then((result) => {
-      // TODO - is this redundant since we have onLactateThresholdSubmit
-      result = result["lactate_threshold"]
-      setLactateThreshold(result);
-    });
+    setStatusMsg();
   }, []);
 
   const toggleCompletion = async(id) => {
@@ -88,8 +81,6 @@ function App() {
     setCurrentPlanWorkouts(data);
    }
 
-  // TODO - refactor this so we don't have to call this as a func
-  setWelcomeMsgState();
 
 const onPlanSelect = async (planID, goal) => {
     // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
@@ -145,11 +136,11 @@ const onPlanSelect = async (planID, goal) => {
           <Route path="/" element={
             <>
               <StatusMsg
-                planName = {selectedPlan}
+                planName = {selectedPlanName}
                 currentWeek = {currentWeek}
                 goal = {goal} />
               <Weeks
-              currentPlanWorkouts={currentPlanWorkouts}
+              workouts={currentPlanWorkouts}
               onToggle={toggleCompletion}
               defaultOpenWeek={true}
               />

@@ -1,17 +1,17 @@
 import React from "react"
 import Week from "./Week"
 
-const Weeks = ({currentPlanWorkouts, onToggle, defaultOpenWeek}) => {
-
+const Weeks = ({workouts, onToggle, defaultOpenWeek}) => {
+    // This component owns splitting workout data into weeks.
+    // This can't be done at the App.js level because the worksout by week is also needed
+    // when browsing available plans before selecting them. A better solution would be to group
+    // workouts by week on the backend. To consider for the future. 
     
-    // TODO - factor to remove this Component. Move its logic to App.js.
     function divideIntoWeeks(wrkts){
-        // Partition workouts into weeks so each one can be in its own accordion
-        let all_weeks = {}
-        let one_week = []
+        // Partition workouts into groups by seven so each one can be placed in its own accordion
+        let all_weeks = {};
+        let one_week = [];
         
-        // This could be made redundant if the db split worksout by week
-        // E.g. by introducing week num as a column
         for(let i=1; i<wrkts.length + 1; i++)
         {   
             one_week.push(wrkts[i - 1]);
@@ -23,39 +23,28 @@ const Weeks = ({currentPlanWorkouts, onToggle, defaultOpenWeek}) => {
             }            
         }
 
-        let components = []
+        let week_components = [];
 
-        for ( const [weekNum, workouts] of Object.entries(all_weeks)){
-
-            components.push(
+        for (const [weekNum, week_of_workouts] of Object.entries(all_weeks)){
+            week_components.push(
             <Week
-                workouts={workouts}
+                workouts={week_of_workouts}
                 weekNum={weekNum}
                 currentWeek={"1"}
                 onToggle={onToggle}
-                defaultOpenWeek={defaultOpenWeek} />)            
+                defaultOpenWeek={defaultOpenWeek} />);            
         }
 
-        return components;
+        return week_components;
     }
 
-    let weekComponents = divideIntoWeeks(currentPlanWorkouts);
-
-    /*
-    {workouts.map((workout) => ( 
-        <WorkoutCard
-            weekNum={workout.id}
-            workout={workout}
-            onToggle={onToggle}/>
-        )
-        )
-    */
+    let weekComponents = divideIntoWeeks(workouts);
 
     return(
-            <div>
-                {weekComponents}
-            </div>
-    )
+        <div>
+            {weekComponents}
+        </div>
+    );
 }
 
-export default Weeks
+export default Weeks;
