@@ -11,17 +11,17 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
     // TODO - refactor - should both buttons in this form be components maybe?
     return (
         <div className="overlay-form-container">
-            <h2>Detail your plan</h2>
+            <h2>Start New Plan</h2>
             <h4>{formTitle}</h4>
-            <form className="add-form" onSubmit={onSubmit}>
+            <form onSubmit={onSubmit}>
                 <div className="form-control">
-                    <label>Goal time</label>
-                    <input type="text" placeholder="Add goal (hh:mm:ss)" value={goal} onChange={(e) => setGoal(e.target.value)}/>
+                    <label>Goal time (optional): </label>
+                    <input className="inline" type="text" placeholder="(h:mm:ss)" value={goal} onChange={(e) => setGoal(e.target.value)}/>
                 </div>
-                <p><small>Warning: starting a new plan will overwrite your current plan</small></p>
                 <input type="submit" value="Start Plan" className="btn"/>
-                <Button color="#fff" text="Cancel" onClick={onCancel}/>
+                <Button buttonColor="#fff" text="Cancel" onClick={onCancel}/>
             </form>
+            <p className="small">Starting a new plan will overwrite your current plan</p>
         </div>
     )
 }

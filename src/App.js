@@ -40,6 +40,42 @@ function App() {
   const [workoutInstructions, setWorkoutInstructions] = useState([])
   const [lactateThreshold, setLactateThreshold] = useState(0)
 
+  function divideIntoWeeks(wrkts){
+    // Partition workouts into weeks so each one can be in its own accordion
+    let all_weeks = {}
+    let one_week = []
+    
+    // This could be made redundant if the db split worksout by week
+    // E.g. by introducing week num as a column
+    for(let i=1; i<wrkts.length + 1; i++)
+    {   
+        one_week.push(wrkts[i - 1]);
+
+        if((i % 7) === 0){
+            let week_num = Math.floor(i / 7);
+            all_weeks[week_num] = one_week;
+            one_week = [];
+        }            
+    }
+
+    let components = []
+
+    for ( const [key, value] of Object.entries(all_weeks)){
+        console.log("These are the values!");
+        console.log(value);
+
+        components.push(
+        <Week
+            workouts={value}
+            weekNum={key}
+            currentWeek={"1"}
+            onToggle={toggleCompletion} />)            
+    }
+
+    return components;
+}
+
+
   const setWelcomeMsgState = async () => {
     const res = await fetch("/selected-plan-metadata");
     const data = await res.json();
@@ -115,6 +151,8 @@ function App() {
 
   // TODO - refactor this so we don't have to call this as a func
   setWelcomeMsgState();
+  let weekComponents = divideIntoWeeks(workoutInstructions);
+
 
 const onPlanSelect = async (plan_id, goal) => {
     // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
@@ -148,6 +186,7 @@ const onPlanSelect = async (plan_id, goal) => {
       // Add updates here for distance, weeks elapsed etc.
 
       // Update the plan metadata with the newly selected goal
+      // TODO - goal_put_res needed?
       const goal_put_res = await fetch("/selected-plan-metadata", {
         method:"PUT",
         headers: {
@@ -173,9 +212,7 @@ const onPlanSelect = async (plan_id, goal) => {
                 planName = {selectedPlan}
                 currentWeek = {currentWeek}
                 goal = {goal} />
-              <WorkoutCards
-                workouts={workoutInstructions}
-                onToggle={toggleCompletion}/>
+                {weekComponents}
             </>}/>
         </Routes>
         </div>

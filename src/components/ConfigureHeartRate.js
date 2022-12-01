@@ -50,15 +50,15 @@ const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
             <h3>Calculate your heart rate zones based on your lactate threshold</h3>
             <form onSubmit={onSubmit}>
                 <div className="form-control"> 
-                    <label><span className="heart-rate-zone-large zone1">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>
-                    <label><span className="heart-rate-zone-large zone2">2</span> Moderate Aerobic: <strong>{zones["zone2Min"]}-{zones["zone2Max"]}</strong></label>
-                    <label><span className="heart-rate-zone-large zone3">3</span> Threshold: <strong>{zones["zone3Min"]}-{zones["zone3Max"]}</strong></label>
-                    <label><span className="heart-rate-zone-large zone4">4</span> Vo2 Max: <strong>{zones["zone4Min"]}-{zones["zone4Max"]}</strong></label>
-                    <label><span className="heart-rate-zone-large zone5">5</span> Speed: <strong>{zones["zone5Min"]}+</strong></label>
-                    <label>Saved lactate threshold: <strong>{lactateThreshold}</strong></label>
+                    <label className="block"><span className="heart-rate-zone-large zone1">1</span> Low Aerobic: <strong>{zones["zone1Min"]}-{zones["zone1Max"]}</strong></label>
+                    <label className="block"><span className="heart-rate-zone-large zone2">2</span> Moderate Aerobic: <strong>{zones["zone2Min"]}-{zones["zone2Max"]}</strong></label>
+                    <label className="block"><span className="heart-rate-zone-large zone3">3</span> Threshold: <strong>{zones["zone3Min"]}-{zones["zone3Max"]}</strong></label>
+                    <label className="block"><span className="heart-rate-zone-large zone4">4</span> Vo2 Max: <strong>{zones["zone4Min"]}-{zones["zone4Max"]}</strong></label>
+                    <label className="block"><span className="heart-rate-zone-large zone5">5</span> Speed: <strong>{zones["zone5Min"]}+</strong></label>
+                    <label className="block">Saved lactate threshold: <strong>{lactateThreshold}</strong></label>
                     <span>New lactate threshold: </span>
                     <input className="inline" type="text" onChange={(e) => setNewLactateThreshold(parseInt(e.target.value))} /> 
-                    <input type="submit" className="btn" value="Update" />
+                    <input type="submit" className="btn block" value="Update" />
                 </div>
             </form>
         </div>
