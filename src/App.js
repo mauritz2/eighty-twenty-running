@@ -42,7 +42,8 @@ function App() {
   const setWelcomeMsgState = async () => {
     const res = await fetch("/selected-plan-metadata");
     const data = await res.json();
-    setSelectedPlan(data["plan_id"]);
+
+    setSelectedPlan(data["plan_human"]);
     setCurrentWeek(data["current_week_num"]);
     setGoal(data["goal"]);
   } 
@@ -61,7 +62,10 @@ function App() {
 
     let newData = curData 
     newData["lactate_threshold"] = newLactateThreshold;
-    
+
+    console.log("This is the metadata on lactate threshold");
+    console.log(newData);
+
     const updatedRes = await fetch(`/selected-plan-metadata`, {
       method:"PUT",
       headers: {
@@ -115,13 +119,16 @@ function App() {
   // TODO - refactor this so we don't have to call this as a func
   setWelcomeMsgState();
 
-const onPlanSelect = async (plan_id, goal) => {
+const onPlanSelect = async (planID, goal) => {
     // TODO - planName is sometimes a planID and sometimes a planName. Make consistent.
     // TODO - clean up this function, e.g. var names
     // TODO - reintroduce + planName here - removing 5k-level-1 hard coding)
     // TODO - create more joins on the backend? At the moment front-end does a lot of work to map phases to workouts for instance
     // Get all workouts that belong to the selected plan
-    const res_1 = await fetch("/workouts/" + plan_id);
+    console.log("We are in onPlanSelect and this is the planID");
+    console.log(planID);
+
+    const res_1 = await fetch("/workouts/" + planID);
     var chosenWorkout = await res_1.json();
     
     // Set the selected plan to the current plan
@@ -131,7 +138,7 @@ const onPlanSelect = async (plan_id, goal) => {
             "Content-type": "application/json"
         },
         body: JSON.stringify(chosenWorkout)
-      })
+      });
 
       // Refresh the state after updating the database to cause component refresh
       const data = await res.json()
@@ -141,13 +148,17 @@ const onPlanSelect = async (plan_id, goal) => {
       const metadata_res = await fetch("/selected-plan-metadata");
       const metadata = await metadata_res.json();
 
+      console.log("This is the metadata on plan select");
+      console.log(metadata);
+
       // Update the object with the user's newly selected goal
       metadata["goal"] = goal;
-      metadata["plan_id"] = plan_id;
+      metadata["plan_id"] = planID;
       // Add updates here for distance, weeks elapsed etc.
 
       // Update the plan metadata with the newly selected goal
       // TODO - goal_put_res needed?
+
       const goal_put_res = await fetch("/selected-plan-metadata", {
         method:"PUT",
         headers: {
@@ -155,8 +166,6 @@ const onPlanSelect = async (plan_id, goal) => {
         },
         body: JSON.stringify(metadata)
         })
-
-
     }
 
   return (

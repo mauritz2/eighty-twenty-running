@@ -15,9 +15,7 @@ def selected_workouts():
         CurrentPlan.query.delete()
         
         workouts = []
-        
-
-        
+                
         for workout in json:
             title = workout["title"]
             if "complete" in workout:
@@ -60,9 +58,9 @@ def workouts_all():
     result = workouts_schema.dump(selected_workouts)
     return result
 
-@app.route("/workouts/<plan>", methods=["GET"])
-def workouts(plan):
-    selected_workout = Workouts.query.filter_by(plan=plan)
+@app.route("/workouts/<plan_id>", methods=["GET"])
+def workouts(plan_id):
+    selected_workout = Workouts.query.filter_by(plan_id=plan_id)
     result = workouts_schema.dump(selected_workout)
     return result
 
@@ -73,22 +71,26 @@ def selected_plan_metadata():
         submitted_metadata = request.get_json()
         SelectedPlanMetadata.query.delete()
 
+        print("Submitted metadata \n\n\n")
+        print(submitted_metadata)
+        print("\n\n\n")
+
         plan_id = submitted_metadata["plan_id"]
         goal = submitted_metadata["goal"]
         lactate_threshold = submitted_metadata["lactate_threshold"]
         
-        # Get the human-readable plan name
-        # TODO -rename plan_id in the SelectedPlanMetadata to be plan_id
-        # or add in plan_name as well
-        plan_details = TrainingPlanInfo.query.filter_by(plan=plan_id)
+        plan_details = TrainingPlanInfo.query.filter_by(plan_id=plan_id)
         plan_details = trainingplaninfo_schema.dump(plan_details)
-        plan_id = plan_details[0]["plan_human"]
+
+        plan_human = plan_details[0]["plan_human"]
 
         new_entry = SelectedPlanMetadata(plan_id=plan_id,
             goal=goal,
-            lactate_threshold=lactate_threshold)
+            lactate_threshold=lactate_threshold,
+            plan_human=plan_human)
         db.session.add(new_entry)
         db.session.commit()
+
 
     selected_plan_metadata = SelectedPlanMetadata.query.first()
     result = selectedplanmetadata_schema.dump(selected_plan_metadata)

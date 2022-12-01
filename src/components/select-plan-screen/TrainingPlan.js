@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import Button from "../general/Button"
 import Workouts from "../current-plan-screen/Weeks"
 
-const Plan = ({trainingPlan, onPlanClick}) => {
+const TrainingPlan = ({trainingPlan, onPlanClick}) => {
     // TODO - rename Plan to TrainingPlan above
     // TODO - add in plan amount of weeks 
     // TODO - rename trainingPlan to consistent naming
@@ -15,7 +15,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     }
 
     useEffect(() => {
-        fetch("/workouts/" + trainingPlan.plan) // TODO - bring this back: + trainingPlan.id)
+        fetch("/workouts/" + trainingPlan.plan_id) // TODO - bring this back: + trainingPlan.id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
@@ -30,7 +30,7 @@ const Plan = ({trainingPlan, onPlanClick}) => {
                         text="Select Plan"
                         buttonColor="#000"
                         onClick={onPlanClick}
-                        trainingPlanId={trainingPlan.plan}
+                        trainingPlanId={trainingPlan.plan_id}
                         textColor="#fff"/>
                 </div>
                 <div>
@@ -58,4 +58,4 @@ const Plan = ({trainingPlan, onPlanClick}) => {
     )
 }
 
-export default Plan;
+export default TrainingPlan;

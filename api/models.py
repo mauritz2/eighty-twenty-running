@@ -38,13 +38,13 @@ class WorkoutPhasesSchema(ma.Schema):
 # Training Plan Info
 class TrainingPlanInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    plan = db.Column(db.Text, nullable=False)
+    plan_id = db.Column(db.Text, nullable=False)
     plan_human = db.Column(db.Text, nullable=False)
     description = db.Column(db.Text, nullable=False)
     prerequisites = db.Column(db.Text, nullable=False)
 
-    def __init__(self, plan, plan_human, description, prerequisites):
-        self.plan = plan
+    def __init__(self, plan_id, plan_human, description, prerequisites):
+        self.plan_id = plan_id
         self.plan_human = plan_human
         self.description = description
         self.prerequisites = prerequisites
@@ -54,21 +54,21 @@ class TrainingPlanInfo(db.Model):
 
 class TrainingPlanInfoSchema(ma.Schema):
     class Meta:
-        fields = ("id", "plan", "plan_human", "description", "prerequisites")
+        fields = ("id", "plan_id", "plan_human", "description", "prerequisites")
 
 # Workouts
 class Workouts(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    plan = db.Column(db.Text, nullable=False)
+    plan_id = db.Column(db.Text, nullable=False)
     title = db.Column(db.Text, nullable=False)
 
-    def __init__(self, plan, title):
-        self.plan = plan
+    def __init__(self, plan_id, title):
+        self.plan_id = plan_id
         self.title = title
 
 class WorkoutsSchema(ma.Schema):
     class Meta:
-        fields = ("id", "plan", "title")
+        fields = ("id", "plan_id", "title")
 
 # Selected Plan Metadata
 class SelectedPlanMetadata(db.Model):
@@ -78,15 +78,17 @@ class SelectedPlanMetadata(db.Model):
     goal = db.Column(db.Text, nullable=True)
     lactate_threshold = db.Column(db.Integer, default=0) 
     created = db.Column(db.DateTime(), default=datetime.utcnow)
+    plan_human = db.Column(db.Text, nullable=False)
 
-    def __init__(self, plan_id, goal, lactate_threshold):
+    def __init__(self, plan_id, goal, lactate_threshold, plan_human):
         self.plan_id = plan_id
         self.goal = goal
         self.lactate_threshold = lactate_threshold
+        self.plan_human = plan_human
 
 class SelectedPlanMetadataSchema(ma.Schema):
     class Meta:
-        fields = ("id", "plan_id", "created", "goal", "lactate_threshold")
+        fields = ("id", "plan_id", "created", "goal", "lactate_threshold", "plan_human")
 
 # Schema instantiation - used for serialization
 currentplan_schema = CurrentPlanSchema(many=True)
