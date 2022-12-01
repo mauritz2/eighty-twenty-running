@@ -2,25 +2,20 @@ import React, { useState, useEffect } from "react"
 import WorkoutCard from "./WorkoutCard"
 
 const Week = ({workouts, weekNum, currentWeek, onToggle, defaultOpenWeek}) => {
-
+    // Component for showing an accordion with seven days of workouts from the user's selected plan
     const [open, setOpen] = useState(false);
 
-    function toggleVisibility() {
+    function toggleVisibility(){
+        // Open or close the accordion
         setOpen(!open);
     }
 
     useEffect(() => {
-        if(defaultOpenWeek === true)
-        {
-            if(weekNum === currentWeek)
-            {
-                // Default-open the accordion for the current week
-                setOpen(true);
-            
-            }
+        if((defaultOpenWeek === true) && (weekNum === currentWeek)){
+            // Default-open the accordion to see the workouts for the current week without any clicks
+            setOpen(true);
         }
     }, []);
-
 
     return(
         <>

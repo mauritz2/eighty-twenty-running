@@ -1,7 +1,7 @@
 import React from "react"
 
 const StatusMsg = ({planName, currentWeek, goal}) => {
-    //             
+    // Component for showing overall plan status information on the top of the main page            
     return(
         <div id="plan-status">
             <div className="msg-header">Plan</div>
@@ -14,4 +14,4 @@ const StatusMsg = ({planName, currentWeek, goal}) => {
     )
 }
 
-export default StatusMsg
+export default StatusMsg;
