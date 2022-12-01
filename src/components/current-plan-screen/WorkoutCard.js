@@ -1,18 +1,19 @@
 import React, { useEffect } from "react"
-import foundation from "../../static/foundation-2.png"
-import hillRepetition from "../../static/hill-repetition-2.png"
-import speedPlay from "../../static/speed-play-2.png"
-import race from "../../static/race-2.png"
+import { useState } from "react";
+
+// Workout icon imports
+import foundation from "../../static/foundation.png"
+import hillRepetition from "../../static/hill-repetition.png"
+import speedPlay from "../../static/speed-play.png"
+import race from "../../static/race.png"
 import rest from "../../static/rest.png"
-import longRun from "../../static/long-run-3.png"
+import longRun from "../../static/long-run.png"
 import recovery from "../../static/recovery.png"
 import fastFinish from "../../static/fast-finish.png"
 import shortInterval from "../../static/short-interval.png"
 import longInterval from "../../static/long-interval.png"
-import { useState } from "react";
 
-const Workout = ({workout, onToggle}) => {
-
+const WorkoutCard = ({workout, onToggle}) => {
     const [instructions, setInstructions] = useState([]);
     const [icon, setIcon] = useState("");
 
@@ -109,4 +110,4 @@ const Workout = ({workout, onToggle}) => {
     )
 }
 
-export default Workout
+export default WorkoutCard
