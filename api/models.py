@@ -1,4 +1,4 @@
-from api import db, ma
+from app_setup import db, ma
 from datetime import datetime
 
 # Current Plan

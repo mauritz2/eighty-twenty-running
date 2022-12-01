@@ -1,4 +1,4 @@
-from api import create_app, db
+from app_setup import create_app, db
 from models import CurrentPlan, WorkoutPhases, TrainingPlanInfo, Workouts, SelectedPlanMetadata
 from models import currentplan_schema, workoutphases_schema, trainingplaninfo_schema, workouts_schema, selectedplanmetadata_schema
 from flask import request, jsonify

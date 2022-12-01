@@ -76,9 +76,11 @@ def update_all():
     update_workouts(workouts)
 
 if __name__ == "__main__":
-    # How to run individual data updates
+    # How to use:
     # In console, navigate to folder containing this script
     # >> python
     # >> from populate_db import *
+    # >> update_all()
+    # Or, if updating a specific db table
     # >> the_func_to_call(the_data_to_call_func_with)
     app.run(debug=True)

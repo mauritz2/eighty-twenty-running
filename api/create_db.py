@@ -1,4 +1,4 @@
-from api import create_app
+from app_setup import create_app
 from models import db
 
 app = create_app()
