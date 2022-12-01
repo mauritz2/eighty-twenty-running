@@ -3,23 +3,23 @@ import Button from "../general/Button"
 import Workouts from "../current-plan-screen/Weeks"
 
 const TrainingPlan = ({trainingPlan, onPlanClick}) => {
-    // TODO - rename Plan to TrainingPlan above
-    // TODO - add in plan amount of weeks 
-    // TODO - rename trainingPlan to consistent naming
+    // Owns what to show for a specific training plan when the user browses new plans to potentially select
     const [show, setShow] = useState(false);
     const [workoutDetails, setWorkoutDetails] = useState([]);
 
     const onViewClick = (id) => {
+        // Show the detailed workouts related to the training plan
         // id intentionally not used - it's used for other button funcs
         setShow(!show);
     }
 
     useEffect(() => {
-        fetch("/workouts/" + trainingPlan.plan_id) // TODO - bring this back: + trainingPlan.id)
+        // Get the workouts related to the training plan so user can see plan before choosing
+        fetch("/workouts/" + trainingPlan.plan_id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);
-        })
+        });
     }, []);
 
     return(
@@ -55,7 +55,7 @@ const TrainingPlan = ({trainingPlan, onPlanClick}) => {
             <div className="divider full"></div>
 
         </>
-    )
+    );
 }
 
 export default TrainingPlan;

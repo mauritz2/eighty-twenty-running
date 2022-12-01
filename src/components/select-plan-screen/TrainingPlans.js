@@ -2,62 +2,59 @@ import React, { useEffect, useState } from "react"
 import TrainingPlan from "./TrainingPlan"
 import NewPlanForm from "./NewPlanForm"
 
-const Plans = ({onPlanSelect}) => {
+const TrainingPlans = ({onPlanSelect}) => {
+    // Component owns the display of selectable training plans, and to manage selection of a new plan
     const [trainingPlans, setTrainingPlans] = useState([]);
     const [showForm, setShowForm] = useState(false);
-    const [formTitle, setFormTitle] = useState("");
+    const [selectedPlan, setFormTitle] = useState("");
 
     const onPlanClick = (planName) => {
+        // Show the plan confirmation form
         setShowForm(true);
-
-        // Find the human readable name of the training plan to display as the form title        
         trainingPlans.forEach((trainingPlan) => {
-            if(trainingPlan.plan_id == planName)
-            {
+            // Find the human readable name of the training plan to display as the form title        
+            if(trainingPlan.plan_id == planName){
                 setFormTitle(trainingPlan.plan_human);
             }
-        })
-
+        });
       }
 
     const onCancel = () => {
+        // Close the plan confirmation pop-up on cancel
         setShowForm(false);
     }
 
-    const closeWindowAndSelectPlan = (formTitle, goal) => {
+    const selectPlan = (selectedPlan, goal) => {
         onCancel();
-
-        // TODO - This mapping here andin onPlanClick is clunky. Refactor.
         trainingPlans.forEach((trainingPlan) => {
-
-            if(trainingPlan.plan_human == formTitle)
-            {
-                // This can only work because the plan_name is unique
+            // Find the ID of the plan that was selected - needed for backend to update
+            if(trainingPlan.plan_human == selectedPlan){
                 onPlanSelect(trainingPlan.plan_id, goal);
             }
-        })        
+        });        
     }
 
-    var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
+    useEffect(() => {
+        // Get high-level training plan info (e.g. plan description, prerequisites)
+        fetch("/training-plan-info")
+        .then((response) => response.json())
+        .then((data) => {
+            setTrainingPlans(data);
+            });
+    }, []);
 
+    var trainingPlanDivs = trainingPlans.map(function(trainingPlan){
+        // Create a TrainingPlan component for each plan
         return <TrainingPlan
             key={trainingPlan.id}
             trainingPlan={trainingPlan}
             onPlanClick={onPlanClick}/>
       });
 
-    useEffect(() => {
-        fetch("/training-plan-info")
-        .then((response) => response.json())
-        .then((data) => {
-            setTrainingPlans(data);
-            })
-    }, []);
-
     return(
         <>
         <div id="plan-selector">
-            { showForm && <NewPlanForm onCancel={onCancel} formTitle={formTitle} onPlanSelect={closeWindowAndSelectPlan} /> }
+            { showForm && <NewPlanForm onCancel={onCancel} selectedPlan={selectedPlan} onPlanSelect={selectPlan} /> }
             <div></div>
             <div className="table-heading">Plan</div>
             <div className="table-heading">Description</div>
@@ -65,7 +62,7 @@ const Plans = ({onPlanSelect}) => {
             {trainingPlanDivs}
         </div>
         </>
-    )
+    );
 }
 
-export default Plans
+export default TrainingPlans;
