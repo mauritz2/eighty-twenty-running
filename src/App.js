@@ -1,11 +1,10 @@
 import { useState, useEffect } from "react"
-import Navigation from "./components/Navigation"
-import StatusMsg from "./components/StatusMsg";
-import Weeks from "./components/Weeks"
-import TrainingPlans from "./components/TrainingPlans"
-import ConfigureHeartRate from "./components/ConfigureHeartRate";
+import Navigation from "./components/general/Navigation"
+import StatusMsg from "./components/current-plan-screen/StatusMsg";
+import Weeks from "./components/current-plan-screen/Weeks"
+import TrainingPlans from "./components/select-plan-screen/TrainingPlans"
+import ConfigureHeartRate from "./components/heart-rate-zone-screen/ConfigureHeartRate";
 import { BrowserRouter, Route, Routes } from "react-router-dom"
-import Week from "./components/Week"
 
 // MUST HAVE
 // Layout design that works on mobile (e.g. drop-downs?)

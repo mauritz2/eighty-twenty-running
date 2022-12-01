@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
-import Button from "./Button"
-import Workouts from "./Weeks"
+import Button from "../general/Button"
+import Workouts from "../current-plan-screen/Weeks"
 
 const Plan = ({trainingPlan, onPlanClick}) => {
     // TODO - rename Plan to TrainingPlan above

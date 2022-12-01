@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import Button from "./Button"
+import Button from "../general/Button"
 
 const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
     const [goal, setGoal] = useState("");
