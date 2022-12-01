@@ -2,13 +2,15 @@ import React, { useState } from "react"
 import Button from "../general/Button"
 
 const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
+    // Component owns the form to (optionally) select a plan goal, and confirming plan selection
     const [goal, setGoal] = useState("");
 
     const onSubmit = (e) => {
+        // Write the selected plan and goal to backend on user confirmation
         e.preventDefault();
         onPlanSelect(formTitle, goal);
     }
-    // TODO - refactor - should both buttons in this form be components maybe?
+
     return (
         <div className="overlay-form-container">
             <h2>Start New Plan</h2>
@@ -23,7 +25,7 @@ const NewPlanForm = ({onCancel, formTitle, onPlanSelect}) => {
             </form>
             <p className="small">Starting a new plan will overwrite your current plan</p>
         </div>
-    )
+    );
 }
 
 export default NewPlanForm;

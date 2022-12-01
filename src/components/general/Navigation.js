@@ -3,7 +3,7 @@ import {Link} from "react-router-dom"
 import { useLocation } from "react-router-dom"
 
 const Navigation = () => {
-
+    // Top navigation bar to navigate between pages 
     const location = useLocation();
 
     return (
@@ -24,7 +24,7 @@ const Navigation = () => {
         </div>
         <div className="divider"></div>
     </div>
-    )
+    );
 }
 
-export default Navigation 
+export default Navigation;

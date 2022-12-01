@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 
 const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
+    // Component owns taking input on new lactate threshold, writing to DB, and calculating and displaying heart rate zones
     const [newLactateThreshold, setNewLactateThreshold] = useState(0);
     const [zones, setZones] = useState({});
 
     const setZonesFunc = (lt) => {
+        // Calculate the bounds of the heart rate zones and update in state
         let zone1Min = Math.round(lt * 0.75);
         let zone1Max = Math.round(lt * 0.80);
         let zone2Min = Math.round(lt * 0.81);
@@ -31,16 +33,19 @@ const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
     }
 
     const onSubmit = (e) => {
+        // Write the new lactate threshold to the DB and update the heart rate zones
         e.preventDefault();
         onLactateThresholdSubmit(newLactateThreshold);
-        // TODO - refactor? We don't wait for the DB update of lactate threshold to update the zones
-        // might be confusing if the DB transaction fails and on refresh the zones change back. 
-        // But with this there's no delay.
+        // We don't wait for the DB update of lactate threshold to update the zones here
+        // The result is that the zones on the page update instantly, and then the "Current lactate threshold"
+        // updates about 1 sec after when the DB has updated. Fine with me. 
+        // Could be confusing if the DB transaction fails and on refresh the zones change back. 
         setZonesFunc(newLactateThreshold);
     }
 
 
     useEffect( () => {
+        // Update the heart rate zones based on the current lactate threshold
         setZonesFunc(lactateThreshold);
     }, []);
     
@@ -63,7 +68,7 @@ const ConfigureHeartRate = ({lactateThreshold, onLactateThresholdSubmit}) => {
             </form>
         </div>
         </>
-    )
+    );
 }
 
-export default ConfigureHeartRate 
+export default ConfigureHeartRate;
