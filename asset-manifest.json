@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/eighty-twenty-running/static/css/main.19302740.css",
+    "main.js": "/eighty-twenty-running/static/js/main.167824f0.js",
+    "index.html": "/eighty-twenty-running/index.html",
+    "main.19302740.css.map": "/eighty-twenty-running/static/css/main.19302740.css.map",
+    "main.167824f0.js.map": "/eighty-twenty-running/static/js/main.167824f0.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.19302740.css",
+    "static/js/main.167824f0.js"
+  ]
+}
