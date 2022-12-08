@@ -26,7 +26,6 @@ const TrainingPlans = ({onPlanSelect}) => {
 
     const selectPlan = (selectedPlan, goal) => {
         onCancel();
-        console.log("Plan has been selected: " + selectedPlan);
         trainingPlans.forEach((trainingPlan) => {
             // Find the ID of the plan that was selected - needed for backend to update
             if(trainingPlan.plan_human == selectedPlan){
@@ -37,7 +36,7 @@ const TrainingPlans = ({onPlanSelect}) => {
 
     useEffect(() => {
         // Get high-level training plan info (e.g. plan description, prerequisites)
-        fetch("/training-plan-info")
+        fetch("/api/training-plan-info")
         .then((response) => response.json())
         .then((data) => {
             setTrainingPlans(data);

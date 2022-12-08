@@ -6,7 +6,7 @@ from datetime import datetime
 
 app = create_app()
 
-@app.route("/current-plan", methods=["GET", "PUT"])
+@app.route("/api/current-plan", methods=["GET", "PUT"])
 def selected_workouts():
     # Get or update the workouts in the user's selected workout plan  
     if request.method == "PUT":
@@ -32,7 +32,7 @@ def selected_workouts():
 
     return jsonify(results)
 
-@app.route("/workout-phases/<title>", methods=["GET"])
+@app.route("/api/workout-phases/<title>", methods=["GET"])
 def workout_phases(title):
     # Get the detailed instructions for each workout. This data is static and can't be changed by the user.
     # TODO - fix the URL format here to avoid space (currently workout-phases/Foundation%201). Better if each workout has its own ID.
@@ -43,28 +43,28 @@ def workout_phases(title):
         phases.append(entry["phase"])
     return phases
 
-@app.route("/training-plan-info", methods=["GET"])
+@app.route("/api/training-plan-info", methods=["GET"])
 def training_plan_info():
     # Get high-level training plan data, e.g. description and prerequisites
     selected_training_plan = TrainingPlanInfo.query.all()
     result = trainingplaninfo_schema.dump(selected_training_plan)
     return result
 
-@app.route("/workouts", methods=["GET"])
+@app.route("/api/workouts", methods=["GET"])
 def workouts_all():
     # Get all plans and their associated workouts
     selected_workouts = Workouts.query.all()
     result = workouts_schema.dump(selected_workouts)
     return result
 
-@app.route("/workouts/<plan_id>", methods=["GET"])
+@app.route("/api/workouts/<plan_id>", methods=["GET"])
 def workouts(plan_id):
     # Get a specific plan and its associated workouts
     selected_workout = Workouts.query.filter_by(plan_id=plan_id)
     result = workouts_schema.dump(selected_workout)
     return result
 
-@app.route("/selected-plan-metadata", methods=["GET", "PUT"])
+@app.route("/api/selected-plan-metadata", methods=["GET", "PUT"])
 def selected_plan_metadata():
     # Retrieve, or update, the selected plan's metadata
     if request.method == "PUT":

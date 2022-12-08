@@ -17,7 +17,7 @@ function App() {
 
   const setSelectedPlanMetadataState = async () => {
     // Set the plan status information for the StatusMsg component
-    fetch("/selected-plan-metadata")
+    fetch("/api/selected-plan-metadata")
     .then((response) => response.json())
     .then((metadata) => {
       setSelectedPlanName(metadata["plan_human"]);
@@ -30,7 +30,7 @@ function App() {
 
   const setSelectedPlanWorkoutsState = async () => {
     // Set the workouts part of the currently selected plan
-    fetch("/current-plan")
+    fetch("/api/current-plan")
     .then((response) => response.json())
     .then((workoutData) => {
       setSelectedPlanWorkouts(workoutData);
@@ -46,13 +46,13 @@ function App() {
 
   const onLactateThresholdSubmit = async (newLactateThreshold) => {
     // Update the lactate threshold in the backend and update the state    
-    const curRes = await fetch(`/selected-plan-metadata`);
+    const curRes = await fetch(`/api/selected-plan-metadata`);
     const curData = await curRes.json();
 
     let newData = curData;
     newData["lactate_threshold"] = newLactateThreshold;
 
-    const updatedRes = await fetch(`/selected-plan-metadata`, {
+    const updatedRes = await fetch(`/api/selected-plan-metadata`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
@@ -67,7 +67,7 @@ function App() {
 
   const toggleWorkoutCompletion = async(workout_id) => {
     // Toggle a workout as complete on the backend after user marks it as complete    
-    const curRes = await fetch(`/current-plan`);
+    const curRes = await fetch(`/api/current-plan`);
     const curData = await curRes.json();
 
     for (const [index, workout] of Object.entries(curData))
@@ -79,7 +79,7 @@ function App() {
       }
     }
 
-    const res = await fetch(`/current-plan`, {
+    const res = await fetch(`/api/current-plan`, {
       method:"PUT",
       headers: {
         "Content-type": "application/json"
@@ -94,10 +94,10 @@ function App() {
 const onPlanSelect = async (planID, goal) => {
     // Update the selected plan and associated metadata based on user selection
     // Set the new plan as the selected plan
-    const workoutRes = await fetch("/workouts/" + planID);
+    const workoutRes = await fetch("/api/workouts/" + planID);
     var workoutData = await workoutRes.json();
 
-    const res = await fetch(`/current-plan`, {
+    const res = await fetch(`/api/current-plan`, {
         method:"PUT",
         headers: {
             "Content-type": "application/json"
@@ -109,12 +109,12 @@ const onPlanSelect = async (planID, goal) => {
       setSelectedPlanWorkouts(data);
 
       // Update the plan metadata 
-      const metadata_res = await fetch("/selected-plan-metadata");
+      const metadata_res = await fetch("/api/selected-plan-metadata");
       const metadata = await metadata_res.json();
       metadata["goal"] = goal;
       metadata["plan_id"] = planID;
 
-      fetch("/selected-plan-metadata", {
+      fetch("/api/selected-plan-metadata", {
         method:"PUT",
         headers: {
           "Content-type": "application/json"

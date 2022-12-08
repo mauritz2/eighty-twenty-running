@@ -15,7 +15,7 @@ const TrainingPlan = ({trainingPlan, onPlanClick}) => {
 
     useEffect(() => {
         // Get the workouts related to the training plan so user can see plan before choosing
-        fetch("/workouts/" + trainingPlan.plan_id)
+        fetch("/api/workouts/" + trainingPlan.plan_id)
         .then((res) => res.json())
         .then((data) => {
             setWorkoutDetails(data);

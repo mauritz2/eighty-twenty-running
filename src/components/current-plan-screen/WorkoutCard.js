@@ -76,7 +76,7 @@ const WorkoutCard = ({workout, onToggle}) => {
     // as part of a prop. This would mean one request for all instructions vs. one request 
     // for each workout card. But more fun to do it in React :-)
     useEffect(() => {        
-        fetch("/workout-phases/" + workout.title)
+        fetch("/api/workout-phases/" + workout.title)
         .then((response) => response.json())
         .then((workouts) => {
             setInstructions(workouts);
